@@ -7,7 +7,7 @@
             </li>
 
             <li class="nav-item"><a href=""><i class="la la-group"></i>
-                    <span class="menu-title" data-i18n="nav.dash.main">الاقسام الرئيسيه </span>
+                    <span class="menu-title" data-i18n="nav.dash.main"> الاقسام  </span>
                     <span  class="badge badge badge-danger badge-pill float-right mr-2">{{\App\Models\Category::count()}}</span>
                 </a>
                 <ul class="menu-content">
@@ -16,6 +16,19 @@
                     </li>
                     <li><a class="menu-item" href="{{route('category.create')}}" data-i18n="nav.dash.crypto">أضافة قسم
                             جديد </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="nav-item"><a href=""><i class="la la-group">العلامات التجارية</i>
+                    <span class="menu-title" data-i18n="nav.dash.main"></span>
+                    <span  class="badge badge badge-danger badge-pill float-right mr-2">{{\App\Models\Brand::count()}}</span>
+                </a>
+                <ul class="menu-content">
+                    <li><a class="menu-item" href="{{route('brands.index')}}"
+                            data-i18n="nav.dash.ecommerce"> عرض الكل </a>
+                    </li>
+                    <li><a class="menu-item" href="{{route('brands.create')}}" data-i18n="nav.dash.crypto">أضافة علامه تجاريه جديده  </a>
                     </li>
                 </ul>
             </li>

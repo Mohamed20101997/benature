@@ -17,6 +17,9 @@ Route::group( ['prefix' => LaravelLocalization::setLocale(),'middleware' => [ 'l
             //categories route
             Route::resource('category', 'CategoryController');
 
+            //Brands route
+            Route::resource('brands', 'BrandController');
+
         });
 
         Route::group(['namespace' => 'Dashboard','middleware'=>'guest:admin','prefix'=>'admin'], function () {
