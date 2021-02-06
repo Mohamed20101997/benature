@@ -20,15 +20,18 @@ Route::group( ['prefix' => LaravelLocalization::setLocale(),'middleware' => [ 'l
             //Brands route
             Route::resource('brands', 'BrandController');
 
+            //products route
+            Route::resource('products', 'ProductController');
+
         });
+
+
+
 
         Route::group(['namespace' => 'Dashboard','middleware'=>'guest:admin','prefix'=>'admin'], function () {
 
             Route::get('login', 'LoginController@index')->name('admin.login');
-
-
             Route::post('login', 'LoginController@postLogin')->name('admin.post.login');
-
         });
 
     });

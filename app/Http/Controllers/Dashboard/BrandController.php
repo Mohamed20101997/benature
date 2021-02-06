@@ -139,4 +139,5 @@ class BrandController extends Controller
         } catch (\Exception $ex) {
             return redirect()->route('brands.index')->with(['error' => 'حدث خطا ما برجاء المحاوله لاحقا']);
         }
+    }
 }
