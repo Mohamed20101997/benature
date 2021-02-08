@@ -1,0 +1,29 @@
+.secdnav {
+    border-bottom: 1px solid var(--green-color);
+}
+
+.profile h4 {
+    color: #898989;
+    text-transform: capitalize;
+    font-size: 40px;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+}
+
+.profile .row div .content {
+    box-shadow: 0px 0px 8px var(--green-color);
+    padding: 30px 20px;
+    margin: 20px 10px;
+    color: var(--green-color);
+    font-size: 20px;
+}
+
+.profile .row div .content i {
+    font-size: 35px;
+    margin-bottom: 10px;
+}
+
+a,
+a:hover {
+    text-decoration: none;
+}

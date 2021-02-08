@@ -120,12 +120,12 @@
                                                 <div class="col-md-4" id="cats_list">
                                                     <label>من فضلك اختر القسم </label>
                                                     <div class="form-group">
-                                                        <select name="categories" class="form-control" id="category_id">
+                                                        <select name="category_id" class="form-control" id="categories">
                                                             <optgroup>
                                                                  <option value="">أختر القسم</option>
                                                                 @if($categories && $categories -> count() > 0)
                                                                     @foreach($categories as $category)
-                                                                        <option value="{{$category -> id }}">{{$category -> name}}</option>
+                                                                        <option value="{{$category -> id }}"{{ old('category_id') == $category->id ? 'selected' :' ' }}>{{$category -> name}}</option>
                                                                     @endforeach
                                                                 @endif
                                                             </optgroup>
@@ -141,12 +141,12 @@
                                                 <div class="col-md-4" id="cats_list">
                                                     <label> اختر العلامه التجاريه </label>
                                                     <div class="form-group">
-                                                        <select name="brand" class="form-control" id="brand_id">
+                                                        <select name="brand_id" class="form-control" id="brand_id">
                                                             <optgroup>
                                                                 <option value="">أختر العلامه التجاريه</option>
                                                                 @if($brands && $brands -> count() > 0)
                                                                     @foreach($brands as $brand)
-                                                                        <option value="{{$brand -> id }}">{{$brand -> name}}</option>
+                                                                        <option value="{{$brand -> id }}" {{ old('brand_id') == $brand->id ? 'selected' :' ' }}>{{$brand -> name}}</option>
                                                                     @endforeach
                                                                 @endif
                                                             </optgroup>
@@ -162,7 +162,7 @@
                                                 <div class="col-md-12">
                                                     <div class="form-group mt-1">
                                                         <input type="checkbox" value="1"
-                                                               name="is_active" id="is_active" class=" switchery switchery-default" data-color="success" checked/>
+                                                               name="is_active" id="is_active" class="switchery switchery-default" data-color="success" checked/>
                                                         <label for="is_active" class="card-title ml-1">الحاله</label>
 
                                                         @error("is_active")

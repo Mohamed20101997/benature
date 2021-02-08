@@ -18,9 +18,9 @@ function uploadImage($folder,$image){
  }
 
 
-function remove_previous($brand)
+function remove_previous($folder,$model)
  {
-    Storage::disk('brands')->delete($brand->photo);
+    Storage::disk($folder)->delete($model->photo);
 
  } //end of remove_previous function
 
@@ -29,3 +29,8 @@ function image_path($folder , $val)
     return asset('assets/images/' . $folder .'/'. $val);
 
  } //end of remove_previous function
+
+
+ function user(){
+    return auth()->guard('users');
+}

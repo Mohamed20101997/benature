@@ -1,0 +1,31 @@
+.secdnav {
+    border-bottom: 1px solid var(--green-color);
+}
+
+h3 {
+    color: #2e968c;
+    margin: 15px 0;
+    text-transform: uppercase;
+    font-size: 40px;
+    letter-spacing: 1px;
+    transition: 0.5s all ease-in-out;
+    margin: 10px 0;
+}
+
+.termsAndConditions h5 {
+    color: var(--green-color);
+    letter-spacing: 1px;
+    font-size: 22px;
+    margin: 20px 0 10px 0;
+}
+
+.termsAndConditions p {
+    color: #898989;
+    letter-spacing: 0.7px;
+    line-height: 1.7;
+    margin-bottom: 15px;
+}
+
+.termsAndConditions i {
+    margin: 0 5px;
+}

@@ -1,0 +1,63 @@
+.secdnav {
+    border-bottom: 1px solid var(--green-color);
+}
+
+.sign-in-content {
+    box-shadow: 0px 0px 8px var(--green-color);
+    padding: 20px;
+    width: 50%;
+}
+
+.signout p {
+    color: #898989;
+    font-size: 18px;
+    margin-right: 10px;
+    text-transform: capitalize;
+    font-weight: bold;
+}
+
+.signout p a {
+    color: var(--green-color);
+    border-left: 1px solid var(--green-color);
+    padding: 0 5px;
+    text-decoration: none;
+    font-weight: 400;
+}
+
+.signout label {
+    color: #898989;
+    letter-spacing: 0.7px;
+    text-transform: capitalize;
+    margin: 5px 0;
+    font-weight: bold;
+}
+
+.signout input,
+.signout input:focus {
+    margin: 5px 0;
+    border: 1px solid var(--green-color);
+}
+
+.signout .form-group {
+    padding: 0 20px;
+}
+
+.signout a {
+    text-decoration: none;
+    color: var(--green-color);
+}
+
+@media (max-width: 767.98px) {
+    .sign-in-content {
+        width: 85%;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .sign-in-content {
+        width: 100%;
+    }
+    .signout .form-group {
+        padding: 0 10px;
+    }
+}

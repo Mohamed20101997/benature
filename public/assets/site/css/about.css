@@ -1,0 +1,72 @@
+.secdnav {
+    border-bottom: 1px solid var(--green-color);
+}
+
+h3 {
+    color: #2e968c;
+    margin: 15px 0;
+    text-transform: uppercase;
+    font-size: 40px;
+    letter-spacing: 1px;
+}
+
+.about p {
+    color: #898989;
+    letter-spacing: 0.7px;
+    line-height: 1.7;
+    margin-bottom: 15px;
+}
+
+.about .numbers h5 {
+    color: var(--green-color);
+    font-size: 36px;
+    margin: 0;
+    letter-spacing: 1px;
+}
+
+.about .numbers p {
+    font-size: 18px;
+    text-transform: capitalize;
+}
+
+.events i {
+    width: 100px;
+    height: 100px;
+    line-height: 100px;
+    border: 1px solid #ddd;
+    border-radius: 50%;
+    font-size: 30px;
+    animation: checkAnim 2s infinite;
+    margin: 25px 0;
+    color: var(--darkgreen-color);
+}
+
+@keyframes checkAnim {
+    0%,
+    100% {
+        box-shadow: 0 0 8px 5px #60936480;
+    }
+    50% {
+        box-shadow: 0 0 8px 10px #60936480;
+    }
+}
+
+.events h5 {
+    color: var(--darkgreen-color);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-size: 22px;
+}
+
+.events p {
+    color: #898989;
+    font-size: 18px;
+    margin: 15px 0;
+    line-height: 1.599;
+    letter-spacing: 0.5px;
+    text-align: justify;
+}
+
+.about i {
+    margin: 0 5px;
+}

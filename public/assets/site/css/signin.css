@@ -1,0 +1,59 @@
+.secdnav {
+    border-bottom: 1px solid var(--green-color);
+}
+
+.sign-in-content {
+    box-shadow: 0px 0px 8px var(--green-color);
+    padding: 20px;
+    width: 50%;
+}
+
+.signin p {
+    color: #898989;
+    font-size: 22px;
+    margin-right: 10px;
+    text-transform: capitalize;
+    font-weight: bold;
+}
+
+.signin label {
+    color: #898989;
+    letter-spacing: 0.7px;
+    text-transform: capitalize;
+    margin: 5px 0;
+    font-weight: bold;
+}
+
+.signin input,
+.signin input:focus {
+    margin: 5px 0;
+    border: 1px solid var(--green-color);
+}
+
+.signin .form-group {
+    padding: 0 20px;
+}
+
+.signin h5 {
+    color: #898989;
+}
+
+.signin a {
+    text-decoration: none;
+    color: var(--green-color);
+}
+
+@media (max-width: 767.98px) {
+    .sign-in-content {
+        width: 80%;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .sign-in-content {
+        width: 100%;
+    }
+    .signin .form-group {
+        padding: 0 10px;
+    }
+}

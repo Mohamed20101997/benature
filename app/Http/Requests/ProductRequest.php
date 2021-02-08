@@ -30,13 +30,13 @@ class ProductRequest extends FormRequest
     public function rules()
     {
         return [
-            'photo' => 'required|image|mimes:jpg,jpeg,png',
+            'photo' => 'required_without:id|image|mimes:jpg,jpeg,png',
             'name' => 'required|max:100',
-            'type' => 'required|in:1,2',
+            'type' => 'nullable|max:100',
             'slug' =>  'required|unique:products,slug,' .$this->id,
             'description' => 'required|max:1000',
-            'categories' => 'required|numeric|exists:categories,id',
-            'brand' => 'required|numeric|exists:brands,id',
+            'category_id' => 'required|numeric|exists:categories,id',
+            'brand_id' => 'required|numeric|exists:brands,id',
             'price' => 'required|min:0|numeric',
             'special_price' => 'nullable|numeric',
             'special_price_start' => 'required_with:special_price|date_format:Y-m-d',

@@ -66,6 +66,12 @@
              .select2{
                 width: 100% !important;
         }
+        div.dataTables_wrapper div.dataTables_filter label, table.dataTable, .dataTables_scrollHeadInner,.dataTable {
+            width:100%;
+        }
+        div.dataTables_wrapper div.dataTables_filter label, table.dataTable, .dataTables_scrollHeadInner, .dataTable{
+            width: 100% !important
+        }
     </style>
 </head>
 <body class="vertical-layout vertical-menu 2-columns menu-expanded fixed-navbar"

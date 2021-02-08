@@ -55,6 +55,10 @@ class Product extends Model
         {
             return $this->is_active == 1 ? 'مفعل' : 'غير مفعل' ;
         }
+        public function _getActive($attr)
+        {
+            return $this->$attr == 1 ? 'متاح' : 'غير متاح' ;
+        }
 
         //////////// relations //////////////////////
 

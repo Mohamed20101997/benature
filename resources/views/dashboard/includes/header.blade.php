@@ -31,7 +31,7 @@
                     <li class="dropdown dropdown-user nav-item">
                         <a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
                             <span class="mr-1">مرحبا
-                                <span class="user-name text-bold-700">{{auth('admin')->user()->name}}</span>
+                                <span class="user-name text-bold-700"></span>
                             </span>
                         </a>
 

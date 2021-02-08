@@ -1,10 +1,11 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
-| Web Routes
+| site Routes
 |--------------------------------------------------------------------------
 |
 | Here is where you can register web routes for your application. These
@@ -13,10 +14,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('test', function () {
+Route::get('/', function () {
+    return view('welcome');
+})->middleware('auth');
 
-    $category = \App\Models\Category::first();
-    $category->makeVisible('translations');
-    return $category ;
+
+
+Route::group(['namespace' => 'Site','middleware'=>'guest:web'], function () {
+/// Auth Routes
+    Route::get('login', 'AuthController@getLogin');
+    Route::post('login', 'AuthController@postLogin');
+    Route::get('register', 'AuthController@getRegister');
+    Route::post('register', 'AuthController@postRegister');
+    Route::get('forgotPassword', 'AuthController@forgotPassword');
+    Route::post('forgotPasswordPost', 'AuthController@forgotPasswordPost');
+    Route::get('resetPassword/{token}','AuthController@reset_password');
+    Route::post('resetPassword/{token}','AuthController@reset_password_post');
 
 });

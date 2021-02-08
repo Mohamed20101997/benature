@@ -1,0 +1,76 @@
+.secdnav {
+    border-bottom: 1px solid var(--green-color);
+}
+
+.img-container {
+    min-width: 80px;
+    max-width: 100px;
+    max-height: 100px;
+}
+
+h5 {
+    color: #2e968c;
+    font-weight: bold;
+    text-transform: capitalize;
+    font-size: 26px;
+    margin: 20px;
+}
+
+.down,
+.up {
+    width: 35px;
+    height: 30px;
+    border: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: 0.5s all ease-in-out;
+    margin-right: 10px;
+}
+
+.down:hover,
+.up:hover {
+    background-color: var(--green-color);
+    color: #fff;
+}
+
+.quantity-inp {
+    height: 30px;
+    width: 50px;
+    padding: 5px;
+    margin-right: 10px;
+    border: 1px solid #ddd;
+    color: #898989;
+}
+
+tr td {
+    color: #898989;
+}
+
+tr td i {
+    color: #f00;
+    cursor: pointer;
+}
+
+.shoping-cart a.btn {
+    max-width: 210px;
+}
+
+@media (max-width: 575.98px) {
+    .table td {
+        padding: .75rem 5px;
+    }
+    .table td div p {
+        font-size: 12px;
+    }
+    .down,
+    .up {
+        width: 23px;
+        height: 27px;
+    }
+    .quantity-inp {
+        height: 27px;
+        width: 30px;
+    }
+}

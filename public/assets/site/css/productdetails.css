@@ -1,0 +1,337 @@
+.secdnav {
+    border-bottom: 1px solid var(--green-color);
+}
+
+.product-details .img-container {
+    max-width: 360px;
+    max-height: 360px;
+    text-align: center;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.product-details h4 {
+    color: var(--green-color);
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.product-details p {
+    font-size: 17px;
+    letter-spacing: 1px;
+    color: #898989;
+    line-height: 1.5rem;
+}
+
+.star i {
+    color: #898989;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+.product-details .star p {
+    margin-left: 5%;
+    color: var(--green-color);
+    font-weight: bold;
+    letter-spacing: 1.5px;
+}
+
+.product-details p.price {
+    color: var(--green-color);
+    font-weight: bold;
+    font-size: 19px;
+}
+
+.product-details h5 {
+    color: var(--darkgreen-color);
+    margin-right: 10px;
+    text-transform: uppercase;
+    margin-bottom: 0;
+}
+
+.product-details .down,
+.product-details .up {
+    width: 35px;
+    height: 30px;
+    border: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: 0.5s all ease-in-out;
+    margin-right: 10px;
+}
+
+.product-details .down:hover,
+.product-details .up:hover {
+    background-color: var(--green-color);
+    color: #fff;
+}
+
+.product-details .quantity-inp {
+    height: 30px;
+    width: 50px;
+    padding: 5px;
+    margin-right: 10px;
+    border: 1px solid #ddd;
+    color: #898989;
+}
+
+.product-details .wish i {
+    margin: 0 5%;
+    font-size: 22px;
+    color: var(--green-color);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid #ddd;
+    line-height: 40px;
+    transition: 0.5s all ease-in-out;
+    cursor: pointer;
+    text-align: center;
+}
+
+.product-details .wish i:hover {
+    color: #fff;
+    background-color: var(--green-color);
+}
+
+.product-details .wish a.btn {
+    margin: 0;
+}
+
+.details-slide .tab-content {
+    border-bottom: 1px solid var(--green-color);
+}
+
+.details-slide .nav-tabs {
+    border-bottom: 1px solid var(--green-color);
+}
+
+.details-slide .nav-tabs a.nav-item {
+    text-decoration: none;
+    color: var(--yellow-color);
+    font-size: 18px;
+    text-transform: capitalize;
+    letter-spacing: 1px;
+}
+
+.details-slide .nav-tabs a.nav-item.active {
+    background-color: rgb(233 231 233 / 58%);
+}
+
+.details-slide .tab-content p {
+    color: #898989;
+    letter-spacing: 1px;
+    font-size: 17px;
+}
+
+.details-slide .tab-content .avatar-container {
+    max-width: 80px;
+    max-height: 80px;
+    margin-right: 15px;
+}
+
+.details-slide .tab-content .reviews .star i:not(:last-child) {
+    color: var(--green-color);
+}
+
+.details-slide .tab-content .profile-info .add-revie {
+    padding-top: 5px;
+    margin: 0;
+    font-size: 15px;
+}
+
+.details-slide .tab-content .review {
+    margin: 0;
+    font-size: 15px;
+}
+
+.details-slide .tab-content .add-review h5 {
+    color: var(--yellow-color);
+    font-weight: bold;
+    letter-spacing: 1.5px;
+    text-transform: capitalize;
+}
+
+.details-slide .tab-content form label {
+    color: #898989;
+    font-size: 14px;
+    letter-spacing: 0.7px;
+    margin-left: 10px;
+    margin-bottom: 0;
+    margin-top: 10px;
+}
+
+.details-slide .tab-content form textarea,
+.details-slide .tab-content form input,
+.details-slide .tab-content form textarea:focus,
+.details-slide .tab-content form input:focus {
+    border: 1px solid var(--green-color);
+    padding: 5px;
+}
+
+.details-slide .tab-content .question {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    background-color: #E9E7E9;
+    color: #2e968c;
+    font-weight: bold;
+    font-size: 17px;
+    width: 75%;
+    margin: 0 auto;
+    border: 1px solid #898989;
+}
+
+.details-slide .tab-content .answer {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    color: #898989;
+    width: 75%;
+    margin: 0 auto;
+    border: 1px solid #898989;
+    border-top: none;
+}
+
+.details-slide .tab-content .answer:not(:last-child) {
+    border-bottom: none;
+}
+
+@media (min-width: 768px) and (max-width: 1199.98px) {
+    .product-details .wish button,
+    .product-details .wish a.btn {
+        font-size: 13px;
+        letter-spacing: 0;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .product-details .wish button,
+    .product-details .wish a.btn {
+        font-size: 10px;
+        letter-spacing: 0;
+        padding: 8px 9px;
+    }
+    .product-details .wish i {
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+        font-size: 18px;
+    }
+    .details-slide .tab-content .question,
+    .details-slide .tab-content .answer {
+        width: 95%;
+    }
+    .details-slide .nav-tabs a.nav-item {
+        font-size: 14px;
+    }
+}
+
+
+/*start next.....*/
+
+.next {
+    text-transform: capitalize;
+}
+
+.next h3 {
+    font-size: 35px;
+    letter-spacing: 1px;
+    color: var(--green-color);
+    margin-bottom: 20px;
+}
+
+.next h4 {
+    font-size: 40px;
+    letter-spacing: 1px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #2e968c;
+}
+
+.next .product:hover .whish-show {
+    opacity: 1;
+}
+
+.next .product:hover img {
+    opacity: 0.7;
+}
+
+.next .product:hover .whish-show i {
+    border: 2px solid var(--green-color);
+}
+
+.next .whish-show {
+    width: 100%;
+    height: 100%;
+    background: #8989892e;
+    margin: 0 auto;
+    transition: 2s all ease-in-out;
+    position: absolute;
+    opacity: 0;
+    top: 0%;
+    left: 0%;
+}
+
+.next .whish-show i {
+    color: #898989;
+    background: rgb(255 255 255 / 67%);
+    border-radius: 50%;
+    margin: 0px 15px;
+    font-size: 20px;
+    padding: 8px;
+    cursor: pointer;
+    transition: 1s border ease-in-out;
+    border: 2px solid transparent;
+}
+
+.next img {
+    transition: 1.2s all ease-in-out;
+}
+
+.next .star {
+    margin-top: 10px;
+}
+
+.next .star i {
+    color: #898989;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+.next p {
+    margin-top: 20px;
+    letter-spacing: 1px;
+    color: #898989;
+    font-size: 18px;
+}
+
+.next p del {
+    color: #8989899c;
+    margin-right: 15px;
+    font-size: 20px;
+}
+
+.next p:last-of-type {
+    color: var(--green-color);
+    font-size: 25px;
+}
+
+.next button.text4 {
+    background-color: transparent;
+    color: #2e968c;
+}
+
+.next button i {
+    margin-right: 5px;
+}
+
+.next .text4:hover {
+    background: linear-gradient(42deg, #6ec1698c 10%, transparent)!important;
+    color: var(--green-color) !important;
+}
+
+
+/*end next ......*/

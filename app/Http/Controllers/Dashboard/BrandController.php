@@ -96,7 +96,7 @@ class BrandController extends Controller
 
             $data = $request->except('_token', 'photo');
             if ($request->has('photo')) {
-                remove_previous($brand);
+                remove_previous('brands',$brand);
 
                 \Image::make($request->photo)->resize(300, null, function ($constraint) {
                     $constraint->aspectRatio();
@@ -132,8 +132,7 @@ class BrandController extends Controller
                 return redirect()->route('brands.index')->with(['error' => 'هذا الماركة غير موجود ']);
 
             $brand->delete();
-            remove_previous($brand);
-
+            remove_previous('brands',$brand);
             return redirect()->route('brands.index')->with(['success' => 'تم  الحذف بنجاح']);
 
         } catch (\Exception $ex) {

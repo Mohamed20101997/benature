@@ -1,0 +1,29 @@
+.secdnav {
+    border-bottom: 1px solid var(--green-color);
+}
+
+.order-history p {
+    color: var(--green-color);
+    letter-spacing: 1px;
+    padding: 0 5px;
+    font-size: 19px;
+    text-transform: capitalize;
+    font-weight: bold;
+}
+
+.order-history td {
+    color: #898989;
+    letter-spacing: 0.7px;
+    text-transform: capitalize;
+    margin: 5px 0;
+}
+
+@media (max-width: 575.98px) {
+    .order-history p {
+        font-size: 16px;
+    }
+    .order-history td {
+        font-size: 11px;
+        letter-spacing: 0;
+    }
+}
