@@ -12,7 +12,7 @@ class Category extends Model
     protected $with = ['translations'];
 
     protected $translatedAttributes = ['name'];
-    protected $fillable = ['parent_id','is_active'];
+    protected $fillable = ['parent_id','is_active','slug'];
 
      protected $hidden = ['translations'];
 
@@ -29,12 +29,22 @@ class Category extends Model
 
      public function _parent(){
          return $this->belongsTo(self::class, 'parent_id');
-        }
+    }
+
+     public function childrens(){
+         return $this->hasMany(self::class, 'parent_id');
+    }
+
+
 
         ////////////// scope ////////
      public function scopeParent($q){
 
-        return $q->where('is_active', 1);
+        return $q->whereNull('parent_id');
+     }
+     public function scopeChild($q){
+
+        return $q->whereNotNull('parent_id');
      }
 
 
@@ -46,6 +56,7 @@ class Category extends Model
 
         return $this->belongsToMany(Category::class , 'product_products');
     }
+
 
 
 

@@ -55,13 +55,11 @@ class ProductController extends Controller
                 $data['photo'] = $request->photo->hashName();
             }
 
-
-
             $product = Product::create($data);
             $product->categories()->attach($request->category_id);
 
-            $product->name = $request->name;
-            $product->save();
+            $slug = \Str::slug($request->en['name']);
+            $product->update(['slug'=>$slug]);
 
             DB::commit();
             return redirect()->route('products.index')->with(['success'=>'تم الانشاء بنجاح']);
@@ -121,8 +119,8 @@ class ProductController extends Controller
         $product->update($data);
         $product->categories()->sync($request->category_id);
 
-        $product->name = $request->name;
-        $product->save();
+        $slug = \Str::slug($request->en['name']);
+        $product->update(['slug'=>$slug]);
 
         DB::commit();
         return redirect()->route('products.index')->with(['success'=>'تم الانشاء بنجاح']);

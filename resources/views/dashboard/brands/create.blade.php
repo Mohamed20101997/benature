@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title','Brands Create')
+@section('title','Create Brand')
 @section('content')
 
     <div class="app-content content">
@@ -46,6 +46,7 @@
                                         <form class="form" action="{{route('brands.store')}}" method="POST" enctype="multipart/form-data">
                                             @csrf
 
+
                                             <div class="form-group">
                                                 <label> صوره الماركة </label>
                                                 <label id="projectinput7" class="file center-block">
@@ -63,16 +64,22 @@
 
                                                 <h4 class="form-section"><i class="ft-home"></i> بيانات الماركة التجارية </h4>
                                                 <div class="row">
+                                                    @foreach (config('translatable.locales') as $locale)
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="projectinput1"> الاسم </label>
-                                                            <input type="text" id="name"  class="form-control" value="{{old('name')}}" name="name">
-
-                                                            @error("name")
-                                                                <span class="text-danger">{{$message}}</span>
-                                                            @enderror
+                                                            <label><i class="fa fa-list"> |</i> @lang('site.'. $locale . '.brandName')</label>
+                                                            <input type="text" name="{{ $locale }}[name]" value="{{ old($locale . '.name') }}" class="form-control">
                                                         </div>
+
+                                                        @error("$locale.name")
+                                                            <span class="text-danger">{{$message}}</span>
+                                                        @enderror
                                                     </div>
+
+                                                @endforeach
+                                            </div>
+                                                <div class="row">
+
                                                     <div class="col-md-6">
                                                         <div class="form-group mt-1">
 

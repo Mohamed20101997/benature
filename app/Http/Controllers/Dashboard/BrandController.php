@@ -45,11 +45,7 @@ class BrandController extends Controller
                 $data['photo'] = $request->photo->hashName();
             }
 
-            $brand = Brand::create($data);
-
-            //save translations
-            $brand->name = $request->name;
-            $brand->save();
+            Brand::create($data);
             DB::commit();
             return redirect()->route('brands.index')->with(['success' => 'تم ألاضافة بنجاح']);
 
@@ -107,9 +103,7 @@ class BrandController extends Controller
 
 
             $brand->update($data);
-            //save translations
-            $brand->name = $request->name;
-            $brand->save();
+
             DB::commit();
             return redirect()->route('brands.index')->with(['success' => 'تم ألاضافة بنجاح']);
 

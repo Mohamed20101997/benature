@@ -44,7 +44,7 @@
 
                             <div class="card-content collapse show">
                                 <div class="card-body card-dashboard">
-                                    <table class="table display nowrap table-striped table-bordered scroll-horizontal">
+                                    <table class="table  nowrap table-striped table-bordered scroll-horizontal text-center">
                                         <thead class="">
                                             <tr>
                                                 <th>الاسم </th>
@@ -58,16 +58,13 @@
                                             @isset($categories)
                                                 @foreach($categories as $category)
                                                 <tr>
-                                                    <td>{{$category -> name}}</td>
-                                                    <td>{{$category ->_parent->name  ?? '--' }}</td>
+                                                    <td >{{$category -> name}}</td>
+                                                    <td><span class="badge badge-primary">{{$category ->_parent->name  ?? 'قسم رئيسي ' }}</span> </td>
                                                     <td>{{$category -> getActive()}}</td>
-
                                                     <td>
                                                         <div class="btn-group" role="group" aria-label="Basic example">
                                                             <a href="{{route('category.edit', $category ->id)}}"
                                                                 class="btn btn-outline-primary btn-min-width box-shadow-3 mr-1 mb-1">تعديل</a>
-
-
                                                                 <form action="{{route('category.destroy' , $category ->id)}}" method="POST">
                                                                     @csrf
                                                                     @method('DELETE')

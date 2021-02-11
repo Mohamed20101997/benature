@@ -1,25 +1,25 @@
 <?php
 
+use App\Http\Controllers\Site\SiteController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| site Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
-Route::get('/', function () {
-    return view('welcome');
-})->middleware('auth');
+// route if auth
+Route::group(['namespace' => 'Site','middleware'=>'auth:web'], function () {
+
+    // auth
+});
 
 
+// route if not auth
+Route::group(['namespace' => 'Site'], function () {
+    Route::get('/', 'SiteController@home');
+    Route::get('products','SiteController@getProducts');
+});
 
+
+// route if not auth and guest
 Route::group(['namespace' => 'Site','middleware'=>'guest:web'], function () {
 /// Auth Routes
     Route::get('login', 'AuthController@getLogin');
@@ -30,5 +30,8 @@ Route::group(['namespace' => 'Site','middleware'=>'guest:web'], function () {
     Route::post('forgotPasswordPost', 'AuthController@forgotPasswordPost');
     Route::get('resetPassword/{token}','AuthController@reset_password');
     Route::post('resetPassword/{token}','AuthController@reset_password_post');
+
+
+
 
 });

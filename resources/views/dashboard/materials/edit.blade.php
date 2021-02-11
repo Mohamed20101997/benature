@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title','Brands Update')
+@section('title','material Update')
 @section('content')
     <div class="app-content content">
         <div class="content-wrapper">
@@ -10,9 +10,9 @@
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="">الرئيسية </a>
                                 </li>
-                                <li class="breadcrumb-item"><a href="{{route('brands.index')}}"> الماركات التجارية </a>
+                                <li class="breadcrumb-item"><a href="{{route('materials.index')}}"> الخامات</a>
                                 </li>
-                                <li class="breadcrumb-item active"> تعديل - {{$brand -> name}}
+                                <li class="breadcrumb-item active"> تعديل - {{$material -> name}}
                                 </li>
                             </ol>
                         </div>
@@ -26,7 +26,7 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title" id="basic-layout-form"> تعديل ماركة تجارية </h4>
+                                    <h4 class="card-title" id="basic-layout-form"> تعديل الخامه </h4>
                                     <a class="heading-elements-toggle"><i
                                             class="la la-ellipsis-v font-medium-3"></i></a>
                                     <div class="heading-elements">
@@ -42,43 +42,24 @@
                                 @include('dashboard.includes.alerts.errors')
                                 <div class="card-content collapse show">
                                     <div class="card-body">
-                                        <form class="form" action="{{route('brands.update',$brand -> id)}}"
+                                        <form class="form" action="{{route('materials.update',$material -> id)}}"
                                             method="POST" enctype="multipart/form-data">
                                             @csrf
                                             @method('PUT')
 
-                                            <input name="id" value="{{$brand -> id}}" type="hidden">
-
-                                            <div class="form-group">
-                                                <div class="text-center">
-                                                    <img
-                                                        src="{{image_path('brands' , $brand->photo)}}"
-                                                        class="rounded-circle  height-100" alt="صورة القسم ">
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label> صوره الماركة </label>
-                                                <label id="projectinput7" class="file center-block">
-                                                    <input type="file" id="file" name="photo">
-                                                    <span class="file-custom"></span>
-                                                </label>
-                                                @error('photo')
-                                                <span class="text-danger">{{$message}}</span>
-                                                @enderror
-                                            </div>
+                                            <input name="id" value="{{$material -> id}}" type="hidden">
 
                                             <div class="form-body">
 
-                                                <h4 class="form-section"><i class="ft-home"></i> بيانات الماركة التجارية </h4>
+                                                <h4 class="form-section"><i class="ft-home"></i> بيانات الخامه </h4>
                                                 <div class="row">
                                                     @foreach (config('translatable.locales') as $locale)
 
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label><i class="fa fa-list"> |</i> @lang('site.'. $locale .'.brandName')</label>
+                                                            <label><i class="fa fa-list"> |</i> @lang('site.'. $locale .'.materialName')</label>
                                                             <input type="text" name="{{ $locale }}[name]"
-                                                                value="{{ old($locale .'.name', $brand->translate($locale)->name) }}"
+                                                                value="{{ old($locale .'.name', $material->translate($locale)->name) }}"
                                                                 class="form-control">
                                                         </div>
 
@@ -93,7 +74,7 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group mt-1">
 
-                                                            <input type="checkbox" value="1" name="is_active" id="switcheryColor4" class="switchery" data-color="success" @if($brand -> is_active == 1)checked @endif />
+                                                            <input type="checkbox" value="1" name="is_active" id="switcheryColor4" class="switchery" data-color="success" @if($material -> is_active == 1)checked @endif />
                                                             <label for="switcheryColor4" class="card-title ml-1">الحالة  </label>
 
                                                             @error("is_active")

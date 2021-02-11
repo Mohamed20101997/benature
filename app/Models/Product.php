@@ -17,11 +17,11 @@ class Product extends Model
             'photo',
             'price',
             'special_price',
+            'special_price_type',
             'special_price_start',
             'special_price_end',
             'code',
             'type',
-            'matrial',
             'manage_stock',
             'qty',
             'slug',
@@ -31,6 +31,7 @@ class Product extends Model
             'width',
             'height',
             'is_active',
+            'material_id',
             'brand_id',
         ];
 
@@ -64,6 +65,10 @@ class Product extends Model
 
         public function brand(){
             return $this->belongsTo(Brand::class)->withDefault();
+        }
+
+        public function matrial(){
+            return $this->belongsTo(Matrial::class)->withDefault();
         }
 
         public function categories(){

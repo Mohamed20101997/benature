@@ -23,6 +23,9 @@ Route::group( ['prefix' => LaravelLocalization::setLocale(),'middleware' => [ 'l
             //products route
             Route::resource('products', 'ProductController');
 
+            //materials route
+            Route::resource('materials', 'MaterialController');
+
         });
 
 

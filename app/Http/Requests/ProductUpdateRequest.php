@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Rules\ProductQty;
+use App\Rules\UniqueProductName;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ProductUpdateRequest extends FormRequest
@@ -30,7 +31,8 @@ class ProductUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:100',
+            'en.name' => ['required', new UniqueProductName($this ->name,$this -> id)],
+            'ar.name' => ['required', new UniqueProductName($this ->name,$this -> id)],
             'type' => 'nullable|max:100',
             'slug' =>  'required|unique:products,slug,' .$this->id,
             'description' => 'required|max:1000',

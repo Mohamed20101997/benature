@@ -5,8 +5,6 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
-use Illuminate\Validation\Rule;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class CategoryController extends Controller
@@ -20,14 +18,17 @@ class CategoryController extends Controller
 
     public function create()
     {
-        $categories = Category::orderBy('id','DESC')->get();
+        $categories = Category::orderBy('id','DESC')->Active()->parent()->get();
         return view('dashboard.categories.create',compact('categories'));
     }
 
     public function store(CategoryRequest $request)
     {
+
+
         try{
             DB::beginTransaction();
+
 
             if (!$request->has('is_active'))
             $request->request->add(['is_active' => 0]);
@@ -35,11 +36,10 @@ class CategoryController extends Controller
             $request->request->add(['is_active' => 1]);
 
 
-            $category =  Category::create($request->except(['_token','type']));
+            $cat = Category::create($request->except(['_token','type']));
 
-            $category->name = $request->name;
-            $category->save();
-
+            $slug = \Str::slug($request->en['name']);
+            $cat->update(['slug'=>$slug]);
             DB::commit();
             return redirect()->route('category.index')->with(['success'=>'تم الانشاء بنجاح']);
 
@@ -53,11 +53,6 @@ class CategoryController extends Controller
 
     }
 
-
-    public function show($id)
-    {
-        //
-    }
 
     public function edit($id)
     {
@@ -87,12 +82,12 @@ class CategoryController extends Controller
             if (!$request->has('is_active'))
                 $request->request->add(['is_active' => 0]);
             else
-                $request->request->add(['is_active' => 1]);;
-
+                $request->request->add(['is_active' => 1]);
 
             $category->update($request->all());
-            $category->name = $request->name;
-            $category->save();
+
+            $slug = \Str::slug($request->en['name']);
+            $category->update(['slug'=>$slug]);
 
             DB::commit();
             return redirect()->route('category.index')->with(['success'=>'تم التدحديث بنجاح']);
@@ -127,7 +122,7 @@ class CategoryController extends Controller
 
 
         }
-        
+
 
     }
 }

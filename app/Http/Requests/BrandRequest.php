@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\UniqueBrandName;
 use Illuminate\Foundation\Http\FormRequest;
 
 class BrandRequest extends FormRequest
@@ -25,7 +26,8 @@ class BrandRequest extends FormRequest
     {
         return [
             'photo' => 'nullable|image|mimes:jpg,jpeg,png',
-            'name'  => 'required'
+            'en.name' => ['required', new UniqueBrandName($this ->name,$this -> id)],
+            'ar.name' => ['required', new UniqueBrandName($this ->name,$this -> id)],
         ];
     }
 }

@@ -49,62 +49,57 @@
 
                                         <div class="form-body">
                                             <h4 class="form-section"><i class="ft-home"></i> بيانات القسم </h4>
-
                                             <div class="row">
+                                                    @foreach (config('translatable.locales') as $locale)
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label><i class="fa fa-list"> |</i> @lang('site.'. $locale . '.categoryName')</label>
+                                                            <input type="text" name="{{$locale }}[name]" value="{{ old($locale . '.name') }}" id="name" class="form-control">
+                                                        </div>
 
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label for="projectinput1"> اسم القسم
-                                                        </label>
-                                                        <input type="text" id="name" class="form-control"
-                                                            placeholder="  " value="{{old('name')}}" name="name">
-                                                        @error("name")
+                                                        @error("$locale.name")
                                                         <span class="text-danger">{{$message}}</span>
                                                         @enderror
                                                     </div>
-                                                </div>
 
-                                                <div class="col-md-3">
+                                                    @endforeach
+
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-2">
+                                                    <div class="form-group mt-1">
+                                                        <label for="switcheryColor4" class="card-title ml-1"> الحالة
+                                                        </label> <br>
+                                                        <input type="checkbox" value="1" name="is_active" id="switcheryColor4" class="switchery" data-color="success" checked />
+
+                                                        @error("is_active")
+                                                         <span class="text-danger">{{$message }}</span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2">
                                                     <div class="form-group mt-1">
                                                         <label class="card-title ml-1">
                                                             قسم رئيسي
                                                         </label> <br>
                                                         <input type="radio" name="type" value="1" checked
                                                             class="switchery" data-color="success" />
-
                                                     </div>
                                                 </div>
 
-                                                <div class="col-md-3">
+                                                <div class="col-md-2">
                                                     <div class="form-group mt-1">
                                                         <label class="card-title ml-1">
                                                             قسم فرعي
                                                         </label><br>
-                                                        <input type="radio" name="type" value="2" class="switchery"
-                                                            data-color="success" />
+                                                        <input type="radio" name="type" value="2" class="switchery" data-color="success" />
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group mt-1">
-                                                        <label for="switcheryColor4" class="card-title ml-1"> الحالة
-                                                        </label> <br>
-                                                        <input type="checkbox" value="1" name="is_active"
-                                                            id="switcheryColor4" class="switchery" data-color="success"
-                                                            checked />
-
-                                                        @error("is_active")
-                                                        <span class="text-danger">{{$message }}</span>
-                                                        @enderror
-                                                    </div>
-                                                </div>
-
                                                 <div class="hidden col-md-6" id="cats_list">
-                                                    <label>من فضلك اختر القسم </label>
+                                                    <label> من فضلك اختر القسم الرئيسي</label>
                                                     <div class="form-group">
                                                         <select name="parent_id" class="form-control select2">
-                                                            <optgroup label="من فضلك أختر القسم ">
+                                                            <optgroup label="من فضلك أختر القسم الرئيسي">
                                                                 @if($categories && $categories -> count() > 0)
                                                                 <option value="">أختر القسم</option>
                                                                 @foreach($categories as $category)

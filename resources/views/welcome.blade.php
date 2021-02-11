@@ -54,231 +54,23 @@
                 <div class="col-12 pr-0 cat-links product-page-content d-md-block">
                     <ul class="list-unstyled">
                         <li class="active head d-flex align-items-center justify-content-between"><a href="#">product page</a><i class="fas fa-times x"></i></li>
-                        <li class="skincare">
-                            <i class="fas fa-chevron-down"></i> skin care
-                        </li>
-                        <div class="dropdown-skincare">
-                            <ul class="list-unstyled">
-                                <li>
-                                    <a href="products.html">
-                                            Cream & Gel
-                                        </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                            Essence & Serum
-                                        </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                            Eye & Lip Care
-                                        </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                            Lotion & Emulsion
-                                        </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                            Mask Sheet & Patch
-                                        </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                            Massage & Pack
-                                        </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                            Mist & Moisture
-                                        </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                            Oil
-                                        </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                            Other Goods
-                                        </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                            Set Item
-                                        </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <li class="Cleansing">
-                            <i class="fas fa-chevron-down"></i>cleansing
-                        </li>
-                        <div class="dropdown-cleansing">
-                            <ul class="list-unstyled">
-                                <li>
-                                    <a href="#">
-                                            Cream & Lotion
-                                        </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                            Foam & Toner
-                                        </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                            Gel & Liquid
-                                        </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                            Lip & Eye & Nail
-                                        </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                            Oil
-                                        </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                            Peeling & Scrub
-                                        </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                            Soap & Powder
-                                        </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                            Tissue
-                                        </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                            Skin Toner
-                                        </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                            Sun Care
-                                        </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <li class="body-hair">
-                            <i class="fas fa-chevron-down"></i>BODY & HAIR
-                        </li>
-                        <div class="dropdown-body-hair">
-                            <ul class="list-unstyled">
-                                <li>
-                                    <a href="#">
-                                            Body Care
-                                        </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                            Body Cleansing
-                                        </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                            Body Styling
-                                        </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                            Hair Care
-                                        </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                            Hair Cleansing
-                                        </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                            Hair Remover
-                                        </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                            Hair Styling
-                                        </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                            Hand & Foot Care
-                                        </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                            Perfume & Deodorant
-                                        </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <li class="tools">
-                            <i class="fas fa-chevron-down"></i>tools
-                        </li>
-                        <div class="dropdown-tools">
-                            <ul class="list-unstyled">
-                                <li>
-                                    <a href="#">
-                                            Body & Hair Tools
-                                        </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                            Cleansing Tools
-                                        </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                            Make up Brushes
-                                        </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                            Make up Tools
-                                        </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                            Pouch & Bottles
-                                        </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <li class="samples">
-                            <i class="fas fa-chevron-down"></i>samples
-                        </li>
-                        <div class="dropdown-samples">
-                            <ul class="list-unstyled">
-                                <li>
-                                    <a href="#">
-                                            Body & Hair
-                                        </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                            Cleansing
-                                        </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                            Skin Care
-                                        </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                            Special Offers
-                                        </a>
-                                </li>
-                            </ul>
-                        </div>
+                        @foreach ($categories as $category)
+                            <li class="skincare">
+                                <i class="fas fa-chevron-down"></i> {{$category->name}}
+                            </li>
+                            <div class="dropdown-skincare">
+                                <ul class="list-unstyled">
+                                    @foreach ($category->childrens as $children)
+                                        <li>
+                                            <a href="products.html">
+                                                    {{$children->name}}
+                                                </a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endforeach
+
                     </ul>
                 </div>
             </div>
@@ -617,3 +409,4 @@
 <!--end sale product-->
 
 @endsection
+
