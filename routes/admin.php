@@ -22,9 +22,11 @@ Route::group( ['prefix' => LaravelLocalization::setLocale(),'middleware' => [ 'l
 
             //products route
             Route::resource('products', 'ProductController');
+            Route::get('getCategory', 'ProductController@getSupCayegory')->name('getCategory');
 
             //materials route
             Route::resource('materials', 'MaterialController');
+
 
         });
 

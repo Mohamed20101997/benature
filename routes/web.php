@@ -16,6 +16,7 @@ Route::group(['namespace' => 'Site','middleware'=>'auth:web'], function () {
 Route::group(['namespace' => 'Site'], function () {
     Route::get('/', 'SiteController@home');
     Route::get('products','SiteController@getProducts');
+    Route::get('product/{id}/{slug}','SiteController@getProduct');
 });
 
 

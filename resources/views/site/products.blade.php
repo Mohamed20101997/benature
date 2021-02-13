@@ -29,187 +29,48 @@
         <div class="col-md-9 col-sm-8 ">
             <div class="container">
                 <div class="row" id="boxs">
-                    <div class="col-lg-4 col-md-6 text-center product men">
-                        <div class="img-prod">
-                            <img src="imgs/product2.jpg" class="img-fluid" />
-                            <div class="whish-show d-flex justify-content-center align-items-center">
-                                <a href=" productDetails.html"><i class="fas fa-eye"></i></a>
-                                <i class="fas fa-heart"></i>
+
+                    @isset($products)
+                        @foreach ($products as $product)
+                        @if ($product->is_active == 1)
+
+                            <div class="col-lg-4 col-md-6 text-center product men">
+                                <div class="img-prod">
+                                    <img src="{{image_path('products' , $product->photo)}}" class="img-fluid" />
+                                    <div class="whish-show d-flex justify-content-center align-items-center">
+                                        <a href="{{ url('product/'.$product->id .'/' .$product->slug) }}"><i class="fas fa-eye"></i></a>
+                                        <i class="fas fa-heart"></i>
+                                    </div>
+                                </div>
+
+                                <div class="star d-flex justify-content-center">
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+
+                                <p>{{$product->name}}</p>
+                                <p>
+                                    @if($product->special_price != null && $product->special_price_type == 1)
+                                        <del>${{$product->price}}</del>
+                                        <span class="price">${{$product->special_price}}</span>
+                                        <p><del>$50</del>$32</p>
+                                     @else
+                                        <span class="price">${{$product->price}}</span>
+                                    @endif
+                                </p>
+                                <button type="button" class="btn btn-outline text4 rounded-pill addtocart">Add to cart</button>
                             </div>
-                        </div>
+                            @endif
+                        @endforeach
 
-                        <div class="star d-flex justify-content-center">
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                        </div>
-                        <p>Lorem ipsum, dolor sit amet consectet urconsectetur</p>
-                        <p><del>$50</del><span class="price">$32</span></p>
-                        <button type="button" class="btn btn-outline text4 rounded-pill addtocart">Add to cart</button>
-                    </div>
-                    <div class="col-lg-4 col-md-6 text-center product women">
-                        <div class="img-prod">
-                            <img src="imgs/product.jpg" class="img-fluid" />
-                            <div class="whish-show d-flex justify-content-center align-items-center">
-                                <a href=" productDetails.html"><i class="fas fa-eye"></i></a>
-                                <i class="fas fa-heart"></i>
-                            </div>
-                        </div>
+                        @else
+                        <div class="alert alert-success">There are no products</div>
+                    @endisset
 
-                        <div class="star d-flex justify-content-center">
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                        </div>
-                        <p>Lorem ipsum, dolor sit amet consectet urconsectetur</p>
-                        <p><span class="price">$32</span></p>
-                        <button type="button" class="btn btn-outline text4 rounded-pill addtocart">Add to cart</button>
-                    </div>
-                    <div class="col-lg-4 col-md-6 text-center product women">
-                        <div class="img-prod">
-                            <img src="imgs/pp.jpg" class="img-fluid" />
-                            <div class="whish-show d-flex justify-content-center align-items-center">
-                                <a href=" productDetails.html"><i class="fas fa-eye"></i></a>
-                                <i class="fas fa-heart"></i>
-                            </div>
-                        </div>
 
-                        <div class="star d-flex justify-content-center">
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                        </div>
-                        <p>Lorem ipsum, dolor sit amet consectet urconsectetur</p>
-                        <p><span class="price">$15</span></p>
-                        <button type="button" class="btn btn-outline text4 rounded-pill addtocart">Add to cart</button>
-                    </div>
-                    <div class="col-lg-4 col-md-6 text-center product men">
-                        <div class="img-prod">
-
-                            <img src="imgs/product2.jpg" class="img-fluid" />
-                            <div class="whish-show d-flex justify-content-center align-items-center">
-                                <a href=" productDetails.html"><i class="fas fa-eye"></i></a>
-                                <i class="fas fa-heart"></i>
-                            </div>
-                        </div>
-
-                        <div class="star d-flex justify-content-center">
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                        </div>
-                        <p>Lorem ipsum, dolor sit amet consectet urconsectetur</p>
-                        <p><del>$50</del><span class="price">$10</span></p>
-                        <button type="button" class="btn btn-outline text4 rounded-pill addtocart">Add to cart</button>
-                    </div>
-                    <div class="col-lg-4 col-md-6 text-center product men">
-                        <div class="img-prod">
-                            <img src="imgs/product.jpg" class="img-fluid" />
-                            <div class="whish-show d-flex justify-content-center align-items-center">
-                                <a href=" productDetails.html"><i class="fas fa-eye"></i></a>
-                                <i class="fas fa-heart"></i>
-                            </div>
-                        </div>
-
-                        <div class="star d-flex justify-content-center">
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                        </div>
-                        <p>Lorem ipsum, dolor sit amet consectet urconsectetur</p>
-                        <p><span class="price">$50</span></p>
-                        <button type="button" class="btn btn-outline text4 rounded-pill addtocart">Add to cart</button>
-                    </div>
-                    <div class="col-lg-4 col-md-6 text-center product men">
-                        <div class="img-prod">
-                            <img src="imgs/product.jpg" class="img-fluid" />
-                            <div class="whish-show d-flex justify-content-center align-items-center">
-                                <a href=" productDetails.html"><i class="fas fa-eye"></i></a>
-                                <i class="fas fa-heart"></i>
-                            </div>
-                        </div>
-
-                        <div class="star d-flex justify-content-center">
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                        </div>
-                        <p>Lorem ipsum, dolor sit amet consectet urconsectetur</p>
-                        <p><span class="price">$92</span></p>
-                        <button type="button" class="btn btn-outline text4 rounded-pill addtocart">Add to cart</button>
-                    </div>
-                    <div class="col-lg-4 col-md-6 text-center product men">
-                        <div class="img-prod">
-                            <img src="imgs/product.jpg" class="img-fluid" />
-                            <div class="whish-show d-flex justify-content-center align-items-center">
-                                <a href=" productDetails.html"><i class="fas fa-eye"></i></a>
-                                <i class="fas fa-heart"></i>
-                            </div>
-                        </div>
-
-                        <div class="star d-flex justify-content-center">
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                        </div>
-                        <p>Lorem ipsum, dolor sit amet consectet urconsectetur</p>
-                        <p><del>$50</del><span class="price">$22</span></p>
-                        <button type="button" class="btn btn-outline text4 rounded-pill addtocart">Add to cart</button>
-                    </div>
-                    <div class="col-lg-4 col-md-6 text-center product women">
-                        <div class="img-prod">
-                            <img src="imgs/product.jpg" class="img-fluid" />
-                            <div class="whish-show d-flex justify-content-center align-items-center">
-                                <a href=" productDetails.html"><i class="fas fa-eye"></i></a>
-                                <i class="fas fa-heart"></i>
-                            </div>
-                        </div>
-
-                        <div class="star d-flex justify-content-center">
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                        </div>
-                        <p>Lorem ipsum, dolor sit amet consectet urconsectetur</p>
-                        <p><span class="price">$32</span></p>
-                        <button type="button" class="btn btn-outline text4 rounded-pill addtocart">Add to cart</button>
-                    </div>
-                    <div class="col-lg-4 col-md-6 text-center product women">
-                        <div class="img-prod">
-                            <img src="imgs/product.jpg" class="img-fluid" />
-                            <div class="whish-show d-flex justify-content-center align-items-center">
-                                <a href=" productDetails.html"><i class="fas fa-eye"></i></a>
-                                <i class="fas fa-heart"></i>
-                            </div>
-                        </div>
-
-                        <div class="star d-flex justify-content-center">
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                        </div>
-                        <p>Lorem ipsum, dolor sit amet consectet urconsectetur</p>
-                        <p><span class="price">$32</span></p>
-                        <button type="button" class="btn btn-outline text4 rounded-pill addtocart">Add to cart</button>
-                    </div>
                 </div>
                 <div class="button d-flex align-items-center justify-content-center">
                     <button class="btn btn-outline" id="showMore"><i class="fas fa-plus-circle"></i></button>

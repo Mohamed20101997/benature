@@ -34,6 +34,7 @@ class UniqueProductName implements Rule
 
     public function message()
     {
+        
         return 'this name already exists  before.';
     }
 }

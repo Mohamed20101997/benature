@@ -22,7 +22,11 @@
     color: #898989;
     line-height: 1.5rem;
 }
-
+del {
+    color: #8989899c;
+    margin-right: 15px;
+    font-size: 20px;
+}
 .star i {
     color: #898989;
     margin-left: 5px;
@@ -37,6 +41,11 @@
 }
 
 .product-details p.price {
+    color: var(--green-color);
+    font-weight: bold;
+    font-size: 19px;
+}
+.price {
     color: var(--green-color);
     font-weight: bold;
     font-size: 19px;

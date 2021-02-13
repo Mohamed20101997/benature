@@ -7,6 +7,7 @@ use App\Http\Requests\ProductRequest;
 use App\Http\Requests\ProductUpdateRequest;
 use App\Models\Brand;
 use App\Models\Category;
+use App\Models\Material;
 use App\Models\Product;
 use Response;
 use Illuminate\Http\Request;
@@ -30,7 +31,8 @@ class ProductController extends Controller
     {
         $data = [];
         $data['brands']     = Brand::active()->select('id')->get();
-        $data['categories'] = Category::active()->select('id')->get();
+        $data['materials']   = Material::active()->select('id')->get();
+        $data['categories'] = Category::parent()->orderBy('id','DESC')->active()->select('id')->get();
 
         return view('dashboard.products.create', $data);
     }
@@ -38,6 +40,9 @@ class ProductController extends Controller
 
     public function store(ProductRequest $request)
     {
+
+        try{
+
             DB::beginTransaction();
 
             if (!$request->has('is_active'))
@@ -59,10 +64,17 @@ class ProductController extends Controller
             $product->categories()->attach($request->category_id);
 
             $slug = \Str::slug($request->en['name']);
+
             $product->update(['slug'=>$slug]);
 
             DB::commit();
             return redirect()->route('products.index')->with(['success'=>'تم الانشاء بنجاح']);
+
+        }catch(\Exception $ex)
+        {
+            DB::rollback();
+            return redirect()->route('materials.index')->with(['error'=>' هناك خطاء ما برجاء المحاولة فيما بعد']);
+        }
 
     }
 
@@ -78,7 +90,8 @@ class ProductController extends Controller
        $data = [];
        $data['product'] = Product::with('categories')->orderBy('id', 'DESC')->find($id);
        $data['brands'] = Brand::active()->select('id')->get();
-       $data['categories'] = Category::active()->select('id')->get();
+       $data['categories'] = Category::parent()->active()->select('id')->get();
+       $data['materials'] = Material::active()->select('id')->get();
 
        if (!$data['product'])
            return redirect()->route('products.index')->with(['error' => 'هذا القسم غير موجود ']);
@@ -121,7 +134,7 @@ class ProductController extends Controller
 
         $slug = \Str::slug($request->en['name']);
         $product->update(['slug'=>$slug]);
-
+        $product->save();
         DB::commit();
         return redirect()->route('products.index')->with(['success'=>'تم الانشاء بنجاح']);
 
@@ -144,5 +157,13 @@ class ProductController extends Controller
         } catch (\Exception $ex) {
             return redirect()->route('products.index')->with(['error' => 'حدث خطا ما برجاء المحاوله لاحقا']);
         }
+    }
+
+    public function getSupCayegory(Request $request){
+
+        $childrens = Category::where('parent_id', $request->id)->get();
+
+        return response()->json($childrens);
+
     }
 }

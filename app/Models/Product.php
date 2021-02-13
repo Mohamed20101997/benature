@@ -21,15 +21,15 @@ class Product extends Model
             'special_price_start',
             'special_price_end',
             'code',
-            'type',
+            'category_id',
             'manage_stock',
             'qty',
-            'slug',
             'in_stock',
             'weight',
             'length',
             'width',
             'height',
+            'slug',
             'is_active',
             'material_id',
             'brand_id',
@@ -67,14 +67,15 @@ class Product extends Model
             return $this->belongsTo(Brand::class)->withDefault();
         }
 
-        public function matrial(){
-            return $this->belongsTo(Matrial::class)->withDefault();
+        public function material(){
+            return $this->belongsTo(Material::class)->withDefault();
         }
 
         public function categories(){
 
             return $this->belongsToMany(Category::class , 'product_categories');
         }
+    
 
 
         //////////// scope //////////////////////

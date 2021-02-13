@@ -24,4 +24,19 @@ class SiteController extends Controller
 
         return view('site.products',compact('products'));
     }
+    public function getProduct($id){
+        try{
+
+            $product = Product::with('brand','categories','material')->find($id);
+            if (!$product)
+                return redirect()->back()->with(['error' => 'this product is not found']);
+
+
+            return view('site.product',compact('product'));
+
+        }catch(\Exception $ex)
+        {
+            return redirect()->back()->with(['error'=>'There are problem please try again ']);
+        }
+    }
 }
