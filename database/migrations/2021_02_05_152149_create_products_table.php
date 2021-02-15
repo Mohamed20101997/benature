@@ -24,7 +24,6 @@ class CreateProductsTable extends Migration
             $table->date('special_price_start')->nullable();
             $table->date('special_price_end')->nullable();
             $table->string('code')->nullable();
-            $table->boolean('manage_stock')->nullable();
             $table->integer('qty')->nullable();
             $table->boolean('in_stock')->nullable();
             $table->double('rating')->nullable()->default(0);

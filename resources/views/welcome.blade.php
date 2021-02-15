@@ -218,12 +218,13 @@
     <div class="new-slider-container">
         <div class="swiper-container new-slider">
             <div class="swiper-wrapper">
+                @foreach ($products as $product)       
                 <div class="swiper-slide text-center product">
                     <div>
                         <div class="img-prod">
-                            <img src="{{ asset('assets/site/imgs/product2.jpg')}}" class="img-fluid" />
+                            <img src="{{image_path('products' , $product->photo)}}" class="img-fluid" />
                             <div class="whish-show d-flex justify-content-center align-items-center">
-                                <a href=" productDetails.html"><i class="fas fa-eye"></i></a>
+                                <a href="{{ url('product/'.$product->id .'/' .$product->slug) }}"><i class="fas fa-eye"></i></a>
                                 <i class="fas fa-heart"></i>
                             </div>
                         </div>
@@ -235,77 +236,13 @@
                             <i class="far fa-star"></i>
                             <i class="far fa-star"></i>
                         </div>
-                        <p>Lorem ipsum, dolor sit amet consectet urconsectetur</p>
-                        <p>$32</p>
+                        <p>{{$product->name}}</p>
+                        <p>{{$product->price}}</p>
                         <button type="button" class="btn btn-outline text4 rounded-pill addtocart">Add to cart</button>
                     </div>
                 </div>
-                <div class="swiper-slide text-center product">
-                    <div>
-                        <div class="img-prod">
-                            <img src="{{ asset('assets/site/imgs/product.jpg')}}" class="img-fluid" />
-                            <div class="whish-show d-flex justify-content-center align-items-center">
-                                <a href=" productDetails.html"><i class="fas fa-eye"></i></a>
-                                <i class="fas fa-heart"></i>
-                            </div>
-                        </div>
-
-                        <div class="star d-flex justify-content-center">
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                        </div>
-                        <p>Lorem ipsum, dolor sit amet consectet urconsectetur</p>
-                        <p>$32</p>
-                        <button type="button" class="btn btn-outline text4 rounded-pill addtocart">Add to cart</button>
-                    </div>
-                </div>
-                <div class="swiper-slide text-center product">
-                    <div>
-                        <div class="img-prod">
-                            <img src="{{ asset('assets/site/imgs/pp.jpg')}}" class="img-fluid" />
-                            <div class="whish-show d-flex justify-content-center align-items-center">
-                                <a href=" productDetails.html"><i class="fas fa-eye"></i></a>
-                                <i class="fas fa-heart"></i>
-                            </div>
-                        </div>
-
-                        <div class="star d-flex justify-content-center">
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                        </div>
-                        <p>Lorem ipsum, dolor sit amet consectet urconsectetur</p>
-                        <p>$32</p>
-                        <button type="button" class="btn btn-outline text4 rounded-pill addtocart">Add to cart</button>
-                    </div>
-                </div>
-                <div class="swiper-slide text-center product">
-                    <div>
-                        <div class="img-prod">
-                            <img src="{{ asset('assets/site/imgs/product2.jpg')}}" class="img-fluid" />
-                            <div class="whish-show d-flex justify-content-center align-items-center">
-                                <a href=" productDetails.html"><i class="fas fa-eye"></i></a>
-                                <i class="fas fa-heart"></i>
-                            </div>
-                        </div>
-
-                        <div class="star d-flex justify-content-center">
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                        </div>
-                        <p>Lorem ipsum, dolor sit amet consectet urconsectetur</p>
-                        <p>$32</p>
-                        <button type="button" class="btn btn-outline text4 rounded-pill addtocart">Add to cart</button>
-                    </div>
-                </div>
+                @endforeach
+    
             </div>
             <div class="swiper-button-prev"></div>
             <div class="swiper-button-next"></div>
@@ -343,11 +280,12 @@
         <h3>all in sale</h3>
         <h4>many products for you</h4>
         <div class="row">
+            @foreach ($sales as $sale)             
             <div class="col-md-4 col-sm-6 text-center product">
                 <div class="img-prod">
-                    <img src="{{ asset('assets/site/imgs/product2.jpg')}}" class="img-fluid" />
+                    <img src="{{image_path('products' , $sale->photo)}}" class="img-fluid" />
                     <div class="whish-show d-flex justify-content-center align-items-center">
-                        <a href=" productDetails.html"><i class="fas fa-eye"></i></a>
+                        <a href="{{ url('product/'.$sale->id .'/' .$sale->slug) }}"><i class="fas fa-eye"></i></a>
                         <i class="fas fa-heart"></i>
                     </div>
                 </div>
@@ -359,50 +297,19 @@
                     <i class="far fa-star"></i>
                     <i class="far fa-star"></i>
                 </div>
-                <p>Lorem ipsum, dolor sit amet consectet urconsectetur</p>
-                <p><del>$50</del>$32</p>
+                <p>{{$sale->name}}</p>
+                <p>
+                    @if($sale->special_price != null && $sale->special_price_type == 1)
+                        <del>${{$sale->price}}</del>
+                        <span class="price">${{$sale->special_price}}</span>
+                        @else
+                        <span class="price">${{$sale->price}}</span>
+                    @endif
+                </p>
                 <button type="button" class="btn btn-outline text4 rounded-pill addtocart">Add to cart</button>
             </div>
-            <div class="col-md-4 col-sm-6 text-center product">
-                <div class="img-prod">
-                    <img src="{{ asset('assets/site/imgs/pp.jpg')}}" class="img-fluid" />
-                    <div class="whish-show d-flex justify-content-center align-items-center">
-                        <a href=" productDetails.html"><i class="fas fa-eye"></i></a>
-                        <i class="fas fa-heart"></i>
-                    </div>
-                </div>
-
-                <div class="star d-flex justify-content-center">
-                    <i class="far fa-star"></i>
-                    <i class="far fa-star"></i>
-                    <i class="far fa-star"></i>
-                    <i class="far fa-star"></i>
-                    <i class="far fa-star"></i>
-                </div>
-                <p>Lorem ipsum, dolor sit amet consectet urconsectetur</p>
-                <p><del>$50</del>$32</p>
-                <button type="button" class="btn btn-outline text4 rounded-pill addtocart">Add to cart</button>
-            </div>
-            <div class="col-md-4 col-sm-6 text-center product">
-                <div class="img-prod">
-                    <img src="{{ asset('assets/site/imgs/product.jpg')}}" class="img-fluid" />
-                    <div class="whish-show d-flex justify-content-center align-items-center">
-                        <a href=" productDetails.html"><i class="fas fa-eye"></i></a>
-                        <i class="fas fa-heart"></i>
-                    </div>
-                </div>
-
-                <div class="star d-flex justify-content-center">
-                    <i class="far fa-star"></i>
-                    <i class="far fa-star"></i>
-                    <i class="far fa-star"></i>
-                    <i class="far fa-star"></i>
-                    <i class="far fa-star"></i>
-                </div>
-                <p>Lorem ipsum, dolor sit amet consectet urconsectetur</p>
-                <p><del>$50</del>$32</p>
-                <button type="button" class="btn btn-outline text4 rounded-pill addtocart">Add to cart</button>
-            </div>
+            @endforeach
+       
         </div>
     </div>
 </section>

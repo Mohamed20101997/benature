@@ -22,7 +22,6 @@ class Product extends Model
             'special_price_end',
             'code',
             'category_id',
-            'manage_stock',
             'qty',
             'in_stock',
             'weight',
@@ -31,12 +30,12 @@ class Product extends Model
             'height',
             'slug',
             'is_active',
+            'filter',
             'material_id',
             'brand_id',
         ];
 
         protected $casts = [
-            'manage_stock' => 'boolean',
             'in_stock' => 'boolean',
             'is_active' => 'boolean',
         ];

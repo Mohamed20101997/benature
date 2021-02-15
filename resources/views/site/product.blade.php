@@ -37,11 +37,17 @@
                         <i class="far fa-star"></i>
                         <p> (1 review)</p>
                     </div>
-                    <div class="quantity d-flex justify-content-start">
-                        <p class="down">-</p>
-                        <input class="quantity-inp" value="1" type="text"  max="">  <!-- sile max  //////////////////////// -->
-                        <p class="up">+</p>
-                    </div>
+                    @if ($product->qty != null || $product->qty > 0)
+                        <div class="quantity d-flex justify-content-start">
+                            <p class="down">-</p>
+                            <input class="quantity-inp" value="1" readonly  max="{{$product->qty}}">  <!-- sile max  //////////////////////// -->
+                            <p class="up">+</p>
+                        </div>
+                    @else
+                        <div class="quantity d-flex justify-content-start  text-danger"> Not available </div>
+                    @endif
+
+
                     <div class="d-flex justify-content-start align-items-center wish">
                         <button type="button" class="btn btn-outline text4 ml-0 mr-0">Add to cart</button>
                         <i class="fas fa-heart"></i>
@@ -49,9 +55,9 @@
                     </div>
                     <p class="type"> type : @foreach ($product->categories as $category){{ $category ->name}} @endforeach</p>
                     <p class="matrial">matrial : {{$product->material->name}}</p>
-                    <p class="category">Category :</p>
+                    <p class="category">Category : {{ $category->_parent->name }}</p>
                     <p class="product-discriptian">
-                        Discription : Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta recusandae suscipit hic ratione. Vel maiores quia fugit voluptate modi minus, quam mollitia libero! Dolor nam exercitationem laudantium nesciunt impedit blanditiis?
+                        Description : {{ $product->description }}
                     </p>
                 </div>
             </div>
@@ -69,11 +75,11 @@
             </nav>
             <div class="tab-content" id="nav-tabContent">
                 <div class="tab-pane fade show active mt-3 p-3 " id="nav-home" role="tabpanel" aria-labelledby="nav-details-tab">
-                    <p class="type"> type : lipstick</p>
-                    <p class="matrial">matrial : natural</p>
-                    <p class="category">Category : skin care</p>
-                    <p>weight : 1kg</p>
-                    <p>dimention : 2 * 2* 2 cm</p>
+                    <p class="type"> type :  @foreach ($product->categories as $category){{ $category ->name}} @endforeach</p>
+                    <p class="matrial">matrial : {{ $product->material->name }}</p>
+                    <p class="category">Category : {{ $category->_parent->name }} </p>
+                    <p>weight : {{ $product->weight }}kg</p>
+                    <p>dimention : {{ $product->Length }} * {{ $product->width }} * {{ $product->height }} cm</p>
                 </div>
                 <div class="tab-pane fade mt-3 p-3" id="nav-profile" role="tabpanel" aria-labelledby="nav-help-tab">
                     <p> Help : customer.services@benatur.com </p>
@@ -158,89 +164,48 @@
             <h3>What's sale </h3>
             <h4>similar product</h4>
             <div class="row ml-0 mr-0">
-                <div class="col-lg-3 col-md-4 col-sm-6 col-sm-5 text-center product">
-                    <div class="img-prod">
-                        <img src="imgs/product.jpg" class="img-fluid" />
-                        <div class="whish-show d-flex justify-content-center align-items-center">
-                            <a href=" productDetails.html"><i class="fas fa-eye"></i></a>
-                            <i class="fas fa-heart"></i>
+                @isset($similarProduct)      
+                    @foreach ($similarProduct as $sProduct)
+                        <div class="col-lg-3 col-md-4 col-sm-6 col-sm-5 text-center product">
+                            <div class="img-prod">
+                                <img src="{{ image_path('Products',$sProduct->photo) }}" class="img-fluid" />
+                                <div class="whish-show d-flex justify-content-center align-items-center">
+                                    <a href="{{ url('product/'.$sProduct->id .'/' .$sProduct->slug) }}"><i class="fas fa-eye"></i></a>
+                                    <i class="fas fa-heart"></i>
+                                </div>
+                            </div>
+        
+                            <div class="star d-flex justify-content-center">
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                    
+                            <p>{{$sProduct->name}}</p>
+                            <p>
+                                @if($sProduct->special_price != null && $sProduct->special_price_type == 1)
+                                    <del>${{$sProduct->price}}</del>
+                                    <span class="price">${{$sProduct->special_price}}</span>
+                                @else
+                                    <span class="price">${{$sProduct->price}}</span>
+                                @endif
+                            </p>
+                            <button type="button" class="btn btn-outline text4 rounded-pill addtocart">Add to cart</button>
                         </div>
-                    </div>
-
-                    <div class="star d-flex justify-content-center">
-                        <i class="far fa-star"></i>
-                        <i class="far fa-star"></i>
-                        <i class="far fa-star"></i>
-                        <i class="far fa-star"></i>
-                        <i class="far fa-star"></i>
-                    </div>
-                    <p>Lorem ipsum, dolor sit amet consectet urconsectetur</p>
-                    <p><del>$50</del>$32</p>
-                    <button type="button" class="btn btn-outline text4 rounded-pill addtocart">Add to cart</button>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 text-center product">
-                    <div class="img-prod">
-                        <img src="imgs/product2.jpg" class="img-fluid" />
-                        <div class="whish-show d-flex justify-content-center align-items-center">
-                            <a href=" productDetails.html"><i class="fas fa-eye"></i></a>
-                            <i class="fas fa-heart"></i>
-                        </div>
-                    </div>
-
-                    <div class="star d-flex justify-content-center">
-                        <i class="far fa-star"></i>
-                        <i class="far fa-star"></i>
-                        <i class="far fa-star"></i>
-                        <i class="far fa-star"></i>
-                        <i class="far fa-star"></i>
-                    </div>
-                    <p>Lorem ipsum, dolor sit amet consectet urconsectetur</p>
-                    <p><del>$50</del>$32</p>
-                    <button type="button" class="btn btn-outline text4 rounded-pill addtocart">Add to cart</button>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 text-center product">
-                    <div class="img-prod">
-                        <img src="imgs/pp.jpg" class="img-fluid" />
-                        <div class="whish-show d-flex justify-content-center align-items-center">
-                            <a href=" productDetails.html"><i class="fas fa-eye"></i></a>
-                            <i class="fas fa-heart"></i>
-                        </div>
-                    </div>
-
-                    <div class="star d-flex justify-content-center">
-                        <i class="far fa-star"></i>
-                        <i class="far fa-star"></i>
-                        <i class="far fa-star"></i>
-                        <i class="far fa-star"></i>
-                        <i class="far fa-star"></i>
-                    </div>
-                    <p>Lorem ipsum, dolor sit amet consectet urconsectetur</p>
-                    <p><del>$50</del>$32</p>
-                    <button type="button" class="btn btn-outline text4 rounded-pill addtocart">Add to cart</button>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6text-center product">
-                    <div class="img-prod">
-                        <img src="imgs/product.jpg" class="img-fluid" />
-                        <div class="whish-show d-flex justify-content-center align-items-center">
-                            <a href=" productDetails.html"><i class="fas fa-eye"></i></a>
-                            <i class="fas fa-heart"></i>
-                        </div>
-                    </div>
-
-                    <div class="star d-flex justify-content-center">
-                        <i class="far fa-star"></i>
-                        <i class="far fa-star"></i>
-                        <i class="far fa-star"></i>
-                        <i class="far fa-star"></i>
-                        <i class="far fa-star"></i>
-                    </div>
-                    <p>Lorem ipsum, dolor sit amet consectet urconsectetur</p>
-                    <p><del>$50</del>$32</p>
-                    <button type="button" class="btn btn-outline text4 rounded-pill addtocart">Add to cart</button>
-                </div>
+                    @endforeach
+                @endisset
             </div>
         </div>
     </section>
     <!--end whats next-->
 
 @endsection
+
+
+<script>
+
+
+
+</script>

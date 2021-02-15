@@ -52,12 +52,12 @@ class Category extends Model
 
         return $q->where('is_active', 1);
     }
+
+
     public function products(){
 
-        return $this->belongsToMany(Category::class , 'product_products');
+        return $this->belongsToMany(Product::class , 'product_categories');
     }
-
-
 
 
 }

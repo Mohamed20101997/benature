@@ -77,11 +77,11 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6" id="cats_list">
-                                                    <label>النوع </label>
+                                                    <label>أختر القسم الفرعي </label>
                                                     <div class="form-group">
                                                         <select name="category_id" class="form-control" id="subCategory" style="display:none">
                                                             <optgroup id="type">
-                                                                 <option value="">أختر النوع</option>
+                                                                 
                                                             </optgroup>
 
                                                         </select>
@@ -94,14 +94,15 @@
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group mt-1">
-                                                    <input type="checkbox" value="1"  name="is_active" id="is_active" class="switchery-default" data-color="success" checked/>
-                                                    <label for="is_active" class="card-title ml-1 ">الحاله</label>
-
-                                                    @error("is_active")
-                                                    <span class="text-danger">{{$message }}</span>
-                                                    @enderror
+                                                        <input type="checkbox" value="1"  name="is_active" id="is_active" class="switchery-default" data-color="success" checked/>
+                                                        <label for="is_active" class="card-title ml-1 ">الحاله</label>
+                                                        
+                                                        @error("is_active")
+                                                            <span class="text-danger">{{$message }}</span>
+                                                        @enderror
+                                                    </div>
                                                 </div>
-                                            </div>
+
                                             <div class="col-md-6" id="cats_list">
                                                 <label> اختر العلامه التجاريه </label>
                                                 <div class="form-group">
@@ -327,31 +328,31 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label for="projectinput1">تتبع المستودع</label>
-                                                        <select name="manage_stock" style="width: 100%" class="form-control" id="manageStock">
-                                                            <optgroup label="من فضلك أختر النوع ">
-                                                                <option value="1">اتاحة التتبع</option>
-                                                                <option value="0" selected>عدم اتاحه التتبع</option>
+                                                        <label> النوع </label>
+                                                        <select name="filter" class="form-control" id="filter">
+                                                            <optgroup>
+                                                                <option value="men"     {{ old('filter') == 'men' ? 'selected' :' ' }}> Men </option>
+                                                                <option value="women"   {{ old('filter') == 'women' ? 'selected' :' ' }} > Women </option>
                                                             </optgroup>
                                                         </select>
-                                                        @error('in_stock')
-                                                        <span class="text-danger"> {{$message}}</span>
-                                                        @enderror
-                                                    </div>
+                                                    @error("filter")
+                                                        <span class="text-danger">{{$message }}</span>
+                                                    @enderror
                                                 </div>
+                                            </div>
                                             </div>
                                             <div class="row">
                                                 <!-- QTY  -->
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label
-                                                            for="projectinput1">الحاله</label>
-                                                        <select name="in_stock" class="form-control">
+                                                            for="projectinput1">حالة المخزن</label>
+                                                        <select name="in_stock" class="form-control" id="in_stock">
                                                             <optgroup label="من فضلك اختر">
                                                                 <option
-                                                                    value="1">متاح</option>
+                                                                    value="1"> متاح للبيع</option>
                                                                 <option
-                                                                    value="0">غير متاح</option>
+                                                                    value="0">غير متاح للبيع</option>
                                                             </optgroup>
                                                         </select>
                                                         @error('in_stock')
@@ -434,18 +435,19 @@
     $("#category_id").select2();
     $("#brand_id").select2();
     $("#in_stock").select2();
-    $("#manageStock").select2();
+    $("#filter").select2();
     $("#special_price_type").select2();
 </script>
 
 <script>
-    $(document).on('change', '#manageStock', function () {
+    $(document).on('change', '#in_stock', function () {
         if ($(this).val() == 1) {
-            $('#qtyDiv').show();
+            $('#qtyDiv').css('display','block');
         } else {
-            $('#qtyDiv').hide();
+            $('#qtyDiv').css('display','none');
         }
     });
+
     $(document).on('change', '#special_price_type', function () {
         if ($(this).val() == 1) {
             $('#special_price').css('display','flex');
@@ -453,6 +455,7 @@
             $('#special_price').css('display','none');
         }
     });
+
     $(document).on('change', '#categories', function () {
         if ($(this).val() == 0) {
             $('#subCategory').hide();
@@ -460,6 +463,19 @@
             $('#subCategory').show();
         }
     });
+    
+</script>
+
+<script>
+        $(document).ready(function(){
+    var value = $("#in_stock option:selected");
+    if(value.val() != 0) {
+        $('#qtyDiv').css('display','block');
+    } else {
+        $('#qtyDiv').css('display','none');
+    }
+});
+
 </script>
 
 <script>
@@ -483,8 +499,9 @@
 </script>
 
 <script>
-    $(document).on('change', '#categories', function () {
 
+$(document).ready(function(){
+    $(document).on('change', '#categories', function () {
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
@@ -506,6 +523,7 @@
                 $('#type').html(html);
             }
         });
+    });
     });
 </script>
 

@@ -61,10 +61,9 @@ for (var i = 0; i < upbtn.length; i++) {
         var btnClicked = event.target;
 
         var input = btnClicked.parentElement.children[1];
-        console.log(input);
         var inputValue = input.value;
         var newValue = parseInt(inputValue) + 1;
-        if (newValue <= 20) {
+        if (newValue <= input.max) {
             input.value = newValue;
         }
     })
@@ -77,7 +76,6 @@ for (var i = 0; i < dowmbtn.length; i++) {
         var btnClicked = event.target;
 
         var input = btnClicked.parentElement.children[1];
-        console.log(input);
         var inputValue = input.value;
         var newValue = parseInt(inputValue) - 1;
         if (newValue >= 0) {

@@ -79,11 +79,11 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6" id="cats_list">
-                                                    <label>النوع </label>
+                                                    <label>أختر القسم الفرعي </label>
                                                     <div class="form-group">
                                                         <select name="category_id" class="form-control" id="subCategory" style="display:none">
                                                             <optgroup id="type">
-                                                                 <option value="">أختر النوع</option>
+                                                                 <option value="">أختر القسم الفرعي</option>
                                                             </optgroup>
 
                                                         </select>
@@ -95,9 +95,8 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    <div class="form-group mt-1">
-                                                    <input type="checkbox" value="1"
-                                                    name="is_active" id="is_active" class="switchery-default" data-color="success" {{ $product->is_active == 1 ? 'checked' : '' }} />
+                                                    <div class="form-group ">
+                                                    <input type="checkbox" value="1" name="is_active" id="is_active" class="switchery-default" data-color="success" {{ $product->is_active == 1 ? 'checked' : '' }} />
                                                     <label for="is_active" class="card-title ml-1">الحاله</label>
 
                                                     @error("is_active")
@@ -105,6 +104,7 @@
                                                     @enderror
                                                 </div>
                                             </div>
+
                                             <div class="col-md-6" id="cats_list">
                                                 <label> اختر العلامه التجاريه </label>
                                                 <div class="form-group">
@@ -113,7 +113,7 @@
                                                             <option value="">أختر العلامه التجاريه</option>
                                                             @if($brands && $brands -> count() > 0)
                                                                 @foreach($brands as $brand)
-                                                                    <option value="{{$brand -> id }}" {{  $product->brand_id == $brand->id  ? 'selected' :' ' }} >{{$brand -> name}}</option>
+                                                                    <option value="{{$brand -> id }}" {{$product->brand_id == $brand->id  ? 'selected' :' ' }} >{{$brand -> name}}</option>
                                                                 @endforeach
                                                             @endif
                                                         </optgroup>
@@ -330,35 +330,35 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label for="projectinput1">تتبع المستودع</label>
-                                                        <select name="manage_stock" style="width: 100%" class="form-control" id="manageStock">
-                                                            <optgroup label="من فضلك أختر النوع ">
-                                                                <option value="1" {{$product->manage_stock == 1 ? 'selcted' : ''}}>اتاحة التتبع</option>
-                                                                <option value="0" {{$product->manage_stock == 0 ? 'selcted' : ''}}>عدم اتاحه التتبع</option>
+                                                        <label> النوع </label>
+                                                        <select name="filter" class="form-control" id="filter">
+                                                            <optgroup>
+                                                                <option value="men"  {{$product->filter == 'men' ? 'selected' :' ' }} >Men</option>
+                                                                <option value="women" {{$product->filter == 'women' ? 'selected' :' ' }} >Women</option>
                                                             </optgroup>
                                                         </select>
-                                                        @error('in_stock')
-                                                        <span class="text-danger"> {{$message}}</span>
-                                                        @enderror
-                                                    </div>
+                                                    @error("filter")
+                                                        <span class="text-danger">{{$message }}</span>
+                                                    @enderror
                                                 </div>
+                                            </div>
+
                                             </div>
                                             <div class="row">
                                                 <!-- QTY  -->
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label
-                                                            for="projectinput1">الحاله</label>
-                                                        <select name="in_stock" class="form-control">
+                                                        <label for="projectinput1"> الحاله المخزن</label>
+                                                        <select name="in_stock" class="form-control" id="in_stock">
                                                             <optgroup label="من فضلك اختر">
                                                                 <option
-                                                                    value="1" {{$product->in_stock == 1 ? 'selected' : ''}}>متاح</option>
+                                                                    value="1" {{$product->in_stock == 1 ? 'selected' : ''}}>متاح للبيع </option>
                                                                 <option
-                                                                    value="0" {{$product->in_stock == 0 ? 'selected' : ''}}>غير متاح</option>
+                                                                    value="0" {{$product->in_stock == 0 ? 'selected' : ''}}>غير متاح للبيع </option>
                                                             </optgroup>
                                                         </select>
                                                         @error('in_stock')
-                                                        <span class="text-danger"> {{$message}}</span>
+                                                            <span class="text-danger"> {{$message}}</span>
                                                         @enderror
                                                     </div>
                                                 </div>
@@ -438,18 +438,20 @@
         $("#category_id").select2();
         $("#brand_id").select2();
         $("#in_stock").select2();
-        $("#manageStock").select2();
+        $("#in_stock").select2();
+        $("#filter").select2();
         $("#special_price_type").select2();
     </script>
 
     <script>
-        $(document).on('change', '#manageStock', function () {
-            if ($(this).val() == 1) {
-                $('#qtyDiv').show();
-            } else {
-                $('#qtyDiv').hide();
-            }
-        });
+    $(document).on('change', '#in_stock', function () {
+        if ($(this).val() == 1) {
+            $('#qtyDiv').css('display','block');
+        } else {
+            $('#qtyDiv').css('display','none');
+        }
+    });
+
         $(document).on('change', '#special_price_type', function () {
             if ($(this).val() == 1) {
                 $('#special_price').css('display','flex');
@@ -466,6 +468,17 @@
         });
     </script>
 
+<script>
+    $(document).ready(function(){
+var value = $("#in_stock option:selected");
+if(value.val() != 0) {
+    $('#qtyDiv').css('display','block');
+} else {
+    $('#qtyDiv').css('display','none');
+}
+});
+
+</script>
     <script>
         function readURL(input) {
         if (input.files && input.files[0]) {

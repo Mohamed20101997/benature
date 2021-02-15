@@ -16,6 +16,9 @@ class SiteController extends Controller
                     return $q->select('id','parent_id');
                 }])->get();
 
+        $data['products'] = Product::Active()->whereTranslation('locale','en')->latest()->take(10)->get();
+        $data['sales'] = Product::Active()->whereTranslation('locale','en')->where('special_price_type' , 1)->latest()->take(3)->get();
+
         return view('welcome',$data);
     }
     public function getProducts(){
@@ -27,12 +30,17 @@ class SiteController extends Controller
     public function getProduct($id){
         try{
 
-            $product = Product::with('brand','categories','material')->find($id);
+            $product = Product::Active()->whereTranslation('locale','en')->find($id);
+            $category =  Category::Active()->whereTranslation('locale','en')->where('id', $product->id )->get();
+            $similarProduct =  Product::Active()->whereTranslation('locale','en')
+                                ->where('category_id' ,  $product->category_id)->latest()->take(4)->get();
+
+
             if (!$product)
                 return redirect()->back()->with(['error' => 'this product is not found']);
 
 
-            return view('site.product',compact('product'));
+            return view('site.product',compact('product','category','similarProduct'));
 
         }catch(\Exception $ex)
         {

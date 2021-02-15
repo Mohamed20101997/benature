@@ -34,7 +34,7 @@
                         @foreach ($products as $product)
                         @if ($product->is_active == 1)
 
-                            <div class="col-lg-4 col-md-6 text-center product men">
+                            <div class="col-lg-4 col-md-6 text-center product {{ $product->filter }}">
                                 <div class="img-prod">
                                     <img src="{{image_path('products' , $product->photo)}}" class="img-fluid" />
                                     <div class="whish-show d-flex justify-content-center align-items-center">
@@ -56,7 +56,6 @@
                                     @if($product->special_price != null && $product->special_price_type == 1)
                                         <del>${{$product->price}}</del>
                                         <span class="price">${{$product->special_price}}</span>
-                                        <p><del>$50</del>$32</p>
                                      @else
                                         <span class="price">${{$product->price}}</span>
                                     @endif
