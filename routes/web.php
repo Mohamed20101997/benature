@@ -14,9 +14,13 @@ Route::group(['namespace' => 'Site','middleware'=>'auth:web'], function () {
 
 // route if not auth
 Route::group(['namespace' => 'Site'], function () {
-    Route::get('/', 'SiteController@home');
-    Route::get('products','SiteController@getProducts');
-    Route::get('product/{id}/{slug}','SiteController@getProduct');
+    Route::get ('/', 'SiteController@home');
+    Route::get ('products','SiteController@getProducts');
+    Route::get ('product/{id}/{slug}','SiteController@getProduct');
+    Route::get ('reviews','SiteController@getReviews');
+    Route::post('reviews','SiteController@postReviews')->name('reviews');
+    Route::post('message','SiteController@message');
+    Route::get('message','SiteController@search');
 });
 
 

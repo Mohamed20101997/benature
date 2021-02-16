@@ -85,26 +85,31 @@
                     <p> Help : customer.services@benatur.com </p>
                 </div>
                 <div class="tab-pane fade mt-3 p-3" id="nav-contact" role="tabpanel" aria-labelledby="nav-review-tab">
-                    <div class="d-flex reviews">
-                        <div class="avatar-container">
-                            <img src="imgs/avatar.jpg" class="img-fluid" />
-                        </div>
-                        <div>
-                            <div class="star d-flex">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="far fa-star"></i>
+                    @foreach ($reviews as $review)
+                        <div class="d-flex reviews  mt-4">
+                            <div class="avatar-container">
+                                <img src="{{ asset('assets/site/imgs/avatar.jpg ') }}" class="img-fluid" />
                             </div>
-                            <p class="profile-info">
-                                <span class="name"> Amany Samir </span> - <span class="date">octaber 8,2020</span>
-                            </p>
-                            <p class="review">
-                                The product is awsome , i love it .
-                            </p>
+                            <div>
+                                <div class="star d-flex">
+                                    @for($i=1 ; $i<6 ; $i++)
+                                        @if ($review->rating < $i)
+                                        <i class="far fa-star"></i>
+                                        @elseif($review->rating >= $i)
+                                        <i class="fas fa-star"></i>
+                                        @endif
+                                    @endfor
+                                            
+                                    </div>
+                                <p class="profile-info">
+                                    <span class="name">{{ $review->name }} </span> - <span class="date">{{ $review->created_at }}</span>
+                                </p>
+                                <p class="review">
+                                    {{ $review->comment }}
+                                </p>
+                            </div>
                         </div>
-                    </div>
+                     @endforeach
                     <div class="add-review  mt-4">
                         <h5>
                             add review
@@ -117,14 +122,23 @@
                             <i class="far fa-star"></i>
                             <i class="far fa-star"></i>
                         </div>
-                        <form>
+                        <form action="{{ url('reviews') }}" method="post">
+                            @csrf
+                            @method('POST')
+                            <input type="hidden" value="{{ $product->id }}" name="product_id"> 
                             <div class="form-group">
                                 <label for="exampleFormControlTextarea1">leave a comment</label>
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Your Review"></textarea>
+                                <textarea class="form-control" name="comment" id="exampleFormControlTextarea1" rows="3" placeholder="Your Review"></textarea>
+                                @error('comment')
+                                    <span class="text-danger"> {{$message}}</span>
+                                @enderror
                             </div>
                             <label for="exampleFormControlInput1">Enter your name</label>
-                            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="EX : Amany Samir">
-                            <button type="button" class="btn btn-outline text4 ml-0 mr-0">Submit</button>
+                            <input type="text" name="name" class="form-control" id="exampleFormControlInput1" placeholder="EX : Amany Samir">
+                            @error('name')
+                                <span class="text-danger"> {{$message}}</span>
+                            @enderror
+                            <button type="submit" id="btn" class="btn btn-outline text4 ml-0 mr-0">Submit</button>
                         </form>
                     </div>
                 </div>
@@ -202,10 +216,3 @@
     <!--end whats next-->
 
 @endsection
-
-
-<script>
-
-
-
-</script>

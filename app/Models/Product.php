@@ -84,4 +84,14 @@ class Product extends Model
             return $q->where('is_active', 1);
         }
 
+        public function scopeWhenSearch($query , $search)
+        {
+            return $query->when($search, function($q) use ($search){
+
+                return $q->where('name', 'like' , "%$search%")
+                        ->orWhere('description', 'like', "%$search%")
+                        ->orWhere('price', 'like', "%$search%");
+            });
+
+        } //end of scope when search
 }

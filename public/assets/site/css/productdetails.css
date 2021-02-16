@@ -141,7 +141,7 @@ del {
     margin-right: 15px;
 }
 
-.details-slide .tab-content .reviews .star i:not(:last-child) {
+.details-slide .tab-content .reviews .star i {
     color: var(--green-color);
 }
 

@@ -4,6 +4,7 @@
 <head dir="ltr">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="discription" content=" this is a form made by Amany Samir">
     <title></title>
     <link rel="stylesheet" href=" {{ asset('assets/site/css/bootstrap.min.css') }} ">
@@ -13,8 +14,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=PT+Sans&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-    <link rel="stylesheet" href=" {{ asset('assets/site/css/text.css')}}">
+    <!-- easy auto complete -->
+    <link rel="stylesheet" href="{{ asset('assets/easyautocomplete/easy-autocomplete.min.css') }}">
 
+    <link rel="stylesheet" href=" {{ asset('assets/site/css/text.css')}}">
+    
     @yield('style')
 </head>
 
@@ -268,6 +272,7 @@
                                 class="fas fa-search"></i></button>
                     </div>
                 </div>
+         
             </div>
         </div>
     </nav>
@@ -280,23 +285,36 @@
 <footer class="mt-5 pt-5 pb-5">
     <div class="container">
         <h4 class="text-center">Let's Keep In Touch </h4>
+            @include('dashboard.includes.alerts.success')
+            @include('dashboard.includes.alerts.errors')
         <div class="row">
             <div class="col-sm-6 animate__animated animate__backInLeft animate__slower">
-                <form>
+                <form method="post" action="{{ url('message') }}">
+                    @csrf
+                    @method('post')
                     <div class="form-group">
                         <label for="exampleFormControlInput1">Full Name</label>
-                        <input type="text" class="form-control" placeholder="Your Name">
+                        <input type="text" class="form-control" required name="name" value="{{ old('name') }}" placeholder="Your Name">
+                        @error('name')
+                            <span class="text-danger"> {{$message}}</span>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlInput1">Email</label>
-                        <input type="email" class="form-control" placeholder="Your Email">
+                        <input type="email" class="form-control" value="{{ old('email') }}"   required name="email" placeholder="Your Email">
+                        @error('email')
+                            <span class="text-danger"> {{$message}}</span>
+                        @enderror
                     </div>
                     <div class="form-group">
-                        <label for="exampleFormControlTextarea1">Massage</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Write Your Message"></textarea>
+                        <label for="exampleFormControlTextarea1">Message</label>
+                        <textarea class="form-control" name="message" required id="exampleFormControlTextarea1" rows="3" placeholder="Write Your Message">{{ old('message') }}</textarea>
+                        @error('message')
+                            <span class="text-danger"> {{$message}}</span>
+                        @enderror
                     </div>
+                    <button type="submit" class="btn btn-outline text4">Send</button>
                 </form>
-                <button type="button" class="btn btn-outline text4">Send</button>
             </div>
             <div class="col-sm-6 animate__animated animate__backInRight animate__slower">
                 <div>
@@ -334,7 +352,9 @@
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src=" {{ asset('assets/site/js/main.js') }}"></script>
-<script src=" {{ asset('assets/site/js/text.js') }}"></script>
+<script src="{{ asset('assets/easyautocomplete/jquery.easy-autocomplete.min.js') }}"></script>
+
+  <script src=" {{ asset('assets/site/js/text.js') }}"></script>
 @yield('script')
 </body>
 

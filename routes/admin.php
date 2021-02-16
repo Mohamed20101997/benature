@@ -26,6 +26,8 @@ Route::group( ['prefix' => LaravelLocalization::setLocale(),'middleware' => [ 'l
 
             //materials route
             Route::resource('materials', 'MaterialController');
+            //message route
+            Route::resource('messages', 'MessageController');
 
 
         });
