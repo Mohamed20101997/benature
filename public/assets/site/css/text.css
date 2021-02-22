@@ -772,7 +772,14 @@ a:focus {
     cursor: pointer;
 }
 
-.beauty ul li.active.head,
+.beauty ul p.active.head {
+    background-color: var(--green-color);
+    color: #fff;
+    padding: 10px;
+    font-size: 18px;
+    letter-spacing: 1px;
+}
+
 .beauty ul.menue li.active,
 .beauty ul.menue li:hover {
     background-color: var(--green-color);
@@ -786,7 +793,8 @@ a:focus {
 }
 
 .beauty ul li.active a,
-.beauty ul li:hover a {
+.beauty ul li:hover a,
+.beauty ul p.active a {
     color: #fff;
 }
 
@@ -825,27 +833,15 @@ a:focus {
     overflow-y: auto;
 }
 
-.beauty .catg-map-links .cat-links .dropdown-skincare,
-.beauty .catg-map-links .cat-links .dropdown-cleansing,
-.beauty .catg-map-links .cat-links .dropdown-body-hair,
-.beauty .catg-map-links .cat-links .dropdown-tools,
-.beauty .catg-map-links .cat-links .dropdown-samples {
+.beauty .catg-map-links .cat-links ul div {
     display: none;
 }
 
-.beauty .catg-map-links .cat-links .dropdown-skincare ul,
-.beauty .catg-map-links .cat-links .dropdown-cleansing ul,
-.beauty .catg-map-links .cat-links .dropdown-body-hair ul,
-.beauty .catg-map-links .cat-links .dropdown-tools ul,
-.beauty .catg-map-links .cat-links .dropdown-samples ul {
+.beauty .catg-map-links .cat-links ul div ul {
     margin-left: 0;
 }
 
-.beauty .catg-map-links .cat-links .dropdown-skincare ul li:hover,
-.beauty .catg-map-links .cat-links .dropdown-cleansing ul li:hover,
-.beauty .catg-map-links .cat-links .dropdown-body-hair ul li:hover,
-.beauty .catg-map-links .cat-links .dropdown-tools ul li:hover,
-.beauty .catg-map-links .cat-links .dropdown-samples ul li:hover {
+.beauty .catg-map-links .cat-links ul div ul li:hover {
     background-color: #59CC9A;
 }
 
@@ -959,6 +955,7 @@ a:focus {
 @media (max-width: 767.98px) {
     .beauty .x {
         display: block;
+        cursor: pointer;
     }
     .beauty .togle .site-menue,
     .beauty .togle .product-page {
@@ -1102,7 +1099,7 @@ a:focus {
     height: 100%;
     background: #8989892e;
     margin: 0 auto;
-    transition: 2s all ease-in-out;
+    transition: .4s all ease-in-out;
     position: absolute;
     opacity: 0;
     top: 0%;
@@ -1110,6 +1107,7 @@ a:focus {
 }
 
 .popular .whish-show i {
+    font-weight: 600;
     color: #898989;
     background: #fff;
     border-radius: 50%;
@@ -1309,7 +1307,7 @@ a:focus {
     height: 100%;
     background: #8989892e;
     margin: 0 auto;
-    transition: 2s all ease-in-out;
+    transition: .4s all ease-in-out;
     position: absolute;
     opacity: 0;
     top: 0%;
@@ -1321,6 +1319,7 @@ a:focus {
 }
 
 .new-slider .whish-show i {
+    font-weight: 600;
     color: #898989;
     background: rgb(255 255 255 / 67%);
     border-radius: 50%;
@@ -1481,7 +1480,7 @@ a:focus {
     height: 100%;
     background: #8989892e;
     margin: 0 auto;
-    transition: 2s all ease-in-out;
+    transition: .4s all ease-in-out;
     position: absolute;
     opacity: 0;
     top: 0%;
@@ -1489,6 +1488,7 @@ a:focus {
 }
 
 .sale .whish-show i {
+    font-weight: 600;
     color: #898989;
     background: rgb(255 255 255 / 67%);
     border-radius: 50%;

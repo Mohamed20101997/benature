@@ -39,7 +39,6 @@
     </div>
     <div class="row ml-0 mr-0">
         <div class="col-lg-3 col-md-4 catg-map-links">
-
             <div class="row h-100">
                 <div class="col-12 pr-0 site-menue-content d-md-block ">
                     <ul class="list-unstyled menue">
@@ -53,26 +52,29 @@
                 </div>
                 <div class="col-12 pr-0 cat-links product-page-content d-md-block">
                     <ul class="list-unstyled">
-                        <li class="active head d-flex align-items-center justify-content-between"><a href="#">product page</a><i class="fas fa-times x"></i></li>
-                        @foreach ($categories as $category)
-                            <li class="skincare">
+                        <p class="active head d-flex align-items-center justify-content-between"><a href="#">product page</a><i class="fas fa-times x"></i></p>
+                        @foreach($categories as $category)
+                            <li>
                                 <i class="fas fa-chevron-down"></i> {{$category->name}}
                             </li>
-                            <div class="dropdown-skincare">
+                            <div>
                                 <ul class="list-unstyled">
-                                    @foreach ($category->childrens as $children)
+
+                                    @foreach($category->childrens as $children)
+                                        @if($children->products->count() != 0)
                                         <li>
-                                            <a href="products.html">
-                                                    {{$children->name}}
-                                                </a>
+                                            <a href="{{url('products/'. $children->id . '/' .  $children->slug)}}">
+                                                {{$children->name}}
+                                            </a>
                                         </li>
+                                        @endif
                                     @endforeach
                                 </ul>
                             </div>
                         @endforeach
-
                     </ul>
                 </div>
+
             </div>
         </div>
         <div class="col-lg-8 col-md-7 col-12offset-1 category text-center">
@@ -218,14 +220,21 @@
     <div class="new-slider-container">
         <div class="swiper-container new-slider">
             <div class="swiper-wrapper">
-                @foreach ($products as $product)       
+                @foreach ($products as $product)
                 <div class="swiper-slide text-center product">
                     <div>
                         <div class="img-prod">
                             <img src="{{image_path('products' , $product->photo)}}" class="img-fluid" />
                             <div class="whish-show d-flex justify-content-center align-items-center">
                                 <a href="{{ url('product/'.$product->id .'/' .$product->slug) }}"><i class="fas fa-eye"></i></a>
-                                <i class="fas fa-heart"></i>
+                                @auth
+                                <i class="fa fa-heart product__fav-icon {{$product->is_favored ? 'active': ''}} product-{{$product->id}}"
+                                data-url="{{ route('products.toggle_favorite', $product->id) }}"
+                                data-id="{{$product->id}}"></i>
+                                @else
+                                    <a href="{{url('login')}}" class="text-white align-self-center"><i class="far fa-heart"></i></a>
+
+                                @endauth
                             </div>
                         </div>
 
@@ -238,11 +247,12 @@
                         </div>
                         <p>{{$product->name}}</p>
                         <p>{{$product->price}}</p>
-                        <button type="button" class="btn btn-outline text4 rounded-pill addtocart">Add to cart</button>
+                        <button type="button" class="btn btn-outline text4 rounded-pill addtocart cart-addition"
+                        data-product-id="{{$product->id}}" data-product-slug="{{$product->slug}}">Add to cart</button>
                     </div>
                 </div>
                 @endforeach
-    
+
             </div>
             <div class="swiper-button-prev"></div>
             <div class="swiper-button-next"></div>
@@ -280,13 +290,19 @@
         <h3>all in sale</h3>
         <h4>many products for you</h4>
         <div class="row">
-            @foreach ($sales as $sale)             
+            @foreach ($sales as $sale)
             <div class="col-md-4 col-sm-6 text-center product">
                 <div class="img-prod">
                     <img src="{{image_path('products' , $sale->photo)}}" class="img-fluid" />
                     <div class="whish-show d-flex justify-content-center align-items-center">
                         <a href="{{ url('product/'.$sale->id .'/' .$sale->slug) }}"><i class="fas fa-eye"></i></a>
-                        <i class="fas fa-heart"></i>
+                        @auth
+                            <i class="fa fa-heart product__fav-icon {{$product->is_favored ? 'active': ''}} product-{{$product->id}}"
+                            data-url="{{ route('products.toggle_favorite', $product->id) }}"
+                            data-id="{{$product->id}}"></i>
+                        @else
+                            <a href="{{url('login')}}" class="text-white align-self-center"><i class="far fa-heart"></i></a>
+                        @endauth
                     </div>
                 </div>
 
@@ -306,10 +322,11 @@
                         <span class="price">${{$sale->price}}</span>
                     @endif
                 </p>
-                <button type="button" class="btn btn-outline text4 rounded-pill addtocart">Add to cart</button>
+                <button type="button" class="btn btn-outline text4 rounded-pill cart-addition"
+                        data-product-id="{{$product->id}}" data-product-slug="{{$product->slug}}">Add to cart</button>
             </div>
             @endforeach
-       
+
         </div>
     </div>
 </section>

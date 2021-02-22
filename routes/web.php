@@ -5,22 +5,26 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 
-// route if auth
-Route::group(['namespace' => 'Site','middleware'=>'auth:web'], function () {
-
-    // auth
-});
-
 
 // route if not auth
 Route::group(['namespace' => 'Site'], function () {
     Route::get ('/', 'SiteController@home');
-    Route::get ('products','SiteController@getProducts');
-    Route::get ('product/{id}/{slug}','SiteController@getProduct');
-    Route::get ('reviews','SiteController@getReviews');
+    Route::get ('products/{cat_id?}/{slug?}','SiteController@getProducts')->name('products');
+    Route::get ('product/{id}/{slug}','SiteController@getProduct')->name('products');
     Route::post('reviews','SiteController@postReviews')->name('reviews');
     Route::post('message','SiteController@message');
-    Route::get('message','SiteController@search');
+    Route::post('/products/{product}/toggle_favorite','SiteController@toggle_favorite')->name('products.toggle_favorite');
+    Route::get('getFavorite','SiteController@getFavorite');
+
+    Route::prefix('cart')->group(function () {
+
+        Route::get('/','CartController@getIndex')->name('site.cart.index');
+        Route::post('/cart/add/{slug?}','CartController@postAdd')->name('site.cart.add');
+        Route::post('/update{slug?}','CartController@postUpdate')->name('site.cart.update');
+        Route::post('/update-all','CartController@postUpdateAll')->name('site.cart.update-all');
+
+    });
+
 });
 
 

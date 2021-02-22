@@ -5,20 +5,8 @@ $(function() {
     $('.information').on('click', function() {
         $('.info-dropdown').toggleClass('d-block');
     });
-    $('.skincare').on('click', function() {
-        $('.dropdown-skincare').toggleClass('d-block');
-    });
-    $('.Cleansing').on('click', function() {
-        $('.dropdown-cleansing').toggleClass('d-block');
-    });
-    $('.body-hair').on('click', function() {
-        $('.dropdown-body-hair').toggleClass('d-block');
-    });
-    $('.tools').on('click', function() {
-        $('.dropdown-tools').toggleClass('d-block');
-    });
-    $('.samples').on('click', function() {
-        $('.dropdown-samples').toggleClass('d-block');
+    $('.beauty .catg-map-links .cat-links ul li').on('click', function() {
+        $(this).next('div').toggleClass('d-block');
     });
     $('i.fa-heart').on('click', function() {
         $(this).toggleClass('active');

@@ -1,15 +1,20 @@
 @extends('layouts.app')
 @section('content')
 
-@section('style')
+@push('style')
 <link rel="stylesheet" href="{{ asset('assets/site/css/products.css')}}">
-@endsection
+@endpush
 
    <!--start all products.-->
    <section class="products mt-4 pt-3">
     <div class="container text-center pt-2 pb-2">
         <h2>
-            All Products
+            @isset($cat_name)
+                {{$cat_name}}
+            @else
+                All Products
+            @endisset
+
         </h2>
         <h3>
             you will find all you need
@@ -39,7 +44,13 @@
                                     <img src="{{image_path('products' , $product->photo)}}" class="img-fluid" />
                                     <div class="whish-show d-flex justify-content-center align-items-center">
                                         <a href="{{ url('product/'.$product->id .'/' .$product->slug) }}"><i class="fas fa-eye"></i></a>
-                                        <i class="fas fa-heart"></i>
+                                         @auth
+                                            <i class="far fa-heart product__fav-icon {{$product->is_favored ? 'active': ''}} product-{{$product->id}}"
+                                            data-url="{{ route('products.toggle_favorite', $product->id) }}"
+                                            data-id="{{$product->id}}"></i>
+                                        @else
+                                            <a href="{{url('login')}}" class="text-white align-self-center"><i class="far fa-heart"></i></a>
+                                        @endauth
                                     </div>
                                 </div>
 
@@ -60,7 +71,8 @@
                                         <span class="price">${{$product->price}}</span>
                                     @endif
                                 </p>
-                                <button type="button" class="btn btn-outline text4 rounded-pill addtocart">Add to cart</button>
+                                <button type="button" class="btn btn-outline text4 rounded-pill addtocart cart-addition"
+                                data-product-id="{{$product->id}}" data-product-slug="{{$product->slug}}">Add to cart</button>
                             </div>
                             @endif
                         @endforeach

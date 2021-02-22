@@ -1,9 +1,9 @@
 @extends('layouts.app')
 @section('content')
 
-@section('style')
+@push('style')
 <link rel="stylesheet" href="{{ asset('assets/site/css/productdetails.css')}}">
-@endsection
+@endpush
 
 @include('dashboard.includes.alerts.success')
 @include('dashboard.includes.alerts.errors')
@@ -30,17 +30,20 @@
                         @endif
                     </div>
                     <div class="star d-flex">
-                        <i class="far fa-star"></i>
-                        <i class="far fa-star"></i>
-                        <i class="far fa-star"></i>
-                        <i class="far fa-star"></i>
-                        <i class="far fa-star"></i>
-                        <p> (1 review)</p>
+                        @for($i=1 ; $i<6 ; $i++)
+                            @if ($average < $i)
+                                <i class="far fa-star"></i>
+                            @elseif($average >= $i)
+                                <i class="fas fa-star"></i>
+                            @endif
+                        @endfor
+
+                        <p> ({{$count}} review)</p>
                     </div>
                     @if ($product->qty != null || $product->qty > 0)
                         <div class="quantity d-flex justify-content-start">
                             <p class="down">-</p>
-                            <input class="quantity-inp" value="1" readonly  max="{{$product->qty}}">  <!-- sile max  //////////////////////// -->
+                            <input class="quantity-inp" value="1" readonly  max="{{$product->qty}}">
                             <p class="up">+</p>
                         </div>
                     @else
@@ -50,7 +53,14 @@
 
                     <div class="d-flex justify-content-start align-items-center wish">
                         <button type="button" class="btn btn-outline text4 ml-0 mr-0">Add to cart</button>
-                        <i class="fas fa-heart"></i>
+                        @auth
+                            <i class="far fa-heart product__fav-icon {{$product->is_favored ? 'active': ''}} product-{{$product->id}}"
+                                data-url="{{ route('products.toggle_favorite', $product->id) }}"
+                                data-id="{{$product->id}}"></i>
+                        @else
+                            <a href="{{url('login')}}" style="margin: 0 6px;"><i class="far fa-heart"></i></a>
+
+                        @endauth
                         <a class="btn btn-outline text4" href="checkout.html" role="button">proceed to check out</a>
                     </div>
                     <p class="type"> type : @foreach ($product->categories as $category){{ $category ->name}} @endforeach</p>
@@ -99,7 +109,7 @@
                                         <i class="fas fa-star"></i>
                                         @endif
                                     @endfor
-                                            
+
                                     </div>
                                 <p class="profile-info">
                                     <span class="name">{{ $review->name }} </span> - <span class="date">{{ $review->created_at }}</span>
@@ -115,30 +125,34 @@
                             add review
                         </h5>
                         <p class="mb-0 ml-1">rate product</p>
-                        <div class="star d-flex mb-2">
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                        </div>
-                        <form action="{{ url('reviews') }}" method="post">
-                            @csrf
-                            @method('POST')
-                            <input type="hidden" value="{{ $product->id }}" name="product_id"> 
+                        <form id="reviews">
+                            <div class="star d-flex mb-2">
+                                <div class="rating">
+                                    <input type="radio" id="star5" name="rating" value="5" />
+                                    <label for="star5" title="text" class="fas fa-star"></label>
+                                    <input type="radio" id="star4" name="rating" value="4" />
+                                    <label for="star4" title="text" class="fas fa-star"></label>
+                                    <input type="radio" id="star3" name="rating" value="3" />
+                                    <label for="star3" title="text" class="fas fa-star"></label>
+                                    <input type="radio" id="star2" name="rating" value="2" />
+                                    <label for="star2" title="text" class="fas fa-star"></label>
+                                    <input type="radio" id="star1" name="rating" value="1" />
+                                    <label for="star1" title="text" class="fas fa-star"></label>
+                                </div>
+                            </div>
+                            <input type ='reset' id ='resetreviews' style="display: none" />
+                            <input type="hidden" value="{{ $product->id }}" name="product_id">
                             <div class="form-group">
                                 <label for="exampleFormControlTextarea1">leave a comment</label>
                                 <textarea class="form-control" name="comment" id="exampleFormControlTextarea1" rows="3" placeholder="Your Review"></textarea>
-                                @error('comment')
-                                    <span class="text-danger"> {{$message}}</span>
-                                @enderror
+                                <span id="commentError" class="alert-message text-danger"></span>
+
                             </div>
                             <label for="exampleFormControlInput1">Enter your name</label>
                             <input type="text" name="name" class="form-control" id="exampleFormControlInput1" placeholder="EX : Amany Samir">
-                            @error('name')
-                                <span class="text-danger"> {{$message}}</span>
-                            @enderror
-                            <button type="submit" id="btn" class="btn btn-outline text4 ml-0 mr-0">Submit</button>
+                            <span id="nameeError" class="alert-message text-danger"></span>
+
+                            <button type="submit" id="reviewsSubmit" class="btn btn-outline text4 ml-0 mr-0">Submit</button>
                         </form>
                     </div>
                 </div>
@@ -178,17 +192,23 @@
             <h3>What's sale </h3>
             <h4>similar product</h4>
             <div class="row ml-0 mr-0">
-                @isset($similarProduct)      
+                @isset($similarProduct)
                     @foreach ($similarProduct as $sProduct)
                         <div class="col-lg-3 col-md-4 col-sm-6 col-sm-5 text-center product">
                             <div class="img-prod">
                                 <img src="{{ image_path('Products',$sProduct->photo) }}" class="img-fluid" />
                                 <div class="whish-show d-flex justify-content-center align-items-center">
                                     <a href="{{ url('product/'.$sProduct->id .'/' .$sProduct->slug) }}"><i class="fas fa-eye"></i></a>
-                                    <i class="fas fa-heart"></i>
+                                    @auth
+                                        <i class="far fa-heart product__fav-icon {{$product->is_favored ? 'active': ''}} product-{{$product->id}}"
+                                        data-url="{{ route('products.toggle_favorite', $product->id) }}"
+                                        data-id="{{$product->id}}"></i>
+                                    @else
+                                        <a href="{{url('login')}}" class="text-white align-self-center"><i class="far fa-heart"></i></a>
+                                    @endauth
                                 </div>
                             </div>
-        
+
                             <div class="star d-flex justify-content-center">
                                 <i class="far fa-star"></i>
                                 <i class="far fa-star"></i>
@@ -196,7 +216,7 @@
                                 <i class="far fa-star"></i>
                                 <i class="far fa-star"></i>
                             </div>
-                    
+
                             <p>{{$sProduct->name}}</p>
                             <p>
                                 @if($sProduct->special_price != null && $sProduct->special_price_type == 1)
@@ -206,7 +226,8 @@
                                     <span class="price">${{$sProduct->price}}</span>
                                 @endif
                             </p>
-                            <button type="button" class="btn btn-outline text4 rounded-pill addtocart">Add to cart</button>
+                            <button type="button" class="btn btn-outline text4 rounded-pill addtocart cart-addition"
+                        data-product-id="{{$product->id}}" data-product-slug="{{$product->slug}}">Add to cart</button>
                         </div>
                     @endforeach
                 @endisset
@@ -216,3 +237,54 @@
     <!--end whats next-->
 
 @endsection
+
+ @push('script')
+ <script>
+
+    jQuery(document).ready(function(){
+
+       $('#reviewsSubmit').on('click', function(e){
+       e.preventDefault();
+
+    //    var rating = $('input[type="radio"]').val();
+    //    alert(rating)
+       $.ajaxSetup({
+           headers: {
+           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+           }
+       });
+
+       var data = $('#reviews').serialize()
+       $.ajax({
+               url: "/reviews",
+               type: 'POST',
+               data: data,
+               success: function(response){
+                   $('#resetreviews').click();
+                   $('#commentError').text('');
+                   $('#nameeError').text('');
+                   new Noty({
+                   theme: 'relax',
+                   type:'success',
+                   layout: 'topRight',
+                   text : "review sent successfully",
+                   timeout: 2000,
+                   kiler: true
+               }).show();
+
+
+
+               },
+               error: function(response){
+                   $('#commentError').text('');
+                   $('#nameeError').text('');
+
+                   $('#commentError').text(response.responseJSON.errors.comment);
+                   $('#nameeError').text(response.responseJSON.errors.name);
+
+               }
+           });
+       });
+   });
+</script>
+ @endpush

@@ -16,10 +16,25 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <!-- easy auto complete -->
     <link rel="stylesheet" href="{{ asset('assets/easyautocomplete/easy-autocomplete.min.css') }}">
-
     <link rel="stylesheet" href=" {{ asset('assets/site/css/text.css')}}">
-    
-    @yield('style')
+
+    {{-- noty --}}
+  <link rel="stylesheet" type="text/css" href="{{ asset('assets/admin/css/plugins/noty/noty.css') }}">
+  <script src="{{ asset('assets/admin/css/plugins/noty/noty.min.js') }}"></script>
+
+
+  <style>
+
+    .fw-900{
+        font-weight: 900;
+        color: #f00;
+    }
+
+
+</style>
+
+
+    @stack('style')
 </head>
 
 <body class="position-relative">
@@ -103,7 +118,7 @@
             </div>
             <div class="col-md col-sm col p-0">
                 <a class="btn btn-outline text4" href="checkout.html" role="button">check out</a>
-                <a class="btn btn-outline text4" href="shoppingcart.html" role="button">Shopping Cart</a>
+                <a class="btn btn-outline text4" href="{{ route('site.cart.index') }}" role="button">Shopping Cart</a>
             </div>
         </div>
     </div>
@@ -159,10 +174,21 @@
             <img src=" {{ asset('assets/site/imgs/navlogo.PNG') }}" class="img-fluid" />
         </div>
         <div class="whishlist-account d-flex align-items-center">
-            <div class="whish">
-                <i class="fas fa-heart"></i>
-                <a href="wishlist.html"> wish list</a>
-            </div>
+            @auth
+                <div class="whish">
+                <a href="{{ url('getFavorite') }}">
+                    <i class="fas fa-heart"></i>
+                        wish list
+                    </a>
+                </div>
+            @else
+                <div class="whish">
+                <a href="{{ url('login') }}">
+                    <i class="fas fa-heart"></i>
+                        wish list
+                    </a>
+                </div>
+            @endauth
             @auth
                 <div class="account">
                     <i class="fas fa-user"></i> account
@@ -210,14 +236,15 @@
                     </button>
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav">
-                            <li class="nav-item active">
+                            <li class="nav-item {{\Request::route()->getName() == '' ? 'active' : ''}}">
                                 <a class="nav-link" href="{{url('/')}}">Home <span class="sr-only">(current)</span></a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item {{\Request::route()->getName() == 'products' ? 'active' : ''}}">
                                 <a class="nav-link" href="{{url('products')}}">Products</a>
                             </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <li class="nav-item dropdown {{\Request::route()->getName() == 'information.*' ? 'active' : ''}}">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+                                   role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                               Information
                             </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -262,17 +289,18 @@
             </div>
             <div class="col-md-6 col d-flex justify-content-end align-items-center p-0">
                 <div class="cart">
-                    <a href="shoppingcart.html"><i class="fas fa-shopping-cart"></i></a>
+                    <a href="{{route('site.cart.index')}}"><i class="fas fa-shopping-cart"></i></a>
                     <span>$355.2</span>
                 </div>
-                <div class="search">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search" aria-label="Recipient's username" aria-describedby="button-addon2">
-                        <button class="btn btn-outline" type="button" id="button-addon2"><i
-                                class="fas fa-search"></i></button>
+
+                <form action=" form-group">
+                    <div class="search">
+                        <div class="input-group">
+                            <input type="search" class="form-control" name="search" placeholder="Search by name or description or price" aria-label="Recipient's username"  aria-describedby="button-addon2">
+                            <button class="btn btn-outline" type="button" id="button-addon2"><i class="fas fa-search"></i></button>
+                        </div>
                     </div>
-                </div>
-         
+                </form>
             </div>
         </div>
     </nav>
@@ -289,31 +317,24 @@
             @include('dashboard.includes.alerts.errors')
         <div class="row">
             <div class="col-sm-6 animate__animated animate__backInLeft animate__slower">
-                <form method="post" action="{{ url('message') }}">
-                    @csrf
-                    @method('post')
+                <form  id="myForm">
+                    <input type ='reset' id ='resetform' style="display: none" />
                     <div class="form-group">
                         <label for="exampleFormControlInput1">Full Name</label>
-                        <input type="text" class="form-control" required name="name" value="{{ old('name') }}" placeholder="Your Name">
-                        @error('name')
-                            <span class="text-danger"> {{$message}}</span>
-                        @enderror
+                        <input type="text" id="name" class="form-control" required name="name" value="{{ old('name') }}" placeholder="Your Name">
+                        <span id="nameError" class="alert-message text-danger"></span>
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlInput1">Email</label>
-                        <input type="email" class="form-control" value="{{ old('email') }}"   required name="email" placeholder="Your Email">
-                        @error('email')
-                            <span class="text-danger"> {{$message}}</span>
-                        @enderror
+                        <input type="email" id="email" class="form-control" value="{{ old('email') }}" required name="email" placeholder="Your Email">
+                        <span id="emailError" class="alert-message  text-danger"></span>
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlTextarea1">Message</label>
-                        <textarea class="form-control" name="message" required id="exampleFormControlTextarea1" rows="3" placeholder="Write Your Message">{{ old('message') }}</textarea>
-                        @error('message')
-                            <span class="text-danger"> {{$message}}</span>
-                        @enderror
+                        <textarea class="form-control" id="message" name="message" required id="exampleFormControlTextarea1" rows="3" placeholder="Write Your Message">{{ old('message') }}</textarea>
+                        <span id="messageError" class="alert-message  text-danger"></span>
                     </div>
-                    <button type="submit" class="btn btn-outline text4">Send</button>
+                    <button  id="ajaxSubmit" class="btn btn-outline text4">Send</button>
                 </form>
             </div>
             <div class="col-sm-6 animate__animated animate__backInRight animate__slower">
@@ -346,6 +367,7 @@
 </section>
 <!--/////////////////////////////////////-->
 <script src=" {{ asset('assets/site/js/jquery.js') }}"></script>
+<script src=" {{ asset('assets/site/js/jquery-ui.min.js') }}"></script>
 <script src=" {{ asset('assets/site/js/popper.js') }}"></script>
 <script src=" {{ asset('assets/site/js/bootstrap.min.js') }}"></script>
 <script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
@@ -355,7 +377,112 @@
 <script src="{{ asset('assets/easyautocomplete/jquery.easy-autocomplete.min.js') }}"></script>
 
   <script src=" {{ asset('assets/site/js/text.js') }}"></script>
-@yield('script')
+  <script src=" {{ asset('assets/site/js/favorite.js') }}"></script>
+
+<script>
+    $.ajaxSetup({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    var options = {
+
+        url: function(search) {
+
+		return "/products?search=" + search;
+	},
+	getValue: "name",
+
+    template: {
+		type: "iconLeft",
+		fields: {
+			iconSrc: "image_path"
+		}
+	},
+    list:{
+        onChooseEvent: function() {
+            var product = $('.form-control[type="search"]').getSelectedItemData();
+            var url = window.location.origin + '/product/' + product.id + '/' +product.slug;
+            window.location.replace(url) ;
+		}
+    }
+    };
+    $('.form-control[type="search"]').easyAutocomplete(options);
+</script>
+
+<script>
+     jQuery(document).ready(function(){
+
+        $('#ajaxSubmit').on('click', function(e){
+        e.preventDefault();
+        $.ajaxSetup({
+            headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        var data = $('#myForm').serialize()
+        $.ajax({
+                url: "/message",
+                type: 'POST',
+                data: data,
+                success: function(response){
+                    $('#resetform').click();
+                    $('#nameError').text('');
+                    $('#emailError').text('');
+                    $('#messageError').text('');
+                    new Noty({
+                    theme: 'relax',
+                    type:'success',
+                    layout: 'topRight',
+                    text : "Message sent successfully",
+                    timeout: 2000,
+                    kiler: true
+                }).show();
+
+                },
+                error: function(response){
+                    $('#nameError').text('');
+                    $('#emailError').text('');
+                    $('#messageError').text('');
+
+                    $('#nameError').text(response.responseJSON.errors.name);
+                    $('#emailError').text(response.responseJSON.errors.email);
+                    $('#messageError').text(response.responseJSON.errors.message);
+                }
+            });
+        });
+    });
+</script>
+<script>
+     jQuery(document).ready(function(){
+
+        $('.cart-addition').on('click', function(e){
+        e.preventDefault();
+        $.ajaxSetup({
+            headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+                url: "{{route('site.cart.add')}}",
+                type: 'POST',
+                data: {
+                    'product_id':$(this).attr('data-product-id'),
+                    'product_slug':$(this).attr('data-product-slug'),
+                },
+                success: function(response){
+
+
+                },
+
+            });
+        });
+    });
+</script>
+
+@stack('script')
 </body>
 
 </html>

@@ -41,6 +41,7 @@
 
                             @include('dashboard.includes.alerts.success')
                             @include('dashboard.includes.alerts.errors')
+                               @include('dashboard.includes.alerts.confirm')
 
                             <div class="card-content collapse show">
                                 <div class="card-body card-dashboard">
@@ -69,7 +70,7 @@
                                                                     @csrf
                                                                     @method('DELETE')
 
-                                                                    <button type="submit" class="btn btn-outline-danger btn-min-width box-shadow-3 mr-1 mb-1">حذف</button>
+                                                                    <button type="submit" class="btn btn-outline-danger delete btn-min-width box-shadow-3 mr-1 mb-1">حذف</button>
                                                                 </form>
                                                         </div>
                                                     </td>

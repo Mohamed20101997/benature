@@ -55,8 +55,7 @@
 
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label><i class="fa fa-list"> |</i> @lang('site.'. $locale .
-                                                            '.categoryName')</label>
+                                                        <label><i class="fa fa-list"> |</i> @lang('site.'. $locale .'.categoryName')</label>
                                                         <input type="text" name="{{ $locale }}[name]"
                                                             value="{{ old($locale .'.name', $category->translate($locale)->name) }}"
                                                             class="form-control">

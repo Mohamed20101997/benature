@@ -5,6 +5,7 @@ namespace App\Models;
 use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Storage;
 
 class Product extends Model
 {
@@ -13,6 +14,7 @@ class Product extends Model
 
         protected $with = ['translations'];
         protected $translatedAttributes  = ['name', 'description'];
+        protected $appends = ['image_path','is_favored'];
         protected $fillable = [
             'photo',
             'price',
@@ -66,6 +68,7 @@ class Product extends Model
             return $this->belongsTo(Brand::class)->withDefault();
         }
 
+
         public function material(){
             return $this->belongsTo(Material::class)->withDefault();
         }
@@ -74,7 +77,11 @@ class Product extends Model
 
             return $this->belongsToMany(Category::class , 'product_categories');
         }
-    
+
+        public function users()
+        {
+            return $this->belongsToMany(User::class, 'product_users');
+        }
 
 
         //////////// scope //////////////////////
@@ -88,10 +95,76 @@ class Product extends Model
         {
             return $query->when($search, function($q) use ($search){
 
-                return $q->where('name', 'like' , "%$search%")
-                        ->orWhere('description', 'like', "%$search%")
-                        ->orWhere('price', 'like', "%$search%");
+                return $q->whereTranslationLike('name','%' . $search . '%')
+                        ->orWhereTranslationLike('description', '%' . $search . '%')
+                        ->orWhere('price','like', "%$search%")
+                        ->orWhere('special_price','like', "%$search%");
             });
 
         } //end of scope when search
+
+        public function getImagePathAttribute(){
+
+            return asset('assets/images/products/'. $this->photo);
+
+        } // end of getImagePathAttribute
+
+        public function getIsFavoredAttribute()
+        {
+            if( auth()->user() )
+            {
+                return (bool)$this->users()->where('user_id', auth()->user()->id)->count();
+
+            } // end of if
+
+            return false;
+
+        } // end of getIsFavoredAttribute
+
+
+        public function scopeWhenFavorite($query , $favorite){
+
+            return $query->when($favorite , function($q){
+
+                return $q->whereHas('users' , function($qu){
+
+                    return $qu->where('user_id', auth()->user()->id);
+                });
+
+            });
+
+        }
+
+
+        public function hasStock($quantity)
+        {
+            return $this->qty >= $quantity;
+        }
+
+        public function outOfStock()
+        {
+            return $this->qty === 0;
+        }
+
+        public function inStock()
+        {
+            return $this->qty >= 1;
+        }
+
+
+    public function getTotal($converted = true)
+        {
+            if($this->special_price_type == 1){
+
+                $total = $this->special_price;
+
+            }else{
+
+                $total = $this -> price;
+
+            }
+            return $total ;
+
+        }
+
 }

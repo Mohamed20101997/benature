@@ -1,9 +1,9 @@
 
 @extends('layouts.app')
 @section('content')
-    @section('style')
+    @push('style')
         <link rel="stylesheet" href="{{ asset('assets/site/css/signin.css')}}">
-    @endsection
+    @endpush
 
     <section class="signin mt-5 mb-5 pt-4">
         <div class="container">

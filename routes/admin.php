@@ -5,7 +5,9 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 
 //note that the prefix is admin for all file route
-Route::group( ['prefix' => LaravelLocalization::setLocale(),'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ] ], function(){
+Route::group( ['prefix' => LaravelLocalization::setLocale(),
+    'middleware' => [ 'localeSessionRedirect',
+        'localizationRedirect', 'localeViewPath' ] ], function(){
 
         Route::group(['namespace' => 'Dashboard', 'middleware'=>'auth:admin','prefix'=>'admin'], function () {
 
@@ -26,8 +28,18 @@ Route::group( ['prefix' => LaravelLocalization::setLocale(),'middleware' => [ 'l
 
             //materials route
             Route::resource('materials', 'MaterialController');
+
             //message route
             Route::resource('messages', 'MessageController');
+
+            //country route
+            Route::resource('countries', 'CountriesController');
+
+            //city route
+            Route::resource('cities', 'CitiesController');
+
+            //shipping route
+            Route::resource('shippings', 'ShippingsController');
 
 
         });

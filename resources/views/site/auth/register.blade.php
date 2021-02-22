@@ -1,9 +1,9 @@
 
 @extends('layouts.app')
 @section('content')
-@section('style')
+@push('style')
     <link rel="stylesheet" href=" {{ asset('assets/site/css/signout.css')}}">
-@endsection
+@endpush
 
 <section class="signout mt-5 mb-5 pt-4">
     <div class="container">
@@ -35,7 +35,7 @@
                                     <span class="text-danger">{{$message}}</span>
                                 @enderror
                             </div>
-                       
+
 
                             <div class="form-group">
                                 <label>E-Mail</label>

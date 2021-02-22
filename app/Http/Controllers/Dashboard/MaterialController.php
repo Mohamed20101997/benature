@@ -70,8 +70,8 @@ class MaterialController extends Controller
 
         try{
 
-            $brand = Material::find($id);
-            if (!$brand)
+            $material = Material::find($id);
+            if (!$material)
                 return redirect()->route('materials.index')->with(['error' => 'هذا الماركة غير موجود']);
 
             DB::beginTransaction();
@@ -82,7 +82,7 @@ class MaterialController extends Controller
             $request->request->add(['is_active' => 1]);
 
             $data = $request->except('_token', 'photo');
-            $brand->update($data);
+            $material->update($data);
 
             DB::commit();
             return redirect()->route('materials.index')->with(['success' => 'تم ألاضافة بنجاح']);

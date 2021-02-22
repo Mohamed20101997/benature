@@ -56,7 +56,11 @@
     <!-- BEGIN Custom CSS-->
     <link rel="stylesheet" type="text/css" href="{{asset('assets/admin/'. getFolder() .'/style-rtl.css')}}">
     <!-- END Custom CSS-->
-    {{-- @notify_css --}}
+
+    {{-- noty --}}
+  <link rel="stylesheet" type="text/css" href="{{ asset('assets/admin/css/plugins/noty/noty.css') }}">
+  <script src="{{ asset('assets/admin/css/plugins/noty/noty.min.js') }}"></script>
+
     @yield('style')
     <link href="https://fonts.googleapis.com/css?family=Cairo&display=swap" rel="stylesheet">
     <style>
