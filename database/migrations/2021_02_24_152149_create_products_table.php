@@ -32,13 +32,18 @@ class CreateProductsTable extends Migration
             $table->integer('width')->unsigned();
             $table->integer('height')->unsigned();
             $table->boolean('is_active')->nullable();
-            $table->integer('category_id')->unsigned()->nullable();
+            $table->integer('main_category_id')->unsigned()->nullable();
+            $table->integer('child_category_id')->unsigned();
             $table->integer('brand_id')->unsigned()->nullable();
             $table->integer('material_id')->unsigned()->nullable();
+            $table->bigInteger('country_id')->unsigned();
+            
+            $table->foreign('country_id')->references('id')->on('countries')->onDelete('cascade');
             $table->foreign('brand_id')->references('id')->on('brands')->onDelete('set null');
             $table->foreign('material_id')->references('id')->on('materials')->onDelete('set null');
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('set null');
-            $table->softDeletes();
+            $table->foreign('main_category_id')->references('id')->on('categories')->onDelete('set null');
+            $table->foreign('child_category_id')->references('parent_id')->on('categories')->onDelete('cascade');
+
             $table->timestamps();
         });
     }
