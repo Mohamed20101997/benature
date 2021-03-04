@@ -50,6 +50,7 @@
                                             <thead class="">
                                             <tr>
                                                 <th>الاسم </th>
+                                                <th>العمله </th>
                                                 <th>الإجراءات</th>
                                             </tr>
                                             </thead>
@@ -59,14 +60,21 @@
                                                 @foreach($countries as $country)
                                                     <tr>
                                                         <td>{{$country -> name}}</td>
+                                                        <td>{{$country -> currency}}</td>
                                                         <td>
                                                             <div class="btn-group" role="group" aria-label="Basic example">
-                                                                <a href="{{route('countries.edit',$country-> id)}}" class="btn btn-outline-primary btn-min-width box-shadow-3 mr-1 mb-1">تعديل</a>
-                                                                <form action="{{route('countries.destroy' , $country->id)}}" method="POST">
-                                                                    @csrf
-                                                                    @method('DELETE')
-                                                                    <button type="submit" class="btn btn-outline-danger delete btn-min-width box-shadow-3 mr-1 mb-1">حذف</button>
-                                                                </form>
+
+                                                                @if (auth()->guard('admin')->user()->hasPermission('update_countries'))
+                                                                    <a href="{{route('countries.edit',$country-> id)}}" class="btn btn-outline-primary btn-min-width box-shadow-3 mr-1 mb-1">تعديل</a>
+                                                                @endif
+
+                                                                @if (auth()->guard('admin')->user()->hasPermission('delete_countries'))
+                                                                    <form action="{{route('countries.destroy' , $country->id)}}" method="POST">
+                                                                        @csrf
+                                                                        @method('DELETE')
+                                                                        <button type="submit" class="btn btn-outline-danger delete btn-min-width box-shadow-3 mr-1 mb-1">حذف</button>
+                                                                    </form>
+                                                                @endif
 
                                                             </div>
                                                         </td>

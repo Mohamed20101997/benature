@@ -8,15 +8,8 @@ $(function() {
     $('.beauty .catg-map-links .cat-links ul li').on('click', function() {
         $(this).next('div').toggleClass('d-block');
     });
-    $('i.fa-heart').on('click', function() {
-        $(this).toggleClass('active');
-    });
-    $('.product button.addtocart').on('click', function() {
-        $('.show-product').css('top', '0');
-        $('.show-product').css('opacity', '1');
-        $('.cart').css('top', '23%');
-        $('body').css('overflow', 'hidden');
-    });
+
+
     $('.show-product i.fa-times').on('click', function() {
         $('.show-product').css('top', '-200%');
         $('.show-product').css('opacity', '0');

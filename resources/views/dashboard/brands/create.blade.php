@@ -46,20 +46,6 @@
                                         <form class="form" action="{{route('brands.store')}}" method="POST" enctype="multipart/form-data">
                                             @csrf
 
-
-                                            <div class="form-group">
-                                                <label> صوره الماركة </label>
-                                                <label id="projectinput7" class="file center-block">
-                                                    <input type="file" id="file" name="photo">
-                                                    <span class="file-custom"></span>
-                                                </label>
-
-                                                @error('photo')
-                                                    <span class="text-danger">{{$message}}</span>
-                                                @enderror
-
-                                            </div>
-
                                             <div class="form-body">
 
                                                 <h4 class="form-section"><i class="ft-home"></i> بيانات الماركة التجارية </h4>

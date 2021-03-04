@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title','city  Update')
+@section('title','shipping Update')
 @section('content')
     <div class="app-content content">
         <div class="content-wrapper">
@@ -10,9 +10,9 @@
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="">الرئيسية </a>
                                 </li>
-                                <li class="breadcrumb-item"><a href="{{route('cities.index')}}"> الخامات</a>
+                                <li class="breadcrumb-item"><a href="{{route('shippings.index')}}"> الشحن </a>
                                 </li>
-                                <li class="breadcrumb-item active"> تعديل - {{$city -> name}}
+                                <li class="breadcrumb-item active"> تعديل - {{$shipping -> name}}
                                 </li>
                             </ol>
                         </div>
@@ -26,7 +26,7 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title" id="basic-layout-form"> تعديل المدينه </h4>
+                                    <h4 class="card-title" id="basic-layout-form"> تعديل الشحن </h4>
                                     <a class="heading-elements-toggle"><i
                                             class="la la-ellipsis-v font-medium-3"></i></a>
                                     <div class="heading-elements">
@@ -42,28 +42,29 @@
                                 @include('dashboard.includes.alerts.errors')
                                 <div class="card-content collapse show">
                                     <div class="card-body">
-                                        <form class="form" action="{{route('cities.update',$city->id)}}"
+                                        <form class="form" action="{{route('shippings.update',$shipping->id)}}"
                                               method="POST" enctype="multipart/form-data">
                                             @csrf
                                             @method('PUT')
 
-                                            <input name="id" value="{{$city -> id}}" type="hidden">
+                                            <input name="id" value="{{$shipping -> id}}" type="hidden">
                                             <div class="form-body">
-                                                <h4 class="form-section"><i class="ft-home"></i> بيانات المدينه </h4>
-
+                                                <h4 class="form-section"><i class="ft-home"></i> بيانات الشحن </h4>
                                                 <div class="row">
-                                                    <div class="col-md-12">
+                                                    <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <select name="country_id" class="form-control select2">
-                                                                <optgroup label="من فضلك البلد">
-                                                                    @if($countries && $countries -> count() > 0)
-                                                                        <option value="">أختر البلد</option>
-                                                                        @foreach($countries as $county)
-                                                                            <option value="{{$county -> id }}"  {{$city->country_id == $county->id  ? 'selected' :' ' }}>
-                                                                                {{$county -> name}}
+                                                            <select name="country_id" class="form-control select2"
+                                                                    id="countries">
+                                                                <optgroup label="من فضلك اختر البلد">
+                                                                    <option value="">أختر البلد</option>
+                                                                    @foreach($countries as $country)
+                                                                        @if($country->cities->count() !=  0)
+                                                                            <option
+                                                                                value="{{$country -> id }}" {{ $shipping->country_id == $country->id ? 'selected' : ''}}>
+                                                                                {{$country -> name}}
                                                                             </option>
-                                                                        @endforeach
-                                                                    @endif
+                                                                        @endif
+                                                                    @endforeach
                                                                 </optgroup>
 
                                                             </select>
@@ -71,34 +72,34 @@
                                                             <span class="text-danger"> {{$message}}</span>
                                                             @enderror
                                                         </div>
-
-                                                        @error("")
-                                                        <span class="text-danger">{{$message}}</span>
-                                                        @enderror
                                                     </div>
-                                                </div> {{-- end of row --}}
+                                                    <div class="col-md-6" id="city_list">
+                                                        <div class="form-group">
+                                                            <select name="city_id" class="form-control">
+                                                                <optgroup id="city" label="من فضلك اختر المدينه">
+                                                                    <option value="">أختر المدينه</option>
+                                                                </optgroup>
 
-                                                <div class="row">
-                                                    @foreach (config('translatable.locales') as $locale)
-
-                                                        <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <label><i class="fa fa-list">
-                                                                        |</i> @lang('site.'. $locale .'.citiesName')
-                                                                </label>
-                                                                <input type="text" name="{{ $locale }}[name]"
-                                                                       value="{{ old($locale .'.name', $city->translate($locale)->name) }}"
-                                                                       class="form-control">
-                                                            </div>
-
-                                                            @error("$locale.name")
-                                                            <span class="text-danger">{{$message}}</span>
+                                                            </select>
+                                                            @error('city_id')
+                                                            <span class="text-danger"> {{$message}}</span>
                                                             @enderror
                                                         </div>
-                                                    @endforeach
+                                                    </div>
                                                 </div>
-                                                <div class="row">
+                                            </div>
 
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label> السعر </label>
+                                                        <input type="number" name="price"
+                                                               value="{{ old('price',$shipping->price) }}"
+                                                               class="form-control">
+                                                        @error('price')
+                                                        <span class="text-danger"> {{$message}}</span>
+                                                        @enderror
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="form-actions">
@@ -110,17 +111,76 @@
                                                     <i class="la la-check-square-o"></i> تحديث
                                                 </button>
                                             </div>
-                                        </form>
-
                                     </div>
+                                    </form>
+
                                 </div>
                             </div>
                         </div>
                     </div>
-                </section>
-                <!-- // Basic form layout section end -->
             </div>
+            </section>
+            <!-- // Basic form layout section end -->
         </div>
+    </div>
     </div>
 
 @stop
+
+
+@section('script')
+    <script>
+        $(document).ready(function () {
+            var value = $("#countries option:selected");
+            if (value.val() != 0) {
+
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                var id = value.val();
+                var data = {
+                    'id': id
+                };
+                $.ajax({
+                    type: "GET",
+                    url: '{{route("getCities")}}',
+                    data: data,
+                    success: function (data) {
+                        var html = '';
+                        $.each(data, function (k, v) {
+                            html += '<option value = "' + v["id"] + '">' + v["name"] + '</option>';
+                        });
+                        $('#city').html(html);
+                    }
+                });
+
+            }
+
+            $(document).on('change', '#countries', function () {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                var id = $(this).val();
+                var data = {
+                    'id': id
+                };
+                $.ajax({
+                    type: "GET",
+                    url: '{{route("getCities")}}',
+                    data: data,
+                    success: function (data) {
+                        var html = '';
+                        $.each(data, function (k, v) {
+                            html += '<option value = "' + v["id"] + '">' + v["name"] + '</option>';
+                        });
+                        $('#city').html(html);
+                    }
+                });
+            });
+        })
+    </script>
+@endsection

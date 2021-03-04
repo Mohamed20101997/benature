@@ -25,7 +25,6 @@ class BrandRequest extends FormRequest
     public function rules()
     {
         return [
-            'photo' => 'nullable|image|mimes:jpg,jpeg,png',
             'en.name' => ['required', new UniqueBrandName($this ->name,$this -> id)],
             'ar.name' => ['required', new UniqueBrandName($this ->name,$this -> id)],
         ];

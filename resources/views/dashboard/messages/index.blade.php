@@ -67,11 +67,13 @@
                                                         <td>{{$message -> created_at}}</td>
                                                         <td>
                                                             <div class="btn-group" role="group" aria-label="Basic example">
-                                                                <form action="{{route('messages.destroy' , $message->id)}}" method="POST">
-                                                                    @csrf
-                                                                    @method('DELETE')
-                                                                    <button type="submit" class="btn btn-outline-danger delete btn-min-width box-shadow-3 mr-1 mb-1">حذف</button>
-                                                                </form>
+                                                                @if (auth()->guard('admin')->user()->hasPermission('delete_messages'))
+                                                                    <form action="{{route('messages.destroy' , $message->id)}}" method="POST">
+                                                                        @csrf
+                                                                        @method('DELETE')
+                                                                        <button type="submit" class="btn btn-outline-danger delete btn-min-width box-shadow-3 mr-1 mb-1">حذف</button>
+                                                                    </form>
+                                                                @endif
 
                                                             </div>
                                                         </td>

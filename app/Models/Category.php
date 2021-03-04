@@ -31,11 +31,10 @@ class Category extends Model
          return $this->belongsTo(self::class, 'parent_id');
     }
 
+
      public function childrens(){
          return $this->hasMany(self::class, 'parent_id');
     }
-
-
 
         ////////////// scope ////////
      public function scopeParent($q){
@@ -56,7 +55,7 @@ class Category extends Model
 
     public function products(){
 
-        return $this->belongsToMany(Product::class , 'product_categories');
+        return $this->hasMany(Product::class , 'category_id');
     }
 
 

@@ -13,7 +13,7 @@
                                 </li>
                                 <li class="breadcrumb-item"><a href="{{route('countries.index')}}">البلاد</a>
                                 </li>
-                                <li class="breadcrumb-item active">  أضافه بلد
+                                <li class="breadcrumb-item active"> أضافه بلد
                                 </li>
                             </ol>
                         </div>
@@ -43,26 +43,40 @@
                                 @include('dashboard.includes.alerts.errors')
                                 <div class="card-content collapse show">
                                     <div class="card-body">
-                                        <form class="form" action="{{route('countries.store')}}" method="POST" enctype="multipart/form-data">
+                                        <form class="form" action="{{route('countries.store')}}" method="POST"
+                                              enctype="multipart/form-data">
                                             @csrf
 
                                             <div class="form-body">
                                                 <h4 class="form-section"><i class="ft-home"></i> بيانات البد </h4>
                                                 <div class="row">
                                                     @foreach (config('translatable.locales') as $locale)
-                                                    <div class="col-md-6">
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label><i class="fa fa-list">
+                                                                        |</i> @lang('site.'. $locale . '.countryName')
+                                                                </label>
+                                                                <input type="text" name="{{ $locale }}[name]"
+                                                                       value="{{ old($locale . '.name') }}"
+                                                                       class="form-control">
+                                                            </div>
+
+                                                            @error("$locale.name")
+                                                            <span class="text-danger">{{$message}}</span>
+                                                            @enderror
+                                                        </div>
+                                                    @endforeach
+                                                    <div class="col-md-4">
                                                         <div class="form-group">
-                                                            <label><i class="fa fa-list"> |</i> @lang('site.'. $locale . '.countryName')</label>
-                                                            <input type="text" name="{{ $locale }}[name]" value="{{ old($locale . '.name') }}" class="form-control">
+                                                            <label> العمله</label>
+                                                            <input type="text" name="currency"  value="{{ old('currency') }}" class="form-control" placeholder="EX: EGY , SAR">
                                                         </div>
 
-                                                        @error("$locale.name")
-                                                            <span class="text-danger">{{$message}}</span>
+                                                        @error("currency")
+                                                        <span class="text-danger">{{$message}}</span>
                                                         @enderror
                                                     </div>
-
-                                                @endforeach
-                                            </div>
+                                                </div>
 
                                             </div>
                                             <div class="form-actions">
@@ -87,4 +101,4 @@
         </div>
     </div>
 
-    @stop
+@stop

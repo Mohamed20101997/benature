@@ -37,6 +37,7 @@ class ProductUpdateRequest extends FormRequest
             'ar.description' => 'required',
             'category_id' => 'required|numeric|exists:categories,id',
             'brand_id' => 'required|numeric|exists:brands,id',
+            'country_id' => 'required|numeric|exists:countries,id',
             'material_id' => 'required|numeric|exists:materials,id',
             'price' => 'required|min:0|numeric',
             'special_price_type' => 'nullable|in:0,1',

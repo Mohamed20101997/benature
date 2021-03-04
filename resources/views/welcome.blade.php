@@ -112,86 +112,48 @@
         <h4>popular in store</h4>
     </div>
     <div class="row ml-0 mr-0">
-        <div class="col-lg-3 col-md-4 col-sm-6 text-center product">
-            <div class="img-prod">
-                <img src="{{ asset('assets/site/imgs/pp.jpg')}}" class="img-fluid" />
-                <div class="whish-show d-flex justify-content-center align-items-center">
-                    <a href=" productDetails.html"><i class="fas fa-eye"></i></a>
-                    <i class="fas fa-heart"></i>
-                </div>
-            </div>
+        @isset($populars)
+            @foreach($populars as $popular)
+                <div class="col-lg-3 col-md-4 col-sm-6 text-center product">
+                    <div class="img-prod">
+                        <img src="{{image_path('products' , $popular->photo)}}" class="img-fluid" />
+                        <div class="whish-show d-flex justify-content-center align-items-center">
+                            <a href="{{ url('product/'.$popular->id .'/' .$popular->slug) }}"><i class="fas fa-eye"></i></a>
+                            @auth
+                                <i class="fa fa-heart product__fav-icon {{$popular->is_favored ? 'toggleActive': ''}} product-{{$popular->id}}"
+                                   data-url="{{ route('products.toggle_favorite', $popular->id) }}"
+                                   data-id="{{$popular->id}}"></i>
+                            @else <a href="{{url('login')}}" class="text-white align-self-center"><i class="far fa-heart"></i></a>
+                            @endauth
+                        </div>
+                    </div>
 
-            <div class="star d-flex justify-content-center">
-                <i class="far fa-star"></i>
-                <i class="far fa-star"></i>
-                <i class="far fa-star"></i>
-                <i class="far fa-star"></i>
-                <i class="far fa-star"></i>
-            </div>
-            <p>Lorem ipsum, dolor sit amet consectet urconsectetur</p>
-            <p>$32</p>
-            <button type="button" class="btn btn-outline text4 rounded-pill addtocart">Add to cart</button>
+                    <div class="star d-flex justify-content-center">
+                            @for($i=1 ; $i<6 ; $i++)
+                                @if (average($popular->id) < $i)
+                                    <i class="far fa-star"></i>
+                                @elseif(average($popular->id) >= $i)
+                                    <i class="fas fa-star"></i>
+                                @endif
+                            @endfor
+                    </div>
+                    <p>{{$popular->name}}</p>
+                    <p>{{$popular->country->currency}} {{$popular->price}}</p>
+                    @if($basket->has($popular) == false)
+                        <button type="button" class="btn btn-outline text4 rounded-pill cart-addition cart-{{$popular->id}}"
+                                data-product-id="{{$popular->id}}" data-product-slug="{{$popular->slug}}">Add to cart
+                        </button>
+                    @else
+                        <a href="{{url('cart')}}" class="text-decoration-none go-cart-{{$popular->id}}">
+                            <button type="button" class="btn btn-outline text4 rounded-pill  go-cart-{{$popular->id}}"> Go to cart</button>
+                        </a>
+                    @endif
+                    <a href="{{url('cart')}}" class="text-decoration-none go-cart-{{$popular->id}} hidden">
+                        <button type="button" class="btn btn-outline text4 rounded-pill  go-cart-{{$popular->id}}"> Go to cart</button>
+                    </a>
         </div>
-        <div class="col-lg-3 col-md-4 col-sm-6 text-center product">
-            <div class="img-prod">
-                <img src="{{ asset('assets/site/imgs/product2.jpg')}}" class="img-fluid" />
-                <div class="whish-show d-flex justify-content-center align-items-center">
-                    <a href=" productDetails.html"><i class="fas fa-eye"></i></a>
-                    <i class="fas fa-heart"></i>
-                </div>
-            </div>
-
-            <div class="star d-flex justify-content-center">
-                <i class="far fa-star"></i>
-                <i class="far fa-star"></i>
-                <i class="far fa-star"></i>
-                <i class="far fa-star"></i>
-                <i class="far fa-star"></i>
-            </div>
-            <p>Lorem ipsum, dolor sit amet consectet urconsectetur</p>
-            <p>$32</p>
-            <button type="button" class="btn btn-outline text4 rounded-pill addtocart">Add to cart</button>
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-6 text-center product">
-            <div class="img-prod">
-                <img src="{{ asset('assets/site/imgs/product2.jpg')}}" class="img-fluid" />
-                <div class="whish-show d-flex justify-content-center align-items-center">
-                    <a href=" productDetails.html"><i class="fas fa-eye"></i></a>
-                    <i class="fas fa-heart"></i>
-                </div>
-            </div>
-
-            <div class="star d-flex justify-content-center">
-                <i class="far fa-star"></i>
-                <i class="far fa-star"></i>
-                <i class="far fa-star"></i>
-                <i class="far fa-star"></i>
-                <i class="far fa-star"></i>
-            </div>
-            <p>Lorem ipsum, dolor sit amet consectet urconsectetur</p>
-            <p>$32</p>
-            <button type="button" class="btn btn-outline text4 rounded-pill addtocart">Add to cart</button>
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-6 text-center product">
-            <div class="img-prod">
-                <img src="{{ asset('assets/site/imgs/product2.jpg')}}" class="img-fluid" />
-                <div class="whish-show d-flex justify-content-center align-items-center">
-                    <a href=" productDetails.html"><i class="fas fa-eye"></i></a>
-                    <i class="fas fa-heart"></i>
-                </div>
-            </div>
-
-            <div class="star d-flex justify-content-center">
-                <i class="far fa-star"></i>
-                <i class="far fa-star"></i>
-                <i class="far fa-star"></i>
-                <i class="far fa-star"></i>
-                <i class="far fa-star"></i>
-            </div>
-            <p>Lorem ipsum, dolor sit amet consectet urconsectetur</p>
-            <p>$32</p>
-            <button type="button" class="btn btn-outline text4 rounded-pill addtocart">Add to cart</button>
-        </div>
+            @endforeach
+        @endisset
     </div>
 </section>
 <!--end popular in store-->
@@ -201,9 +163,11 @@
         <div class="container h-100">
             <div class="new-content d-flex align-items-center justify-content-end h-100">
                 <div>
-                    <h5>new in 2020</h5>
-                    <h3>cosmatics from natural Ingredients</h3>
-                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ipsa iste corrupti<br>nesciunt dolores eius, consequatur eaque quod qui exercitationem?Possim <br>qui consectetur libero reiciendis</p>
+                            <h5 class="text-center">new in 2020</h5>
+                            <h3>cosmatics from natural Ingredients</h3>
+                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.<br> Ipsa iste corrupti nesciunt
+                            dolores eius, <br> consequatur eaque quod qui exercitationem?Possim
+                            qui consectetur libero reiciendis</p>
                     <button type="button" class="btn btn-outline text4 rounded-pill">Shop Now</button>
                 </div>
             </div>
@@ -221,42 +185,49 @@
         <div class="swiper-container new-slider">
             <div class="swiper-wrapper">
                 @foreach ($products as $product)
-                <div class="swiper-slide text-center product">
-                    <div>
-                        <div class="img-prod">
-                            <img src="{{image_path('products' , $product->photo)}}" class="img-fluid" />
-                            <div class="whish-show d-flex justify-content-center align-items-center">
-                                <a href="{{ url('product/'.$product->id .'/' .$product->slug) }}"><i class="fas fa-eye"></i></a>
-                                @auth
-                                <i class="fa fa-heart product__fav-icon {{$product->is_favored ? 'active': ''}} product-{{$product->id}}"
-                                data-url="{{ route('products.toggle_favorite', $product->id) }}"
-                                data-id="{{$product->id}}"></i>
-                                @else
-                                    <a href="{{url('login')}}" class="text-white align-self-center"><i class="far fa-heart"></i></a>
+                        <div class="swiper-slide text-center product">
+                            <div>
+                                <div class="img-prod">
+                                    <img src="{{image_path('products' , $product->photo)}}" class="img-fluid" />
+                                    <div class="whish-show d-flex justify-content-center align-items-center">
+                                        <a href="{{ url('product/'.$product->id .'/' .$product->slug) }}"><i class="fas fa-eye"></i></a>
+                                        @auth
+                                        <i class="fa fa-heart product__fav-icon {{$product->is_favored ? 'toggleActive': ''}} product-{{$product->id}}"
+                                        data-url="{{ route('products.toggle_favorite', $product->id) }}"
+                                        data-id="{{$product->id}}"></i>
+                                        @else <a href="{{url('login')}}" class="text-white align-self-center"><i class="far fa-heart"></i></a>
+                                        @endauth
+                                    </div>
+                                </div>
 
-                                @endauth
+                                <div class="star d-flex justify-content-center">
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                                <p>{{$product->name}}</p>
+                                <p>{{$product->country->currency}} {{$product->price}}</p>
+                                @if($basket->has($product) == false)
+                                    <button type="button" class="btn btn-outline text4 rounded-pill cart-addition cart-{{$product->id}}"
+                                            data-product-id="{{$product->id}}" data-product-slug="{{$product->slug}}">Add to cart
+                                    </button>
+                                @else
+                                    <a href="{{url('cart')}}" class="text-decoration-none go-cart-{{$product->id}}">
+                                        <button type="button" class="btn btn-outline text4 rounded-pill  go-cart-{{$product->id}}"> Go to cart</button>
+                                    </a>
+                                @endif
+                                <a href="{{url('cart')}}" class="text-decoration-none go-cart-{{$product->id}} hidden">
+                                    <button type="button" class="btn btn-outline text4 rounded-pill  go-cart-{{$product->id}}"> Go to cart</button>
+                                </a>
                             </div>
                         </div>
-
-                        <div class="star d-flex justify-content-center">
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                        </div>
-                        <p>{{$product->name}}</p>
-                        <p>{{$product->price}}</p>
-                        <button type="button" class="btn btn-outline text4 rounded-pill addtocart cart-addition"
-                        data-product-id="{{$product->id}}" data-product-slug="{{$product->slug}}">Add to cart</button>
-                    </div>
-                </div>
                 @endforeach
-
             </div>
+        </div>
             <div class="swiper-button-prev"></div>
             <div class="swiper-button-next"></div>
-        </div>
     </div>
 </section>
 <!--end new slider.....-->
@@ -297,7 +268,7 @@
                     <div class="whish-show d-flex justify-content-center align-items-center">
                         <a href="{{ url('product/'.$sale->id .'/' .$sale->slug) }}"><i class="fas fa-eye"></i></a>
                         @auth
-                            <i class="fa fa-heart product__fav-icon {{$product->is_favored ? 'active': ''}} product-{{$product->id}}"
+                            <i class="fa fa-heart product__fav-icon {{$product->is_favored ? 'toggleActive': ''}} product-{{$product->id}}"
                             data-url="{{ route('products.toggle_favorite', $product->id) }}"
                             data-id="{{$product->id}}"></i>
                         @else
@@ -316,14 +287,24 @@
                 <p>{{$sale->name}}</p>
                 <p>
                     @if($sale->special_price != null && $sale->special_price_type == 1)
-                        <del>${{$sale->price}}</del>
-                        <span class="price">${{$sale->special_price}}</span>
+                        <del>{{$sale->country->currency}} {{$sale->price}}</del>
+                        <span class="price">{{$sale->country->currency}} {{$sale->special_price}}</span>
                         @else
-                        <span class="price">${{$sale->price}}</span>
+                        <span class="price">{{$sale->country->currency}} {{$sale->price}}</span>
                     @endif
                 </p>
-                <button type="button" class="btn btn-outline text4 rounded-pill cart-addition"
-                        data-product-id="{{$product->id}}" data-product-slug="{{$product->slug}}">Add to cart</button>
+                @if($basket->has($sale) == false)
+                    <button type="button" class="btn btn-outline text4 rounded-pill cart-addition cart-{{$sale->id}}"
+                            data-product-id="{{$sale->id}}" data-product-slug="{{$sale->slug}}">Add to cart
+                    </button>
+                @else
+                    <a href="{{url('cart')}}" class="text-decoration-none go-cart-{{$sale->id}}">
+                        <button type="button" class="btn btn-outline text4 rounded-pill  go-cart-{{$sale->id}}"> Go to cart</button>
+                    </a>
+                @endif
+                <a href="{{url('cart')}}" class="text-decoration-none go-cart-{{$sale->id}} hidden">
+                    <button type="button" class="btn btn-outline text4 rounded-pill  go-cart-{{$sale->id}}"> Go to cart</button>
+                </a>
             </div>
             @endforeach
 

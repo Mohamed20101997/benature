@@ -55,7 +55,7 @@
                                                 <div class="row">
                                                     @foreach (config('translatable.locales') as $locale)
 
-                                                        <div class="col-md-6">
+                                                        <div class="col-md-4">
                                                             <div class="form-group">
                                                                 <label><i class="fa fa-list">
                                                                         |</i> @lang('site.'. $locale .'.countryName')
@@ -70,6 +70,19 @@
                                                             @enderror
                                                         </div>
                                                     @endforeach
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label> العمله</label>
+                                                                <input type="text" name="currency"
+                                                                       value="{{ old('currency',$country->currency) }}"
+                                                                       class="form-control"
+                                                                       placeholder="EX: EGY , SAR">
+                                                            </div>
+
+                                                            @error("currency")
+                                                            <span class="text-danger">{{$message}}</span>
+                                                            @enderror
+                                                        </div>
                                                 </div>
                                                 <div class="row">
 

@@ -70,6 +70,12 @@
              .select2{
                 width: 100% !important;
         }
+        #new{
+            display: flex;
+            justify-content: center;
+            margin: auto;
+            width: 20%;
+        }
         div.dataTables_wrapper div.dataTables_filter label, table.dataTable, .dataTables_scrollHeadInner,.dataTable {
             width:100%;
         }

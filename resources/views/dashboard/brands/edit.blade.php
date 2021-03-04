@@ -49,25 +49,6 @@
 
                                             <input name="id" value="{{$brand -> id}}" type="hidden">
 
-                                            <div class="form-group">
-                                                <div class="text-center">
-                                                    <img
-                                                        src="{{image_path('brands' , $brand->photo)}}"
-                                                        class="rounded-circle  height-100" alt="صورة القسم ">
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label> صوره الماركة </label>
-                                                <label id="projectinput7" class="file center-block">
-                                                    <input type="file" id="file" name="photo">
-                                                    <span class="file-custom"></span>
-                                                </label>
-                                                @error('photo')
-                                                <span class="text-danger">{{$message}}</span>
-                                                @enderror
-                                            </div>
-
                                             <div class="form-body">
 
                                                 <h4 class="form-section"><i class="ft-home"></i> بيانات الماركة التجارية </h4>

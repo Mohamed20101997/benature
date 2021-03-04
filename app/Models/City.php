@@ -20,7 +20,8 @@ class City extends Model
     }
 
     public  function cities(){
-        return $this->belongsToMany(City::class , 'city_id' );
+        return $this->hasMany(City::class , 'city_id' );
     }
+
 
 }

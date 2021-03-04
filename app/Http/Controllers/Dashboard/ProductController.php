@@ -7,6 +7,7 @@ use App\Http\Requests\ProductRequest;
 use App\Http\Requests\ProductUpdateRequest;
 use App\Models\Brand;
 use App\Models\Category;
+use App\Models\Country;
 use App\Models\Material;
 use App\Models\Product;
 use Response;
@@ -19,9 +20,8 @@ class ProductController extends Controller
     public function index()
     {
         $data = [];
-        $data['products'] = Product::with('brand','categories')->orderBy('id', 'DESC')->paginate(PAGINATION_COUNT);
+        $data['products'] = Product::with('brand','category','country')->orderBy('id', 'DESC')->paginate(PAGINATION_COUNT);
         $data['brands'] = Brand::active()->select('id')->get();
-        // $data['categories'] = Category::active()->select('id')->get();
 
         return view('dashboard.products.index', $data);
     }
@@ -32,7 +32,8 @@ class ProductController extends Controller
         $data = [];
         $data['brands']     = Brand::active()->select('id')->get();
         $data['materials']   = Material::active()->select('id')->get();
-        $data['categories'] = Category::parent()->orderBy('id','DESC')->active()->select('id')->get();
+        $data['countries']   = Country::get();
+        $data['categories'] = Category::parent()->orderBy('id','DESC')->active()->with('childrens')->select('id')->get();
 
         return view('dashboard.products.create', $data);
     }
@@ -61,7 +62,6 @@ class ProductController extends Controller
             }
 
             $product = Product::create($data);
-            $product->categories()->attach($request->category_id);
 
             $slug = \Str::slug($request->en['name']);
 
@@ -73,7 +73,7 @@ class ProductController extends Controller
         }catch(\Exception $ex)
         {
             DB::rollback();
-            return redirect()->route('materials.index')->with(['error'=>' هناك خطاء ما برجاء المحاولة فيما بعد']);
+            return redirect()->route('products.index')->with(['error'=>' هناك خطاء ما برجاء المحاولة فيما بعد']);
         }
 
     }
@@ -88,10 +88,12 @@ class ProductController extends Controller
     {
 
        $data = [];
-       $data['product'] = Product::with('categories')->orderBy('id', 'DESC')->find($id);
+       $data['product'] = Product::with('category')->orderBy('id', 'DESC')->find($id);
        $data['brands'] = Brand::active()->select('id')->get();
-       $data['categories'] = Category::parent()->active()->select('id')->get();
+        $data['categories'] = Category::parent()->orderBy('id','DESC')->active()->with('childrens')->select('id')->get();
+        $data['countries']   = Country::get();
        $data['materials'] = Material::active()->select('id')->get();
+
 
        if (!$data['product'])
            return redirect()->route('products.index')->with(['error' => 'هذا القسم غير موجود ']);
@@ -104,7 +106,7 @@ class ProductController extends Controller
 
     public function update(ProductUpdateRequest $request, $id)
     {
-
+        try{
         $product = Product::find($id);
         if (!$product)
             return redirect()->route('products.index')->with(['error' => 'هذا المنتج غير موجود']);
@@ -130,13 +132,18 @@ class ProductController extends Controller
 
 
         $product->update($data);
-        $product->categories()->sync($request->category_id);
 
         $slug = \Str::slug($request->en['name']);
         $product->update(['slug'=>$slug]);
         $product->save();
         DB::commit();
         return redirect()->route('products.index')->with(['success'=>'تم الانشاء بنجاح']);
+
+        }catch(\Exception $ex){
+            DB::rollback();
+            return redirect()->route('products.index')->with(['error'=>' هناك خطاء ما برجاء المحاولة فيما بعد']);
+        }
+
 
     }
 
@@ -164,6 +171,32 @@ class ProductController extends Controller
         $childrens = Category::where('parent_id', $request->id)->get();
 
         return response()->json($childrens);
+
+    }
+
+    public function popular(Request $request){
+        try{
+
+            $prosuct = Product::find($request->id);
+            if($prosuct->is_popular == 0)
+            {
+                $prosuct->update([
+                    'is_popular' => 1
+                ]);
+
+            }else{
+                $prosuct->update([
+                    'is_popular' => 0
+                ]);
+            }
+
+
+            return response()->json($prosuct->is_popular);
+        }catch(\Exception $ex){
+            DB::rollback();
+            return redirect()->route('products.index')->with(['error'=>' هناك خطاء ما برجاء المحاولة فيما بعد']);
+        }
+
 
     }
 }

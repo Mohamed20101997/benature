@@ -29,9 +29,11 @@ function sortPrice() {
     var prodprice = Array.from(document.querySelectorAll(".product .price"));
     var product = Array.from(document.querySelectorAll(".product"));
     var y = [];
+
     for (var i = 0; i < prodprice.length; i++) {
         var numprice = [prodprice[i].innerText.substr(1, prodprice[i].length)];
         y.push(numprice);
+
         for (var x = 0; x < product.length; x++) {
             if (priceinp >= y[x]) {
                 product[x].style.display = "block";

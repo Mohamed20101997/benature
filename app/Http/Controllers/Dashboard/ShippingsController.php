@@ -14,15 +14,15 @@ class ShippingsController extends Controller
 {
     public function index()
     {
-        $cities = City::orderBy('id','DESC')->with('country')->paginate(PAGINATION_COUNT);
-        return view('dashboard.cities.index',compact('cities'));
+        $shippings = Shipping::orderBy('id','DESC')->with('country','city')->paginate(PAGINATION_COUNT);
+        return view('dashboard.shippings.index',compact('shippings'));
     }
 
 
     public function create()
     {
 
-        $countries = Country::get();
+        $countries = Country::with('cities')->get();
         return view('dashboard.shippings.create',compact('countries'));
     }
 
@@ -55,10 +55,10 @@ class ShippingsController extends Controller
 
     public function edit($id)
     {
-        $shipping = City::find($id);
+        $shipping = Shipping::find($id);
         $countries = Country::get();
         if (!$shipping)
-            return redirect()->route('shippings.index')->with(['error' => 'هذا المدينه غير موجود ']);
+            return redirect()->route('shippings.index')->with(['error' => 'هذا الشحن  غير موجود ']);
 
         return view('dashboard.shippings.edit', compact('shipping','countries'));
     }
@@ -69,9 +69,9 @@ class ShippingsController extends Controller
 
         try{
 
-            $shipping = City::find($id);
+            $shipping = Shipping::find($id);
             if (!$shipping)
-                return redirect()->route('shippings.index')->with(['error' => 'هذا المدينه غير موجود']);
+                return redirect()->route('shippings.index')->with(['error' => 'هذا الشحن غير موجود']);
 
             DB::beginTransaction();
 
@@ -94,7 +94,7 @@ class ShippingsController extends Controller
 
         try {
 
-            $shipping = City::find($id);
+            $shipping = Shipping::find($id);
 
             if (!$shipping)
                 return redirect()->route('shippings.index')->with(['error' => 'هذا المدينه غير موجود ']);
@@ -106,5 +106,12 @@ class ShippingsController extends Controller
         } catch (\Exception $ex) {
             return redirect()->route('shippings.index')->with(['error' => 'حدث خطا ما برجاء المحاوله لاحقا']);
         }
+    }
+
+    public function getCities(Request $request){
+
+        $cities = City::where('country_id', $request->id)->get();
+        return response()->json($cities);
+
     }
 }

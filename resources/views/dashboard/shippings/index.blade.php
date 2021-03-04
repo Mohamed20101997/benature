@@ -1,19 +1,19 @@
 
 @extends('layouts.admin')
-@section('title','cities')
+@section('title','shippings')
 @section('content')
 
     <div class="app-content content">
         <div class="content-wrapper">
             <div class="content-header row">
                 <div class="content-header-left col-md-6 col-12 mb-2">
-                    <h3 class="content-header-title"> المدن </h3>
+                    <h3 class="content-header-title"> الشحن </h3>
                     <div class="row breadcrumbs-top">
                         <div class="breadcrumb-wrapper col-12">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">الرئيسية</a>
                                 </li>
-                                <li class="breadcrumb-item active"> البلاد
+                                <li class="breadcrumb-item active"> الشحن
                                 </li>
                             </ol>
                         </div>
@@ -27,7 +27,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title">جميع المدن   </h4>
+                                    <h4 class="card-title">جميع الشحن </h4>
                                     <a class="heading-elements-toggle"><i
                                             class="la la-ellipsis-v font-medium-3"></i></a>
                                     <div class="heading-elements">
@@ -51,32 +51,36 @@
                                             <tr>
                                                 <th> المدينه </th>
                                                 <th> البلد </th>
+                                                <th> سعر الشحن </th>
                                                 <th>الإجراءات</th>
                                             </tr>
                                             </thead>
                                             <tbody>
 
-                                            @isset($cities)
-                                                @foreach($cities as $city)
+                                            @isset($shippings)
+                                                @foreach($shippings as $shipping)
                                                     <tr>
-                                                        <td>{{$city ->country->name}}</td>
-                                                        <td>{{$city -> name}}</td>
+                                                        <td>{{$shipping ->country->name}}</td>
+                                                        <td>{{$shipping ->city->name}}</td>
+                                                        <td>{{$shipping ->price}}</td>
                                                         <td>
                                                             <div class="btn-group" role="group" aria-label="Basic example">
-                                                                <a href="{{route('cities.edit',$city-> id)}}" class="btn btn-outline-primary btn-min-width box-shadow-3 mr-1 mb-1">تعديل</a>
-                                                                <form action="{{route('cities.destroy' , $city->id)}}" method="POST">
-                                                                    @csrf
-                                                                    @method('DELETE')
-                                                                    <button type="submit" class="btn btn-outline-danger delete btn-min-width box-shadow-3 mr-1 mb-1">حذف</button>
-                                                                </form>
+                                                                @if (auth()->guard('admin')->user()->hasPermission('update_shippings'))
+                                                                    <a href="{{route('shippings.edit',$shipping-> id)}}" class="btn btn-outline-primary btn-min-width box-shadow-3 mr-1 mb-1">تعديل</a>
+                                                                @endif
+                                                                @if (auth()->guard('admin')->user()->hasPermission('delete_shippings'))
+                                                                    <form action="{{route('shippings.destroy' , $shipping->id)}}" method="POST">
+                                                                        @csrf
+                                                                        @method('DELETE')
+                                                                        <button type="submit" class="btn btn-outline-danger delete btn-min-width box-shadow-3 mr-1 mb-1">حذف</button>
+                                                                    </form>
+                                                                @endif
 
                                                             </div>
                                                         </td>
                                                     </tr>
                                                 @endforeach
                                             @endisset
-
-
                                             </tbody>
                                         </table>
                                         <div class="justify-content-center d-flex">

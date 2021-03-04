@@ -33,8 +33,8 @@ a:focus {
 
 /*----------------*/
 
-.whish-show i.fa-heart.active {
-    color: #f00;
+.toggleActive {
+    color: #f00 !important;
 }
 
 

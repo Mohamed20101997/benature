@@ -35,15 +35,7 @@ class BrandController extends Controller
                 else
             $request->request->add(['is_active' => 1]);
 
-            $data = $request->except('_token', 'photo');
-            if ($request->has('photo')) {
-
-                \Image::make($request->photo)->resize(300, null, function ($constraint) {
-                    $constraint->aspectRatio();
-                })->save(public_path('assets/images/brands/'. $request->photo->hashName()));
-
-                $data['photo'] = $request->photo->hashName();
-            }
+            $data = $request->except('_token');
 
             Brand::create($data);
             DB::commit();
@@ -90,16 +82,7 @@ class BrandController extends Controller
                 else
             $request->request->add(['is_active' => 1]);
 
-            $data = $request->except('_token', 'photo');
-            if ($request->has('photo')) {
-                remove_previous('brands',$brand);
-
-                \Image::make($request->photo)->resize(300, null, function ($constraint) {
-                    $constraint->aspectRatio();
-                })->save(public_path('assets/images/brands/'. $request->photo->hashName()));
-
-                $data['photo'] = $request->photo->hashName();
-            }
+            $data = $request->except('_token');
 
 
             $brand->update($data);
@@ -126,7 +109,6 @@ class BrandController extends Controller
                 return redirect()->route('brands.index')->with(['error' => 'هذا الماركة غير موجود ']);
 
             $brand->delete();
-            remove_previous('brands',$brand);
             return redirect()->route('brands.index')->with(['success' => 'تم  الحذف بنجاح']);
 
         } catch (\Exception $ex) {

@@ -27,6 +27,7 @@ class CountryRequest extends FormRequest
         return [
             'en.name' => 'required|sometimes',
             'ar.name' => 'required|sometimes',
+            'currency' => 'regex:/^([a-zA-Z]+)(\s[a-zA-Z]+)*$/|required|min:3|max:3|unique:countries,currency,'.$this->id,
         ];
     }
 }

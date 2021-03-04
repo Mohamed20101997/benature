@@ -32,7 +32,7 @@ class Basket
 	{
 		$this->storage = $storage;
 		$this->product = $product;
-		//$this->coupon = $coupon;
+//		$this->coupon = $coupon;
 	}
 
 	/**

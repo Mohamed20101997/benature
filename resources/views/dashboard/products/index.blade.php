@@ -28,6 +28,7 @@
                                 <h4 class="card-title">جميع المنتجات </h4>
                                 <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                                 <div class="heading-elements">
+
                                     <ul class="list-inline mb-0">
                                         <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
                                         <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
@@ -43,10 +44,12 @@
 
                             <div class="card-content collapse show">
                                 <div class="card-body card-dashboard">
+                                    <a href="{{route('products.create')}}" class="btn btn-outline-primary" id="new">Add New Product</a>
                                     <table class="table display nowrap table-striped table-bordered scroll-horizontal">
                                         <thead class="">
                                             <tr>
                                                 <th>الاسم </th>
+                                                <th>المدينه</th>
                                                 <th>القسم</th>
                                                 <th>حالة المنتج</th>
                                                 <th>حالة المخزن</th>
@@ -61,23 +64,32 @@
                                                 @foreach($products as $product)
                                                 <tr>
                                                     <td>{{$product->name}}</td>
-                                                    <td>
-                                                        @foreach ($product->categories as $category)
-                                                            <span class="badge badge-primary">{{$category->name}}</span>
-                                                        @endforeach
-                                                    </td>
+                                                    <td>{{$product->country->name}}</td>
+                                                    <td> {{$product->category->name}} </td>
                                                     <td>{{$product->getActive()}}</td>
                                                     <td>{{$product->_getActive('in_stock')}}</td>
                                                     <td>{{$product->price}}</td>
                                                     <td><img src="{{image_path('products', $product->photo)}}" width="100px" height="100px"></td>
                                                     <td>
                                                         <div class="btn-group" role="group" aria-label="Basic example">
-                                                            <a href="{{route('products.edit', $product ->id)}}" class="btn btn-outline-primary  mr-1 mb-1">تعديل</a>
+
+                                                            @if($product->is_popular == 0)
+                                                                <button  type="submit" id="popular" data-id="{{$product->id}}" class="btn btn-danger rounded-0">not popular</button>
+                                                            @else
+                                                                <button  type="submit" id="popular" data-id="{{$product->id}}" class="btn btn-success rounded-0">is popular</button>
+                                                            @endif
+
+                                                            @if (auth()->guard('admin')->user()->hasPermission('update_products'))
+                                                                <a href="{{route('products.edit', $product ->id)}}" class="btn btn-outline-primary"><i class="ficon ft-edit"></i></a>
+                                                            @endif
+
+                                                            @if (auth()->guard('admin')->user()->hasPermission('delete_products'))
                                                                 <form action="{{route('products.destroy', $product ->id)}}" method="POST">
                                                                     @csrf
                                                                     @method('DELETE')
-                                                                    <button type="submit" class="btn btn-outline-danger delete  mr-1 mb-1">حذف</button>
+                                                                    <button type="submit" class="btn btn-outline-danger delete rounded-0"><i class="ficon ft-trash"></i></button>
                                                                 </form>
+                                                            @endif
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -85,8 +97,8 @@
                                             @endisset
 
 
-                                        </tbody>
-                                    </table>
+                                            </tbody>
+                                        </table>
                                     <div class="justify-content-center d-flex">
 
                                     </div>
@@ -99,4 +111,6 @@
         </div>
     </div>
 </div>
+
 @endsection
+

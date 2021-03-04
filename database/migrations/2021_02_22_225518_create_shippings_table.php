@@ -22,6 +22,8 @@ class CreateShippingsTable extends Migration
             $table->bigInteger('city_id')->unsigned();
             $table->foreign('city_id')->references('id')->on('cities')->onDelete('cascade');
 
+            $table->integer('price');
+
             $table->timestamps();
         });
     }

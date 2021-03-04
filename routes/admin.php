@@ -16,6 +16,15 @@ Route::group( ['prefix' => LaravelLocalization::setLocale(),
             //logout route
             Route::get('logout', 'LoginController@logout')->name('admin.logout');
 
+            //admin route
+            Route::resource('admins', 'AdminController');
+
+            //settings route
+            Route::resource('settings', 'SettingsController');
+
+            //question and answer route
+            Route::resource('question_and_answer', 'QuestionAndAnswerController');
+
             //categories route
             Route::resource('category', 'CategoryController');
 
@@ -25,6 +34,7 @@ Route::group( ['prefix' => LaravelLocalization::setLocale(),
             //products route
             Route::resource('products', 'ProductController');
             Route::get('getCategory', 'ProductController@getSupCayegory')->name('getCategory');
+            Route::post('popular', 'ProductController@popular')->name('popular');
 
             //materials route
             Route::resource('materials', 'MaterialController');
@@ -40,6 +50,10 @@ Route::group( ['prefix' => LaravelLocalization::setLocale(),
 
             //shipping route
             Route::resource('shippings', 'ShippingsController');
+            Route::get('getCities', 'ShippingsController@getCities')->name('getCities');
+
+            //taxes route
+            Route::resource('taxes', 'TaxesController');
 
 
         });

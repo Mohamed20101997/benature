@@ -110,8 +110,16 @@
                    'product_id':$(this).attr('data-product-id'),
                },
                success: function(response){
+                   new Noty({
+                       theme: 'relax',
+                       type:'success',
+                       layout: 'topRight',
+                       text : "deleted a product successfully",
+                       timeout: 2000,
+                       kiler: true
+                   }).show();
 
-
+                   $('.item_coutn').text(response.basket);
                },
 
            });

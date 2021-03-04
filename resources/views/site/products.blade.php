@@ -45,7 +45,7 @@
                                     <div class="whish-show d-flex justify-content-center align-items-center">
                                         <a href="{{ url('product/'.$product->id .'/' .$product->slug) }}"><i class="fas fa-eye"></i></a>
                                          @auth
-                                            <i class="far fa-heart product__fav-icon {{$product->is_favored ? 'active': ''}} product-{{$product->id}}"
+                                            <i class="far fa-heart product__fav-icon {{$product->is_favored ? 'toggleActive': ''}} product-{{$product->id}}"
                                             data-url="{{ route('products.toggle_favorite', $product->id) }}"
                                             data-id="{{$product->id}}"></i>
                                         @else
@@ -65,14 +65,24 @@
                                 <p>{{$product->name}}</p>
                                 <p>
                                     @if($product->special_price != null && $product->special_price_type == 1)
-                                        <del>${{$product->price}}</del>
-                                        <span class="price">${{$product->special_price}}</span>
+                                        <del>{{$product->country->currency}} {{$product->price}}</del>
+                                        {{$product->country->currency}}  <span class="price">{{$product->special_price}}</span>
                                      @else
-                                        <span class="price">${{$product->price}}</span>
+                                        {{$product->country->currency}}  <span class="price">{{$product->price}}</span>
                                     @endif
                                 </p>
-                                <button type="button" class="btn btn-outline text4 rounded-pill addtocart cart-addition"
-                                data-product-id="{{$product->id}}" data-product-slug="{{$product->slug}}">Add to cart</button>
+                                @if($basket->has($product) == false)
+                                    <button type="button" class="btn btn-outline text4 rounded-pill cart-addition cart-{{$product->id}}"
+                                            data-product-id="{{$product->id}}" data-product-slug="{{$product->slug}}">Add to cart
+                                    </button>
+                                @else
+                                    <a href="{{url('cart')}}" class="text-decoration-none go-cart-{{$product->id}}">
+                                        <button type="button" class="btn btn-outline text4 rounded-pill  go-cart-{{$product->id}}"> Go to cart</button>
+                                    </a>
+                                @endif
+                                <a href="{{url('cart')}}" class="text-decoration-none go-cart-{{$product->id}} hidden">
+                                    <button type="button" class="btn btn-outline text4 rounded-pill  go-cart-{{$product->id}}"> Go to cart</button>
+                                </a>
                             </div>
                             @endif
                         @endforeach

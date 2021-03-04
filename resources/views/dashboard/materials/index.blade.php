@@ -63,12 +63,18 @@
                                                          <td>{{$material -> getActive()}}</td>
                                                         <td>
                                                             <div class="btn-group" role="group" aria-label="Basic example">
-                                                                <a href="{{route('materials.edit',$material-> id)}}" class="btn btn-outline-primary btn-min-width box-shadow-3 mr-1 mb-1">تعديل</a>
-                                                                <form action="{{route('materials.destroy' , $material->id)}}" method="POST">
-                                                                    @csrf
-                                                                    @method('DELETE')
-                                                                    <button type="submit" class="btn btn-outline-danger delete btn-min-width box-shadow-3 mr-1 mb-1">حذف</button>
-                                                                </form>
+
+                                                                @if (auth()->guard('admin')->user()->hasPermission('update_material'))
+                                                                    <a href="{{route('materials.edit',$material-> id)}}" class="btn btn-outline-primary btn-min-width box-shadow-3 mr-1 mb-1">تعديل</a>
+                                                                @endif
+
+                                                                @if (auth()->guard('admin')->user()->hasPermission('delete_material'))
+                                                                    <form action="{{route('materials.destroy' , $material->id)}}" method="POST">
+                                                                        @csrf
+                                                                        @method('DELETE')
+                                                                        <button type="submit" class="btn btn-outline-danger delete btn-min-width box-shadow-3 mr-1 mb-1">حذف</button>
+                                                                    </form>
+                                                                @endif
 
                                                             </div>
                                                         </td>

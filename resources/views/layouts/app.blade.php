@@ -30,6 +30,13 @@
         color: #f00;
     }
 
+    .hidden{
+        display: none;
+    }
+
+    .show{
+        display: inline ;
+    }
 
 </style>
 
@@ -39,134 +46,60 @@
 
 <body class="position-relative">
     <!--popups and fixed elements.....................-->
-    <div class="bottom-cart">
-        <a><i class="fas fa-shopping-cart"></i><span>3 </span></a>
-    </div>
-    <div class="bottom-cart-details p-3">
-        <div class="row ml-0 mr-0">
-            <div class="col-lg-3 col-md-4 col-sm-6 col-6">
-                <div class="row ml-0 mr-0">
-                    <div class="col-5 p-0">
-                        <div class="img-container">
-                            <img src=" {{ asset('assets/site/imgs/product.jpg') }}" class="img-fluid" />
-                        </div>
-                    </div>
-                    <div class="col-7">
-                        <p class="name">Lorem ipsum, dolor sit amet consectetur consectetur</p>
-                        <p class="price">$25</p>
-                        <div class="quantity d-flex justify-content-start">
-                            <p class="down">-</p> <input class="quantity-inp" value="1" type="text">
-                            <p class="up">+</p>
-                            <p class="d-flex align-items-center justify-content-center ml-2"><i class="fas fa-trash-alt"></i></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 d-md-block d-none">
-                <div class="row ml-0 mr-0">
-                    <div class="col-5 p-0">
-                        <div class="img-container">
-                            <img src=" {{ asset('assets/site/imgs/product.jpg') }}" class="img-fluid" />
-                        </div>
-                    </div>
-                    <div class="col-7">
-                        <p class="name">Lorem ipsum, dolor sit amet consectetur consectetur</p>
-                        <p class="price">$25</p>
-                        <div class="quantity d-flex justify-content-start">
-                            <p class="down">-</p> <input class="quantity-inp" value="1" type="text">
-                            <p class="up">+</p>
-                            <p class="d-flex align-items-center justify-content-center ml-2"><i class="fas fa-trash-alt"></i></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 d-lg-block d-none">
-                <div class="row ml-0 mr-0">
-                    <div class="col-5 p-0">
-                        <div class="img-container">
-                            <img src=" {{ asset('assets/site/imgs/product.jpg') }}" class="img-fluid" />
-                        </div>
-                    </div>
-                    <div class="col-7">
-                        <p class="name">Lorem ipsum, dolor sit amet consectetur consectetur</p>
-                        <p class="price">$25</p>
-                        <div class="quantity d-flex justify-content-start">
-                            <p class="down">-</p> <input class="quantity-inp" value="1" type="text">
-                            <p class="up">+</p>
-                            <p class="d-flex align-items-center justify-content-center ml-2"><i class="fas fa-trash-alt"></i></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-2 col-md col-sm col">
-                <table class="table table-hover">
-                    <tbody>
-                        <tr>
-                            <td>10 items</td>
-                            <td>$125</td>
-                        </tr>
-                        <tr>
-                            <td>shipping</td>
-                            <td>$125</td>
-                        </tr>
-                        <tr>
-                            <td>total</td>
-                            <td>$125</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="col-md col-sm col p-0">
-                <a class="btn btn-outline text4" href="checkout.html" role="button">check out</a>
-                <a class="btn btn-outline text4" href="{{ route('site.cart.index') }}" role="button">Shopping Cart</a>
-            </div>
-        </div>
-    </div>
+{{--    <div class="bottom-cart">--}}
+{{--        <a><i class="fas fa-shopping-cart"></i><span>3 </span></a>--}}
+{{--    </div>--}}
+{{--    <div class="bottom-cart-details p-3">--}}
+{{--        <div class="row ml-0 mr-0">--}}
+{{--            <div class="col-lg-3 col-md-4 col-sm-6 col-6">--}}
+{{--                <div class="row ml-0 mr-0">--}}
+{{--                    <div class="col-5 p-0">--}}
+{{--                        <div class="img-container">--}}
+{{--                            <img src="imgs/product.jpg" class="img-fluid" />--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                    <div class="col-7">--}}
+{{--                        <p class="name">Lorem ipsum, dolor sit amet consectetur consectetur</p>--}}
+{{--                        <p class="price">$25</p>--}}
+{{--                        <div class="quantity d-flex justify-content-start">--}}
+{{--                            <p class="down">-</p> <input class="quantity-inp" value="1" type="text">--}}
+{{--                            <p class="up">+</p>--}}
+{{--                            <p class="d-flex align-items-center justify-content-center ml-2"><i class="fas fa-trash-alt"></i></p>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--            <div class="col-lg-2 col-md col-sm col">--}}
+{{--                <table class="table table-hover">--}}
+{{--                    <tbody>--}}
+{{--                    <tr>--}}
+{{--                        <td>10 items</td>--}}
+{{--                        <td>$125</td>--}}
+{{--                    </tr>--}}
+{{--                    <tr>--}}
+{{--                        <td>shipping</td>--}}
+{{--                        <td>$125</td>--}}
+{{--                    </tr>--}}
+{{--                    <tr>--}}
+{{--                        <td>total</td>--}}
+{{--                        <td>$125</td>--}}
+{{--                    </tr>--}}
+{{--                    </tbody>--}}
+{{--                </table>--}}
+{{--            </div>--}}
+{{--            <div class="col-md col-sm col p-0">--}}
+{{--                <a class="btn btn-outline text4" href="checkout.html" role="button">check out</a>--}}
+{{--                <a class="btn btn-outline text4" href="shoppingcart.html" role="button">Shopping Cart</a>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </div>--}}
+
+
+
+
     <div class="up-down-btn">
         <button type="button" class="btn btn-outline "><i class="fas fa-angle-double-up"></i></button>
     </div>
-    <div class="show-product">
-        <div class="container h-100">
-            <div class="prod-info h-100 d-flex align-items-center justify-content-center">
-                <div class="position-absolute cart">
-                    <div class="cart-content">
-                        <div class="cart-head d-flex align-items-center">
-                            <i class="fas fa-check"></i>
-                            <h3>product successfully added to your shopping cart </h3>
-                            <i class="fas fa-times ml-auto"></i>
-                        </div>
-                        <div class="row ml-0 mr-0 cart-body">
-                            <div class="col-md-4 pr-0 pl-0 d-flex align-items-center">
-                                <div class="img-container">
-                                    <img src=" {{ asset('assets/site/imgs/prod-detail.jpg') }}" class="img-fluid" />
-                                </div>
-                            </div>
-                            <div class="col-md-3 d-flex align-items-center pr-0 ">
-                                <div>
-                                    <h4 class="name">Lorem ipsum, dolor sit amet consectet</h4>
-                                    <p class="brand"> brand : benatur</p>
-                                    <p class="price">$32</p>
-                                    <p class="code">code : 123fde</p>
-                                </div>
-                            </div>
-                            <div class="col-md-5 d-flex align-items-center">
-                                <div class="cart-details">
-                                    <p>there are 4 items in cart</p>
-                                    <p>total price : $3256</p>
-                                    <p>total shipping : $3</p>
-                                    <p>taxes : 00</p>
-                                    <p>total : $3259</p>
-                                    <a class="btn btn-outline text4" href="checkout.html" role="button">check out</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--//////////////////////////////////////////////-->
-
 
     <!--start nav-->
     <nav class="uppernav d-flex">
@@ -196,22 +129,22 @@
                         <ul class="list-unstyled mb-0">
 
                             <li>
-                                <a href="account-info.html">
+                                    <a href="{{url('account')}}">
                                     <i class="fas fa-info"></i> account info
                                 </a>
                             </li>
                             <li>
-                                <a href="password.html">
+                                <a href="{{url('password')}}">
                                     <i class="fas fa-key"></i> password
                                 </a>
                             </li>
                             <li>
-                                <a href="order-history.html">
+                                <a href="{{route('orderHistory')}}">
                                     <i class="fas fa-history"></i> order history
                                 </a>
                             </li>
                             <li>
-                                <a href=" profile.html">
+                                <a href="{{url('profile')}}">
                                     <i class="fas fa-user"></i> profile
                                 </a>
                             </li>
@@ -251,37 +184,39 @@
                                     <a class="dropdown-item" href="#">
                                         <i class="fas fa-user-friends"></i> B2B wholesale shop
                                     </a>
-                                    <a class="dropdown-item" href="about.html">
+                                    <a class="dropdown-item" href="{{route('about-us')}}">
                                         <i class="fas fa-address-card"></i> About us
                                     </a>
-                                    <a class="dropdown-item" href="delivery.html">
+                                    <a class="dropdown-item" href="{{route('delivery-information')}}">
                                         <i class="fas fa-info-circle"></i> delivery information
                                     </a>
-                                    <a class="dropdown-item" href="privacy-policy.html">
+                                    <a class="dropdown-item" href="{{route('privacy-policy')}}">
                                         <i class="far fa-check-circle"></i> privacy policy
                                     </a>
-                                    <a class="dropdown-item" href="termsAndCondition.html">
+                                    <a class="dropdown-item" href="{{route('term-and-conditions')}}">
                                         <i class="fas fa-file-invoice"></i> term and conditions
                                     </a>
 
                                 </div>
                             </li>
+
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fas fa-language"></i> <span>Country</span>
                                 </a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="#">
-                                        Egypt
-                                    </a>
-                                    <a class="dropdown-item" href="#">
-                                        Amman
-                                    </a>
-                                    <a class="dropdown-item" href="#">
-                                        Saudi
-                                    </a>
+                                @php
+                                    $countries = \App\Models\Country::get();
+                                @endphp
 
-                                </div>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        @foreach($countries as $country)
+                                            @if($country->products->count() > 0)
+                                                <a class="dropdown-item" href="{{url('country/' .  $country->name .'/' . $country->id)}}">
+                                                    {{$country->name}}
+                                                </a>
+                                            @endif
+                                        @endforeach
+                                    </div>
                             </li>
                         </ul>
                     </div>
@@ -290,7 +225,7 @@
             <div class="col-md-6 col d-flex justify-content-end align-items-center p-0">
                 <div class="cart">
                     <a href="{{route('site.cart.index')}}"><i class="fas fa-shopping-cart"></i></a>
-                    <span>$355.2</span>
+                    <span class="item_coutn" > {{ $basket->itemCount() }} </span>
                 </div>
 
                 <form action=" form-group">
@@ -352,7 +287,6 @@
                     <h5 class="d-flex align-items-center"><i class="fab fa-facebook-f"></i>
                         <p><a href="https://www.facebook.com/benatur.eg/">BeNatur </a></p>
                     </h5>
-                    </p>
 
                 </div>
             </div>
@@ -454,6 +388,7 @@
         });
     });
 </script>
+
 <script>
      jQuery(document).ready(function(){
 
@@ -474,13 +409,29 @@
                 },
                 success: function(response){
 
+                    $('.cart-'+response.product.id).addClass('hidden');
 
+                   let hidden  = $('.go-cart-'+response.product.id).hasClass('hidden');
+                    if(hidden){
+                        $('.go-cart-'+response.product.id).removeClass('hidden')
+                    }
+                    new Noty({
+                        theme: 'relax',
+                        type:'success',
+                        layout: 'topRight',
+                        text : "add to cart successfully",
+                        timeout: 2000,
+                        kiler: true
+                    }).show();
+
+                    $('.item_coutn').text(response.basket);
                 },
 
             });
         });
     });
 </script>
+
 
 @stack('script')
 </body>

@@ -4,22 +4,23 @@ $(document).ready(function(){
 
        let url = $(this).data('url');
        let productId = $(this).data('id');
-       let isFavored = $(this).hasClass('active');
+       let isFavored = $(this).hasClass('toggleActive');
 
+        $('.product-'+ productId).toggleClass('toggleActive');
 
-
-        $('.product-'+ productId).toggleClass('active');
 
         if($('.product-'+ productId).closest('.favorite').length){
 
             $('.product-'+ productId).closest('.product').remove();
         }
 
+
         $.ajax({
 
             url:url,
             method:'POST',
             success:function(){
+
 
 
             }

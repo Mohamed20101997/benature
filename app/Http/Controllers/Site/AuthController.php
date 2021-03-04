@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\site;
+use App\Basket\Basket;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
@@ -14,8 +15,17 @@ use Illuminate\Http\Request;
 class AuthController extends Controller
 {
 
+    protected $basket;
+    public function __construct(Basket $basket)
+    {
+        $this->basket = $basket;
+
+    }
+
     public function getLogin(){
-        return view('site.auth.login');
+
+        $basket =  $this->basket;
+        return view('site.auth.login',compact('basket'));
     }
 
     public function postLogin(LoginRequest $request){
@@ -30,7 +40,8 @@ class AuthController extends Controller
     }
 
     public function getRegister(){
-        return view('site.auth.register');
+        $basket =  $this->basket;
+        return view('site.auth.register',compact('basket'));
     }
 
     public function postRegister(RegisterRequest $request){
@@ -53,7 +64,8 @@ class AuthController extends Controller
     }
 
     public function forgotPassword(){
-        return view('site.auth.forgotPassword');
+        $basket =  $this->basket;
+        return view('site.auth.forgotPassword',compact('basket'));
     }
 
     public function forgotPasswordPost(Request $request)
@@ -83,7 +95,10 @@ class AuthController extends Controller
 
         $check_token = DB::table('password_resets')->where('token', $token)->where('created_at', '>', Carbon::now()->subHours(2))->first();
         if (!empty($check_token)) {
-            return view('site.auth.resetPassword', compact('check_token'));
+
+            $basket =  $this->basket;
+            return view('site.auth.resetPassword', compact('check_token','basket'));
+
         } else {
             return redirect(url('forgotPassword'));
         }
@@ -112,4 +127,6 @@ class AuthController extends Controller
             return redirect(url('forgotPassword'));
         }
     }
+
+
 }

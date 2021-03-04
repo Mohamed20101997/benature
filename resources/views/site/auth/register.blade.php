@@ -14,7 +14,7 @@
                         @include('dashboard.includes.alerts.errors')
                         <div class="d-flex singnin-guest">
                             <p>Already have account </p>
-                            <p> <a href=" signin.html">sign in</a></p>
+                            <p> <a href="{{url('login')}}">sign in</a></p>
                         </div>
                     <form method="POST" action="{{url('register')}}">
                         @csrf
