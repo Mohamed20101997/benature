@@ -1,6 +1,19 @@
 @extends('layouts.app')
 @section('content')
 
+    @push('style')
+        <style>
+
+            .shop {
+                text-decoration: none;
+            }
+
+            .shop:hover, .shop:focus {
+                text-decoration: none;
+            }
+        </style>
+    @endpush
+
 <!--start header............-->
 <header class="header">
     <div class="container h-100">
@@ -12,9 +25,9 @@
                 </h1>
                 <p>beauty and skin care</p>
                 <div class="social d-flex ">
-                    <a href="#"> <i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fas fa-envelope"></i> </a>
-                    <a href="#"> <i class="fab fa-whatsapp"></i></a>
+                    <a href="{{$setting->facebook}}"> <i class="fab fa-facebook-f"></i></a>
+                    <a href="{{$setting->gmail}}"><i class="fas fa-envelope"></i> </a>
+                    <a href="{{$setting->whatsapp}}"> <i class="fab fa-whatsapp"></i></a>
                 </div>
             </div>
         </div>
@@ -80,24 +93,24 @@
         <div class="col-lg-8 col-md-7 col-12offset-1 category text-center">
             <div class="row">
                 <div class="col-7 mb-4 p-2">
-                    <img src=" {{ asset('assets/site/imgs/secend sec.jpg') }}" class="img-fluid" />
-                    <p>Lorem ipsum dolor sit amet </p>
-                    <button type="button" class="btn btn-outline text4">shop now</button>
+                    <img src=" {{ image_path('products',$setting->image1) }}" class="img-fluid" />
+                    <p>{{ $setting->label1 }} </p>
+                    <a class="shop" href="{{ url('products') }}"><button type="button" class="btn btn-outline text4">shop now</button></a>
                 </div>
                 <div class="col-5 mb- p-2">
-                    <img src="{{ asset('assets/site/imgs/fff.jpg') }} " class="img-fluid" />
-                    <p>Lorem ipsum dolor sit amet </p>
-                    <button type="button" class="btn btn-outline text4">shop now</button>
+                    <img src="{{ image_path('products',$setting->image2) }} " class="img-fluid" />
+                    <p>{{ $setting->label2 }}</p>
+                    <a class="shop" href="{{ url('products') }}"><button type="button" class="btn btn-outline text4">shop now</button></a>
                 </div>
                 <div class="col-5 mb-4">
-                    <img src=" {{ asset('assets/site/imgs/secend sec2.jpg') }}" class="img-fluid" />
-                    <p>Lorem ipsum dolor sit amet </p>
-                    <button type="button" class="btn btn-outline text4">shop now</button>
+                    <img src=" {{ image_path('products',$setting->image3) }}" class="img-fluid" />
+                    <p>{{ $setting->label3 }} </p>
+                    <a class="shop" href="{{ url('products') }}"><button type="button" class="btn btn-outline text4">shop now</button></a>
                 </div>
                 <div class="col-7 mb-4">
-                    <img src=" {{ asset('assets/site/imgs/s2.jpg') }}" class="img-fluid" />
-                    <p>Lorem ipsum dolor sit amet </p>
-                    <button type="button" class="btn btn-outline text4">shop now</button>
+                    <img src=" {{ image_path('products',$setting->image4) }}" class="img-fluid" />
+                    <p>{{ $setting->label4 }} </p>
+                    <a class="shop" href="{{ url('products') }}"><button type="button" class="btn btn-outline text4">shop now</button></a>
                 </div>
             </div>
         </div>
@@ -163,12 +176,12 @@
         <div class="container h-100">
             <div class="new-content d-flex align-items-center justify-content-end h-100">
                 <div>
-                            <h5 class="text-center">new in 2020</h5>
-                            <h3>cosmatics from natural Ingredients</h3>
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.<br> Ipsa iste corrupti nesciunt
-                            dolores eius, <br> consequatur eaque quod qui exercitationem?Possim
+                    <h5 class="text-center">{{ $setting->header }}</h5>
+                            <h3>{{ $setting->title }}</h3>
+                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.Ipsa iste corrupti<br> nesciunt
+                            dolores eius, consequatur eaque quod qui exercitationem?Possim <br>
                             qui consectetur libero reiciendis</p>
-                    <button type="button" class="btn btn-outline text4 rounded-pill">Shop Now</button>
+                    <a class="shop" href="{{ url('products') }}"> <button type="button" class="btn btn-outline text4 rounded-pill">Shop Now</button></a>
                 </div>
             </div>
         </div>
@@ -201,11 +214,13 @@
                                 </div>
 
                                 <div class="star d-flex justify-content-center">
-                                    <i class="far fa-star"></i>
-                                    <i class="far fa-star"></i>
-                                    <i class="far fa-star"></i>
-                                    <i class="far fa-star"></i>
-                                    <i class="far fa-star"></i>
+                                    @for($i=1 ; $i<6 ; $i++)
+                                        @if (average($product->id) < $i)
+                                            <i class="far fa-star"></i>
+                                        @elseif(average($product->id) >= $i)
+                                            <i class="fas fa-star"></i>
+                                        @endif
+                                    @endfor
                                 </div>
                                 <p>{{$product->name}}</p>
                                 <p>{{$product->country->currency}} {{$product->price}}</p>
@@ -278,11 +293,13 @@
                 </div>
 
                 <div class="star d-flex justify-content-center">
-                    <i class="far fa-star"></i>
-                    <i class="far fa-star"></i>
-                    <i class="far fa-star"></i>
-                    <i class="far fa-star"></i>
-                    <i class="far fa-star"></i>
+                    @for($i=1 ; $i<6 ; $i++)
+                        @if (average($product->id) < $i)
+                            <i class="far fa-star"></i>
+                        @elseif(average($product->id) >= $i)
+                            <i class="fas fa-star"></i>
+                        @endif
+                    @endfor
                 </div>
                 <p>{{$sale->name}}</p>
                 <p>

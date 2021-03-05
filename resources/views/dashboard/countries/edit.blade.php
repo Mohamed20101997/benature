@@ -8,11 +8,11 @@
                     <div class="row breadcrumbs-top">
                         <div class="breadcrumb-wrapper col-12">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="">الرئيسية </a>
+                                <li class="breadcrumb-item"><a href="">@lang('admin/country.home') </a>
                                 </li>
-                                <li class="breadcrumb-item"><a href="{{route('countries.index')}}"> الخامات</a>
+                                <li class="breadcrumb-item"><a href="{{route('countries.index')}}"> @lang('admin/country.countries')</a>
                                 </li>
-                                <li class="breadcrumb-item active"> تعديل - {{$country -> name}}
+                                <li class="breadcrumb-item active">  @lang('admin/country.edit') - {{$country -> name}}
                                 </li>
                             </ol>
                         </div>
@@ -26,7 +26,7 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title" id="basic-layout-form"> تعديل البد </h4>
+                                    <h4 class="card-title" id="basic-layout-form"> @lang('admin/country.editcountry')  </h4>
                                     <a class="heading-elements-toggle"><i
                                             class="la la-ellipsis-v font-medium-3"></i></a>
                                     <div class="heading-elements">
@@ -50,15 +50,13 @@
                                             <input name="id" value="{{$country -> id}}" type="hidden">
 
                                             <div class="form-body">
-
-                                                <h4 class="form-section"><i class="ft-home"></i> بيانات البد </h4>
                                                 <div class="row">
                                                     @foreach (config('translatable.locales') as $locale)
 
                                                         <div class="col-md-4">
                                                             <div class="form-group">
                                                                 <label><i class="fa fa-list">
-                                                                        |</i> @lang('site.'. $locale .'.countryName')
+                                                                        |</i> @lang('admin/country.'. $locale .'.countryName')
                                                                 </label>
                                                                 <input type="text" name="{{ $locale }}[name]"
                                                                        value="{{ old($locale .'.name', $country->translate($locale)->name) }}"
@@ -72,7 +70,7 @@
                                                     @endforeach
                                                         <div class="col-md-4">
                                                             <div class="form-group">
-                                                                <label> العمله</label>
+                                                                <label> @lang('admin/country.currency')</label>
                                                                 <input type="text" name="currency"
                                                                        value="{{ old('currency',$country->currency) }}"
                                                                        class="form-control"
@@ -91,10 +89,10 @@
                                             <div class="form-actions">
                                                 <button type="button" class="btn btn-warning mr-1"
                                                         onclick="history.back();">
-                                                    <i class="ft-x"></i> تراجع
+                                                    <i class="ft-x"></i> @lang('admin/country.back')
                                                 </button>
                                                 <button type="submit" class="btn btn-primary">
-                                                    <i class="la la-check-square-o"></i> تحديث
+                                                    <i class="la la-check-square-o"></i> @lang('admin/country.edit')
                                                 </button>
                                             </div>
                                         </form>

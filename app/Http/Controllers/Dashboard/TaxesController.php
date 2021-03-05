@@ -10,6 +10,16 @@ use Illuminate\Support\Facades\DB;
 
 class TaxesController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware(['permission:read_taxes'])->only('index');
+        $this->middleware(['permission:create_taxes'])->only('create');
+        $this->middleware(['permission:update_taxes'])->only('edit');
+        $this->middleware(['permission:delete_taxes'])->only('destroy');
+    }
+
+
     public function index()
     {
         $taxes = Tax::orderBy('id','DESC')->with('country')->paginate(PAGINATION_COUNT);

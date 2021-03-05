@@ -8,11 +8,14 @@ use Illuminate\Http\Request;
 
 class MessageController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
+    public function __construct()
+    {
+        $this->middleware(['permission:read_messages'])->only('index');
+        $this->middleware(['permission:delete_messages'])->only('destroy');
+    }
+
+
     public function index()
     {
         $messages = Message::orderBy('id','DESC')->paginate(PAGINATION_COUNT);

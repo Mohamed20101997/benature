@@ -10,6 +10,14 @@ use Illuminate\Support\Facades\DB;
 
 class CountriesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['permission:read_countries'])->only('index');
+        $this->middleware(['permission:create_countries'])->only('create');
+        $this->middleware(['permission:update_countries'])->only('edit');
+        $this->middleware(['permission:delete_countries'])->only('destroy');
+    }
+
     public function index()
     {
         $countries = Country::orderBy('id','DESC')->paginate(PAGINATION_COUNT);

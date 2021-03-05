@@ -168,30 +168,16 @@
                     </div>
                 </div>
                 <div class="tab-pane fade mt-3 p-3" id="nav-qa" role="tabpanel" aria-labelledby="nav-qa-tab">
-                    <div class="question">
-                        what is the product name ?
-                    </div>
-                    <div class="answer">
-                        Lorem ipsum, dolor sit amet consectet urconsectetur
-                    </div>
-                    <div class="question">
-                        what is the product name ?
-                    </div>
-                    <div class="answer">
-                        Lorem ipsum, dolor sit amet consectet urconsectetur
-                    </div>
-                    <div class="question">
-                        what is the product name ?
-                    </div>
-                    <div class="answer">
-                        Lorem ipsum, dolor sit amet consectet urconsectetur
-                    </div>
-                    <div class="question">
-                        what is the product name ?
-                    </div>
-                    <div class="answer">
-                        Lorem ipsum, dolor sit amet consectet urconsectetur
-                    </div>
+                    @isset($questions)
+                        @foreach($questions as $question)
+                        <div class="question">
+                            {{ $question->question }} ?
+                        </div>
+                        <div class="answer">
+                            {{$question->answer}}
+                        </div>
+                        @endforeach
+                    @endisset
                 </div>
             </div>
         </div>
@@ -223,11 +209,13 @@
                             </div>
 
                             <div class="star d-flex justify-content-center">
-                                <i class="far fa-star"></i>
-                                <i class="far fa-star"></i>
-                                <i class="far fa-star"></i>
-                                <i class="far fa-star"></i>
-                                <i class="far fa-star"></i>
+                                @for($i=1 ; $i<6 ; $i++)
+                                    @if (average($sProduct->id) < $i)
+                                        <i class="far fa-star"></i>
+                                    @elseif(average($sProduct->id) >= $i)
+                                        <i class="fas fa-star"></i>
+                                    @endif
+                                @endfor
                             </div>
 
                             <p>{{$sProduct->name}}</p>
@@ -289,11 +277,7 @@
                     type: 'POST',
                     data: data,
                     success: function (response) {
-                        $('#resetreviews').click();
-                        $('#commentError').text('');
-                        $('#nameeError').text('');
 
-                        $('.reviewBody').html(html);
 
                         new Noty({
                             theme: 'relax',
@@ -303,6 +287,13 @@
                             timeout: 2000,
                             kiler: true
                         }).show();
+
+                        $('#resetreviews').click();
+                        $('#commentError').text('');
+                        $('#nameeError').text('');
+
+                        $('.reviewBody').html(html);
+
                     },
                     error: function (response) {
                         $('#commentError').text('');

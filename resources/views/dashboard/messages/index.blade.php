@@ -7,13 +7,13 @@
         <div class="content-wrapper">
             <div class="content-header row">
                 <div class="content-header-left col-md-6 col-12 mb-2">
-                    <h3 class="content-header-title"> الرسائل </h3>
+                    <h3 class="content-header-title">  @lang('admin/message.messages') </h3>
                     <div class="row breadcrumbs-top">
                         <div class="breadcrumb-wrapper col-12">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">الرئيسية</a>
+                                <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">@lang('admin/message.home') </a>
                                 </li>
-                                <li class="breadcrumb-item active"> الرسائل
+                                <li class="breadcrumb-item active"> @lang('admin/message.messages')
                                 </li>
                             </ol>
                         </div>
@@ -27,7 +27,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title">جميع الرسائل   </h4>
+                                    <h4 class="card-title">@lang('admin/message.allMessages')</h4>
                                     <a class="heading-elements-toggle"><i
                                             class="la la-ellipsis-v font-medium-3"></i></a>
                                     <div class="heading-elements">
@@ -49,11 +49,11 @@
                                         <table class="table display nowrap table-striped table-bordered scroll-horizontal">
                                             <thead class="">
                                             <tr>
-                                                <th>الاسم </th>
-                                                <th>الايميل</th>
-                                                <th>الرساله</th>
-                                                <th>التاريخ</th>
-                                                <th>الإجراءات</th>
+                                                <th>@lang('admin/message.name') </th>
+                                                <th>@lang('admin/message.email')</th>
+                                                <th>@lang('admin/message.messages')</th>
+                                                <th>@lang('admin/message.date')</th>
+                                                <th>@lang('admin/message.actions')</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -71,7 +71,7 @@
                                                                     <form action="{{route('messages.destroy' , $message->id)}}" method="POST">
                                                                         @csrf
                                                                         @method('DELETE')
-                                                                        <button type="submit" class="btn btn-outline-danger delete btn-min-width box-shadow-3 mr-1 mb-1">حذف</button>
+                                                                        <button type="submit" class="btn btn-outline-danger delete btn-min-width box-shadow-3 mr-1 mb-1">@lang('admin/message.delete')</button>
                                                                     </form>
                                                                 @endif
 
@@ -80,7 +80,6 @@
                                                     </tr>
                                                 @endforeach
                                             @endisset
-
 
                                             </tbody>
                                         </table>

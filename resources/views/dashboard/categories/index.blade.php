@@ -7,13 +7,13 @@
     <div class="content-wrapper">
         <div class="content-header row">
             <div class="content-header-left col-md-6 col-12 mb-2">
-                <h3 class="content-header-title"> الاقسام الرئيسية </h3>
+                <h3 class="content-header-title"> @lang('admin/category.categories') </h3>
                 <div class="row breadcrumbs-top">
                     <div class="breadcrumb-wrapper col-12">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">الرئيسية</a>
+                            <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}"> @lang('admin/category.home')</a>
                             </li>
-                            <li class="breadcrumb-item active"> الاقسام الرئيسية
+                            <li class="breadcrumb-item active"> @lang('admin/category.categories')
                             </li>
                         </ol>
                     </div>
@@ -27,7 +27,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">جميع الاقسام الرئيسية </h4>
+                                <h4 class="card-title">@lang('admin/category.allcategories')</h4>
                                 <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                                 <div class="heading-elements">
                                     <ul class="list-inline mb-0">
@@ -48,10 +48,10 @@
                                     <table class="table  nowrap table-striped table-bordered scroll-horizontal text-center">
                                         <thead class="">
                                             <tr>
-                                                <th>الاسم </th>
-                                                <th>القسم الرئيسي </th>
-                                                <th>الحالة</th>
-                                                <th>الإجراءات</th>
+                                                <th> @lang('admin/category.name') </th>
+                                                <th> @lang('admin/category.maincategories') </th>
+                                                <th> @lang('admin/category.status')</th>
+                                                <th> @lang('admin/category.actions') </th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -60,12 +60,12 @@
                                                 @foreach($categories as $category)
                                                 <tr>
                                                     <td >{{$category -> name}}</td>
-                                                    <td><span class="badge badge-primary">{{$category ->_parent->name  ?? 'قسم رئيسي ' }}</span> </td>
+                                                    <td><span class="badge badge-primary">{{$category ->_parent->name  ?? 'Main Category ' }}</span> </td>
                                                     <td>{{$category -> getActive()}}</td>
                                                     <td>
                                                         <div class="btn-group" role="group" aria-label="Basic example">
                                                             @if (auth()->guard('admin')->user()->hasPermission('update_categories'))
-                                                                <a href="{{route('category.edit', $category ->id)}}" class="btn btn-outline-primary btn-min-width box-shadow-3 mr-1 mb-1">تعديل</a>
+                                                                <a href="{{route('category.edit', $category ->id)}}" class="btn btn-outline-primary btn-min-width box-shadow-3 mr-1 mb-1">@lang('admin/category.edit')</a>
                                                             @endif
 
                                                             @if (auth()->guard('admin')->user()->hasPermission('delete_categories'))
@@ -73,7 +73,7 @@
                                                                     @csrf
                                                                     @method('DELETE')
 
-                                                                    <button type="submit" class="btn btn-outline-danger delete btn-min-width box-shadow-3 mr-1 mb-1">حذف</button>
+                                                                    <button type="submit" class="btn btn-outline-danger delete btn-min-width box-shadow-3 mr-1 mb-1">@lang('admin/category.delete')</button>
                                                                 </form>
                                                             @endif
                                                         </div>

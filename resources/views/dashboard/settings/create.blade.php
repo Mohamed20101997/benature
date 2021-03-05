@@ -8,7 +8,7 @@
                     <div class="row breadcrumbs-top">
                         <div class="breadcrumb-wrapper col-12">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="">الاعدادات </a>
+                                <li class="breadcrumb-item"><a href="">@lang('admin/setting.settings')  </a>
                                 </li>
                             </ol>
                         </div>
@@ -42,13 +42,13 @@
                                             @method('POST')
 
                                             <hr class="form-body">
-                                            <h4 class="form-section"><i class="ft-home"></i> بيانات الموقع </h4>
+                                            <h4 class="form-section"><i class="ft-home"></i> @lang('admin/setting.settings') </h4>
 
                                             <h2 class="text-center m-auto">Social links</h2>
                                             <div class="row mt-5 mb-3">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <label for="projectinput1">facebook</label>
+                                                        <label for="projectinput1">@lang('admin/setting.facebook')</label>
                                                         <input type="text" id="code"
                                                                class="form-control"
                                                                placeholder="facebook"
@@ -61,7 +61,7 @@
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <label for="projectinput1">gmail</label>
+                                                        <label for="projectinput1">@lang('admin/setting.gmail')</label>
                                                         <input type="text" id="code"
                                                                class="form-control"
                                                                placeholder="gmail"
@@ -75,7 +75,7 @@
 
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <label for="projectinput1">whatsapp</label>
+                                                        <label for="projectinput1">@lang('admin/setting.whatsapp')</label>
                                                         <input type="text" id="code"
                                                                class="form-control"
                                                                placeholder="whatsapp"
@@ -95,7 +95,7 @@
                                             <div class="row mt-5 mb-3">
                                                 <div class="col-md-3">
                                                     <div class="form-group">
-                                                        <label> Photo 1</label>
+                                                        <label> @lang('admin/setting.photo') 1</label>
                                                         <label id="projectinput7" class="file center-block">
                                                             <input type="file" name="image1">
                                                         </label>
@@ -105,7 +105,7 @@
                                                         @enderror
                                                     </div>
                                                     <div class="form-group mt-3">
-                                                        <label> Caption 1</label>
+                                                        <label> @lang('admin/setting.caption') 1</label>
                                                         <input type="text" name="label1" class="form-control" placeholder="Caption">
                                                         @error('label1')
                                                         <span class="text-danger">{{$message}}</span>
@@ -116,7 +116,7 @@
 
                                                 <div class="col-md-3">
                                                     <div class="form-group">
-                                                        <label> Photo 2</label>
+                                                        <label> @lang('admin/setting.photo')  2</label>
                                                         <label id="projectinput7" class="file center-block">
                                                             <input type="file" name="image2">
                                                         </label>
@@ -126,7 +126,7 @@
                                                         @enderror
                                                     </div>
                                                     <div class="form-group mt-3">
-                                                        <label> Caption 2</label>
+                                                        <label> @lang('admin/setting.caption') 2</label>
                                                         <input type="text" name="label2" class="form-control" placeholder="Caption">
                                                         @error('label2')
                                                         <span class="text-danger">{{$message}}</span>
@@ -136,7 +136,7 @@
 
                                                 <div class="col-md-3">
                                                     <div class="form-group">
-                                                        <label> Photo 3</label>
+                                                        <label> @lang('admin/setting.photo')  3</label>
                                                         <label id="projectinput7" class="file center-block">
                                                             <input type="file" name="image3">
                                                         </label>
@@ -146,7 +146,7 @@
                                                         @enderror
                                                     </div>
                                                     <div class="form-group mt-3">
-                                                        <label> Caption 3</label>
+                                                        <label> @lang('admin/setting.caption') 3</label>
                                                         <input type="text" name="label3" class="form-control" placeholder="Caption">
                                                         @error('label1')
                                                         <span class="text-danger">{{$message}}</span>
@@ -156,7 +156,7 @@
 
                                                 <div class="col-md-3">
                                                     <div class="form-group">
-                                                        <label> Photo 4</label>
+                                                        <label> @lang('admin/setting.photo')  4</label>
                                                         <label id="projectinput7" class="file center-block">
                                                             <input type="file" name="image4">
                                                         </label>
@@ -166,7 +166,7 @@
                                                         @enderror
                                                     </div>
                                                     <div class="form-group mt-3">
-                                                        <label> Caption 4</label>
+                                                        <label>@lang('admin/setting.caption') 4</label>
                                                         <input type="text" name="label4" class="form-control" placeholder="Caption">
                                                         @error('label4')
                                                         <span class="text-danger">{{$message}}</span>
@@ -218,10 +218,10 @@
                                             <div class="form-actions">
                                                 <button type="button" class="btn btn-warning mr-1"
                                                         onclick="history.back();">
-                                                    <i class="ft-x"></i> تراجع
+                                                    <i class="ft-x"></i> @lang('admin/setting.back')
                                                 </button>
                                                 <button type="submit" class="btn btn-primary">
-                                                    <i class="la la-check-square-o"></i> تحديث
+                                                    <i class="la la-check-square-o"></i> @lang('admin/setting.create')
                                                 </button>
                                             </div>
 

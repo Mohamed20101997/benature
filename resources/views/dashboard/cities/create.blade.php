@@ -9,10 +9,10 @@
                     <div class="row breadcrumbs-top">
                         <div class="breadcrumb-wrapper col-12">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="">الرئيسية </a>
+                                <li class="breadcrumb-item"><a href=""> @lang('admin/city.home') </a>
                                 </li>
-                                <li class="breadcrumb-item"><a href="{{route('cities.index')}}">المدن</a></li>
-                                <li class="breadcrumb-item active"> أضافه مدين</li>
+                                <li class="breadcrumb-item"><a href="{{route('cities.index')}}">@lang('admin/city.cities')</a></li>
+                                <li class="breadcrumb-item active"> @lang('admin/city.addcities')</li>
                             </ol>
                         </div>
                     </div>
@@ -25,7 +25,7 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title" id="basic-layout-form"> أضافه مدن </h4>
+                                    <h4 class="card-title" id="basic-layout-form"> @lang('admin/city.addcities') </h4>
                                     <a class="heading-elements-toggle"><i
                                             class="la la-ellipsis-v font-medium-3"></i></a>
                                     <div class="heading-elements">
@@ -46,14 +46,14 @@
                                             @csrf
 
                                             <div class="form-body">
-                                                <h4 class="form-section"><i class="ft-home"></i> بيانات المدن </h4>
+
                                                 <div class="row">
                                                     <div class="col-md-12">
                                                         <div class="form-group">
                                                             <select name="country_id" class="form-control select2">
-                                                                <optgroup label="من فضلك البلد">
+                                                                <optgroup label="@lang('admin/city.pleaseChooseCountry')">
                                                                     @if($countries && $countries -> count() > 0)
-                                                                        <option value="">أختر البلد</option>
+                                                                        <option value="">@lang('admin/city.ChooseCountry')</option>
                                                                         @foreach($countries as $country)
                                                                             <option value="{{$country -> id }}" {{old('country_id') == $country->id ? 'selected' : ''}}>
                                                                                 {{$country -> name}}
@@ -79,7 +79,7 @@
                                                         <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <label><i class="fa fa-list">
-                                                                        |</i> @lang('site.'. $locale . '.cityName')
+                                                                        |</i> @lang('admin/city.'. $locale . '.cityName')
                                                                 </label>
                                                                 <input type="text" name="{{ $locale }}[name]"
                                                                        value="{{ old($locale . '.name') }}"
@@ -97,10 +97,10 @@
                                             <div class="form-actions">
                                                 <button type="button" class="btn btn-warning mr-1"
                                                         onclick="history.back();">
-                                                    <i class="ft-x"></i> تراجع
+                                                    <i class="ft-x"></i> @lang('admin/city.back')
                                                 </button>
                                                 <button type="submit" class="btn btn-primary">
-                                                    <i class="la la-check-square-o"></i> تحديث
+                                                    <i class="la la-check-square-o"></i> @lang('admin/city.create')
                                                 </button>
                                             </div>
                                         </form>

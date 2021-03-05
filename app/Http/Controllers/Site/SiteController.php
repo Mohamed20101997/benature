@@ -9,7 +9,9 @@ use App\Http\Requests\ReviewRequest;
 use App\Models\Category;
 use App\Models\Message;
 use App\Models\Product;
+use App\Models\QuestionAndAnswer;
 use App\Models\Review;
+use App\Models\Setting;
 use Illuminate\Http\Request;
 
 
@@ -29,6 +31,8 @@ class SiteController extends Controller
         $data['products'] = Product::Active()->whereTranslation('locale','en')->latest()->take(10)->get();
         $data['populars'] = Product::Active()->whereTranslation('locale','en')->where('is_popular', 1)->latest()->take(4)->get();
         $data['sales'] = Product::Active()->whereTranslation('locale','en')->where('special_price_type' , 1)->latest()->take(3)->get();
+        $data['setting'] = Setting::latest()->first();
+
 
         return view('welcome',$data);
     }
@@ -71,18 +75,21 @@ class SiteController extends Controller
     public function getProduct($id){
         try{
 
+
+
             $product = Product::Active()->whereTranslation('locale','en')->find($id);
             $category =  Category::Active()->whereTranslation('locale','en')->where('id', $product->id )->with('_parent')->get();
             $reviews =  Review::where('product_id' , $id)->latest()->take(5)->get();
+            $questions =  QuestionAndAnswer::latest()->take(10)->get();
             $similarProduct =  Product::Active()->whereTranslation('locale','en')
                 ->where('category_id' ,  $product->category_id)->latest()->take(4)->get();
 
             if (!$product)
                 return redirect()->back()->with(['error' => 'this product is not found']);
-
+            $rating = Review::where('product_id', $id)->get();
             $count =  $rating->count();
             $basket = $this -> basket ;
-            return view('site.product',compact('product','category','similarProduct','reviews','count','basket'));
+            return view('site.product',compact('product','category','similarProduct','reviews','count','basket','questions'));
 
         }catch(\Exception $ex)
        {

@@ -10,6 +10,15 @@ use Illuminate\Http\Request;
 class QuestionAndAnswerController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware(['permission:read_question'])->only('index');
+        $this->middleware(['permission:create_question'])->only('create');
+        $this->middleware(['permission:update_question'])->only('edit');
+        $this->middleware(['permission:delete_question'])->only('destroy');
+    }
+
+
     public function index()
     {
         $questionAndAnswers = QuestionAndAnswer::get();

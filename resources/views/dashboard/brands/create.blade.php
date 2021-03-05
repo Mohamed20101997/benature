@@ -9,11 +9,11 @@
                     <div class="row breadcrumbs-top">
                         <div class="breadcrumb-wrapper col-12">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="">الرئيسية </a>
+                                <li class="breadcrumb-item"><a href="">@lang('admin/brand.home') </a>
                                 </li>
-                                <li class="breadcrumb-item"><a href="{{route('brands.index')}}">ألماركات التجارية </a>
+                                <li class="breadcrumb-item"><a href="{{route('brands.index')}}">@lang('admin/brand.brands') </a>
                                 </li>
-                                <li class="breadcrumb-item active">  أضافه ماركة تجارية
+                                <li class="breadcrumb-item active">@lang('admin/brand.addbrands')
                                 </li>
                             </ol>
                         </div>
@@ -27,7 +27,7 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title" id="basic-layout-form"> أضافه ماركة تجارية </h4>
+                                    <h4 class="card-title" id="basic-layout-form"> @lang('admin/brand.addbrands') </h4>
                                     <a class="heading-elements-toggle"><i
                                             class="la la-ellipsis-v font-medium-3"></i></a>
                                     <div class="heading-elements">
@@ -48,12 +48,11 @@
 
                                             <div class="form-body">
 
-                                                <h4 class="form-section"><i class="ft-home"></i> بيانات الماركة التجارية </h4>
                                                 <div class="row">
                                                     @foreach (config('translatable.locales') as $locale)
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label><i class="fa fa-list"> |</i> @lang('site.'. $locale . '.brandName')</label>
+                                                            <label><i class="fa fa-list"> |</i> @lang('admin/brand.'. $locale . '.brandName')</label>
                                                             <input type="text" name="{{ $locale }}[name]" value="{{ old($locale . '.name') }}" class="form-control">
                                                         </div>
 
@@ -70,7 +69,7 @@
                                                         <div class="form-group mt-1">
 
                                                             <input type="checkbox" value="1" name="is_active" id="switcheryColor4" class="switchery" data-color="success" checked />
-                                                            <label for="switcheryColor4" class="card-title ml-1">الحالة </label>
+                                                            <label for="switcheryColor4" class="card-title ml-1">@lang('admin/brand.status') </label>
 
                                                             @error("is_active")
                                                             <span class="text-danger">{{$message }}</span>
@@ -86,10 +85,10 @@
                                             <div class="form-actions">
                                                 <button type="button" class="btn btn-warning mr-1"
                                                         onclick="history.back();">
-                                                    <i class="ft-x"></i> تراجع
+                                                    <i class="ft-x"></i> @lang('admin/brand.back')
                                                 </button>
                                                 <button type="submit" class="btn btn-primary">
-                                                    <i class="la la-check-square-o"></i> تحديث
+                                                    <i class="la la-check-square-o"></i> @lang('admin/brand.create')
                                                 </button>
                                             </div>
                                         </form>

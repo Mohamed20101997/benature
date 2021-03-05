@@ -9,11 +9,11 @@
                     <div class="row breadcrumbs-top">
                         <div class="breadcrumb-wrapper col-12">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="">الرئيسية </a>
+                                <li class="breadcrumb-item"><a href=""> @lang('admin/admin.home') </a>
                                 </li>
-                                <li class="breadcrumb-item"><a href="{{route('admins.index')}}"> المشرفين </a>
+                                <li class="breadcrumb-item"><a href="{{route('admins.index')}}">  @lang('admin/admin.admins')  </a>
                                 </li>
-                                <li class="breadcrumb-item active"> أضافة مشرف
+                                <li class="breadcrumb-item active"> @lang('admin/admin.addadmin')
                                 </li>
                             </ol>
                         </div>
@@ -27,7 +27,7 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title" id="basic-layout-form"> أضافه مشرف </h4>
+                                    <h4 class="card-title" id="basic-layout-form">  @lang('admin/admin.addadmin') </h4>
                                     <a class="heading-elements-toggle"><i
                                             class="la la-ellipsis-v font-medium-3"></i></a>
                                     <div class="heading-elements">
@@ -49,7 +49,7 @@
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label for="name"><i class="fa fa-user-circle-o"> |</i> الاسم
+                                                        <label for="name"><i class="fa fa-user-circle-o"> |</i>  @lang('admin/admin.name')
                                                         </label>
                                                         <input type="text" name="name" value="{{ old('name') }}"
                                                                class="form-control">
@@ -60,8 +60,7 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label for="email"><i class="fa fa-envelope"> |</i> البريد
-                                                            الاكتروني
+                                                        <label for="email"><i class="fa fa-envelope"> |</i>  @lang('admin/admin.email')
                                                         </label>
                                                         <input type="email" name="email" value="{{ old('email') }}"
                                                                class="form-control">
@@ -77,7 +76,7 @@
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label for="password"><i class="fa fa-key"> |</i> الرقم السري
+                                                        <label for="password"><i class="fa fa-key"> |</i>  @lang('admin/admin.password')
                                                         </label>
                                                         <input type="password" name="password" class="form-control">
                                                         @error('password')
@@ -91,7 +90,7 @@
 
                                                     <div class="form-group">
                                                         <label for="password_confirmation"><i class="fa fa-user-secret">
-                                                                |</i> اعادة الرقم السري</label>
+                                                                |</i> @lang('admin/admin.repassword')</label>
                                                         <input type="password" name="password_confirmation"
                                                                class="form-control">
 
@@ -105,12 +104,15 @@
 
 
                                             <div class="form-group">
-                                                <label><i class="fa fa-address-book"> |</i> الصلاحيات </label>
+                                                <label><i class="fa fa-address-book"> |</i> @lang('admin/admin.permissions') </label>
                                                 <div class="nav-tabs-custom">
                                                     @php
-                                                        $models = ['admins' ,'categories' ,'countries','cities','shippings' ,'taxes','brands' ,'material' ,'products','messages'] ;
+                                                        $models = ['admins' ,'categories' ,'countries','cities',
+                                                                    'shippings' ,'taxes','brands' ,'material' ,
+                                                                    'products','messages','question','settings'] ;
                                                         $maps = ['create' ,'read' ,'update','delete'] ;
                                                         $mapMessage = ['read' ,'delete'] ;
+                                                        $mapsettting = ['read' ,'update','create'] ;
                                                     @endphp
 
 
@@ -141,6 +143,16 @@
                                                                                for="{{ $model .$indexmap }}">{{$map}}</label>
                                                                     @endforeach
 
+                                                                @elseif($model == 'settings')
+                                                                    @foreach ($mapsettting as $indexmap=>$map)
+                                                                        <input type="checkbox"
+                                                                               id="{{ $model  . $indexmap }}"
+                                                                               name="permissions[]"
+                                                                               class="ui-checkboxradio ui-helper-hidden-accessible ml-5"
+                                                                               value="{{ $map . '_' . $model }}">
+                                                                        <label class="ui-checkboxradio-label"
+                                                                               for="{{ $model .$indexmap }}">{{$map}}</label>
+                                                                    @endforeach
                                                                 @else
                                                                     @foreach ($maps as $indexmap=>$map)
                                                                         <input type="checkbox"
@@ -167,10 +179,10 @@
                                             <div class="form-actions">
                                                 <button type="button" class="btn btn-warning mr-1"
                                                         onclick="history.back();">
-                                                    <i class="ft-x"></i> تراجع
+                                                    <i class="ft-x"></i> @lang('admin/admin.back')
                                                 </button>
                                                 <button type="submit" class="btn btn-primary">
-                                                    <i class="la la-check-square-o"></i> تحديث
+                                                    <i class="la la-check-square-o"></i> @lang('admin/admin.update')
                                                 </button>
                                             </div>
                                         </form>

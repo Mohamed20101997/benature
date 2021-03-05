@@ -225,7 +225,7 @@
             <div class="col-md-6 col d-flex justify-content-end align-items-center p-0">
                 <div class="cart">
                     <a href="{{route('site.cart.index')}}"><i class="fas fa-shopping-cart"></i></a>
-                    <span class="item_coutn" > {{ $basket->itemCount() }} </span>
+                    <span class="item_coutn">{{ $basket->itemCount() > 0 ? $basket->itemCount() : 0 }} </span>
                 </div>
 
                 <form action=" form-group">

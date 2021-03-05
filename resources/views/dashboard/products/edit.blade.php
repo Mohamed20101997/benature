@@ -9,11 +9,11 @@
                     <div class="row breadcrumbs-top">
                         <div class="breadcrumb-wrapper col-12">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="">الرئيسية </a>
+                                <li class="breadcrumb-item"><a href="">@lang('admin/product.home') </a>
                                 </li>
-                                <li class="breadcrumb-item"><a href="{{route('products.index')}}">ألمنتجات </a>
+                                <li class="breadcrumb-item"><a href="{{route('products.index')}}">@lang('admin/product.products') </a>
                                 </li>
-                                <li class="breadcrumb-item active"> تعديل منتج
+                                <li class="breadcrumb-item active"> @lang('admin/product.editproduct')
                                 </li>
                             </ol>
                         </div>
@@ -27,7 +27,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title">تعديل منتج </h4>
+                                    <h4 class="card-title">@lang('admin/product.editproduct') </h4>
                                     <a class="heading-elements-toggle"><i
                                             class="la la-ellipsis-h font-medium-3"></i></a>
                                 </div>
@@ -42,14 +42,14 @@
                                             @method('PUT')
                                             <input type="hidden" name="id" value="{{$product->id}}">
                                             <!-- Step 1 -->
-                                            <h6> الرئيسه</h6>
+                                            <h6> @lang('admin/product.home')</h6>
                                             <fieldset>
                                                 <div class="row">
                                                     @foreach (config('translatable.locales') as $locale)
                                                         <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <label><i class="fa fa-list">
-                                                                        |</i> @lang('site.'. $locale . '.productlName')
+                                                                        |</i> @lang('admin/product.'. $locale . '.productName')
                                                                 </label>
                                                                 <input type="text" name="{{ $locale }}[name]"
                                                                        value="{{ old($locale .'.name', $product->translate($locale)->name) }}"
@@ -65,11 +65,11 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-6" id="cats_list">
-                                                        <label>من فضلك اختر القسم </label>
+                                                        <label>@lang('admin/product.pleaseChooseCategory') </label>
                                                         <div class="form-group">
                                                             <select class="form-control" id="categories">
                                                                 <optgroup>
-                                                                    <option value="0">أختر القسم</option>
+                                                                    <option value="0">@lang('admin/product.ChooseCategory') </option>
                                                                     @if($categories && $categories -> count() > 0)
                                                                         @foreach($categories as $category)
                                                                             @if($category->childrens->count() > 0)
@@ -87,12 +87,12 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6" id="cats_list">
-                                                        <label>أختر القسم الفرعي </label>
+                                                        <label>@lang('admin/product.pleaseChooseSubCategory') </label>
                                                         <div class="form-group">
                                                             <select name="category_id" class="form-control"
                                                                     id="subCategory">
                                                                 <optgroup id="type">
-                                                                    <option value="">أختر القسم الفرعي</option>
+                                                                    <option value="">@lang('admin/product.ChooseSubCategory')</option>
                                                                 </optgroup>
 
                                                             </select>
@@ -109,7 +109,7 @@
                                                                    id="is_active" class="switchery-default"
                                                                    data-color="success" {{ $product->is_active == 1 ? 'checked' : '' }} />
                                                             <label for="is_active"
-                                                                   class="card-title ml-1">الحاله</label>
+                                                                   class="card-title ml-1">@lang('admin/product.status')</label>
 
                                                             @error("is_active")
                                                             <span class="text-danger">{{$message }}</span>
@@ -118,11 +118,11 @@
                                                     </div>
 
                                                     <div class="col-md-3">
-                                                        <label> اختر البلد </label>
+                                                        <label> @lang('admin/product.pleaseChooseCountry')</label>
                                                         <div class="form-group">
                                                             <select class="form-control" name="country_id">
                                                                 <optgroup>
-                                                                    <option value="">أختر البلد</option>
+                                                                    <option value="">@lang('admin/product.ChooseCountry')</option>
                                                                     @if($countries && $countries -> count() > 0)
                                                                         @foreach($countries as $country)
 
@@ -142,11 +142,11 @@
 
                                                     </div>
                                                     <div class="col-md-6" id="cats_list">
-                                                        <label> اختر العلامه التجاريه </label>
+                                                        <label> @lang('admin/product.Choosebrand') </label>
                                                         <div class="form-group">
                                                             <select name="brand_id" class="form-control" id="brand_id">
                                                                 <optgroup>
-                                                                    <option value="">أختر العلامه التجاريه</option>
+                                                                    <option value="">@lang('admin/product.Choosebrand')</option>
                                                                     @if($brands && $brands -> count() > 0)
                                                                         @foreach($brands as $brand)
                                                                             <option
@@ -167,10 +167,9 @@
                                                         <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <label><i class="fa fa-list">
-                                                                        |</i> @lang('site.'. $locale . '.productlDescription')
+                                                                        |</i> @lang('admin/product.'. $locale . '.productlDescription')
                                                                 </label>
-                                                                <textarea class="form-control"
-                                                                          name="{{ $locale }}[description]">{{ old($locale . '.description' , $product->translate($locale)->description) }}</textarea>
+                                                                <textarea class="form-control" name="{{ $locale }}[description]">{{ old($locale . '.description' , $product->translate($locale)->description) }}</textarea>
                                                             </div>
 
                                                             @error("$locale.description")
@@ -182,14 +181,14 @@
                                             </fieldset>
 
                                             <!-- Step 4 -->
-                                            <h6>مواصفات</h6>
+                                            <h6>@lang('admin/product.specifications')</h6>
                                             <fieldset>
                                                 <div class="row">
 
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label
-                                                                for="projectinput1">الحجم</label>
+                                                                for="projectinput1">@lang('admin/product.weight')</label>
                                                             <input type="number" id="weight"
                                                                    class="form-control"
                                                                    placeholder="  "
@@ -203,7 +202,7 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label
-                                                                for="projectinput1">الطول</label>
+                                                                for="projectinput1">@lang('admin/product.Length')</label>
                                                             <input type="number" id="length"
                                                                    class="form-control"
                                                                    placeholder="  "
@@ -220,7 +219,7 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label
-                                                                for="projectinput1">العرض</label>
+                                                                for="projectinput1">@lang('admin/product.width')</label>
                                                             <input type="number" id="width"
                                                                    class="form-control"
                                                                    placeholder="  "
@@ -234,7 +233,7 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label
-                                                                for="projectinput1">الارتفاع</label>
+                                                                for="projectinput1">@lang('admin/product.height')</label>
                                                             <input type="number" id="height"
                                                                    class="form-control"
                                                                    placeholder="  "
@@ -251,13 +250,13 @@
                                             </fieldset>
 
                                             <!-- Step 2 -->
-                                            <h6>السعر </h6>
+                                            <h6>@lang('admin/product.price') </h6>
                                             <fieldset>
                                                 <div class="row">
                                                     <div class="col-md-4">
                                                         <div class="form-group">
                                                             <label
-                                                                for="projectinput1">السعر</label>
+                                                                for="projectinput1">@lang('admin/product.price')</label>
                                                             <input type="number" id="price"
                                                                    class="form-control"
                                                                    placeholder="  "
@@ -269,11 +268,11 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4" id="cats_list">
-                                                        <label>من فضلك اختر الخامه </label>
+                                                        <label>@lang('admin/product.pleaseChooseMaterial') </label>
                                                         <div class="form-group">
                                                             <select class="form-control" name="material_id">
                                                                 <optgroup>
-                                                                    <option value=" ">أختر الخامه</option>
+                                                                    <option value=" ">@lang('admin/product.ChooseMaterial') </option>
                                                                     @if($materials && $materials -> count() > 0)
                                                                         @foreach($materials as $material)
                                                                             <option
@@ -291,17 +290,17 @@
                                                     </div>
                                                     <div class="col-md-4">
                                                         <div class="form-group">
-                                                            <label for="projectinput1">عرض</label>
+                                                            <label for="projectinput1">@lang('admin/product.sale')</label>
                                                             <select name="special_price_type" class="form-control"
                                                                     id="special_price_type">
-                                                                <optgroup label="من فضلك اختر">
+                                                                <optgroup label="@lang('admin/product.pleaseChoose')">
                                                                     <option
                                                                         value="0" {{$product->special_price_type == 0 ? 'selected' : ''}}>
-                                                                        غير متاح
+                                                                        @lang('admin/product.notAvailable')
                                                                     </option>
                                                                     <option
                                                                         value="1" {{$product->special_price_type == 1 ? 'selected' : ''}}>
-                                                                        متاح
+                                                                        @lang('admin/product.Available')
                                                                     </option>
                                                                 </optgroup>
                                                             </select>
@@ -317,7 +316,7 @@
                                                     <div class="col-md-4">
                                                         <div class="form-group">
                                                             <label
-                                                                for="projectinput1">سعر خاص</label>
+                                                                for="projectinput1"> @lang('admin/product.specialprice')</label>
                                                             <input type="number"
                                                                    class="form-control"
                                                                    placeholder="  "
@@ -330,7 +329,7 @@
                                                     </div>
                                                     <div class="col-md-4">
                                                         <div class="form-group">
-                                                            <label for="projectinput1"> تاريخ البداية </label>
+                                                            <label for="projectinput1">  @lang('admin/product.specialpricestart') </label>
                                                             <input type="date" id="special_price_start"
                                                                    class="form-control"
                                                                    placeholder="  "
@@ -344,8 +343,7 @@
                                                     </div>
                                                     <div class="col-md-4">
                                                         <div class="form-group">
-                                                            <label for="projectinput1"> تاريخ النهايه
-                                                            </label>
+                                                            <label for="projectinput1">  @lang('admin/product.specialpriceend') </label>
                                                             <input type="date" id="special_price_end"
                                                                    class="form-control"
                                                                    placeholder="  "
@@ -360,13 +358,13 @@
                                                 </div>
                                             </fieldset>
                                             <!-- Step 3 -->
-                                            <h6>المخزن</h6>
+                                            <h6>@lang('admin/product.stock') </h6>
                                             <fieldset>
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label
-                                                                for="projectinput1">كود المنتج</label>
+                                                                for="projectinput1">@lang('admin/product.productCode') </label>
                                                             <input type="text" id="code"
                                                                    class="form-control"
                                                                    placeholder="  "
@@ -379,16 +377,16 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label> النوع </label>
+                                                            <label> @lang('admin/product.filter') </label>
                                                             <select name="filter" class="form-control" id="filter">
                                                                 <optgroup>
                                                                     <option
                                                                         value="men" {{$product->filter == 'men' ? 'selected' :' ' }} >
-                                                                        Men
+                                                                        @lang('admin/product.men')
                                                                     </option>
                                                                     <option
                                                                         value="women" {{$product->filter == 'women' ? 'selected' :' ' }} >
-                                                                        Women
+                                                                         @lang('admin/product.Women')
                                                                     </option>
                                                                 </optgroup>
                                                             </select>
@@ -403,15 +401,15 @@
                                                     <!-- QTY  -->
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="projectinput1"> الحاله المخزن</label>
+                                                            <label for="projectinput1">  @lang('admin/product.stockStatus')</label>
                                                             <select name="in_stock" class="form-control" id="in_stock">
-                                                                <optgroup label="من فضلك اختر">
+                                                                <optgroup label="@lang('admin/product.pleaseChoose')">
                                                                     <option value="1" {{$product->in_stock == 1 ? 'selected' : ''}}>
-                                                                        متاح للبيع
+                                                                        @lang('admin/product.AvailableForSale')
                                                                     </option>
                                                                     <option
                                                                         value="0" {{$product->in_stock == 0 ? 'selected' : ''}}>
-                                                                        غير متاح للبيع
+                                                                        @lang('admin/product.NotAvailableForSale')
                                                                     </option>
                                                                 </optgroup>
                                                             </select>
@@ -424,7 +422,7 @@
                                                          style="{{ $product->in_stock == 0 ? 'display:none' : '' }}"
                                                          id="qtyDiv">
                                                         <div class="form-group">
-                                                            <label for="projectinput1">الكميه</label>
+                                                            <label for="projectinput1">@lang('admin/product.quantity')</label>
                                                             <input type="number"
                                                                    id="qty"
                                                                    class="form-control"
@@ -439,13 +437,13 @@
                                                 </div>
                                             </fieldset>
                                             <!-- Step 4 -->
-                                            <h6>صورة المنتج</h6>
+                                            <h6>@lang('admin/product.productPhoto')</h6>
                                             <fieldset>
                                                 <div class="row">
                                                     <!-- QTY  -->
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label> صوره المنتج </label>
+                                                            <label> @lang('admin/product.productPhoto') </label>
                                                             <label id="projectinput7" class="file center-block">
                                                                 <input type="file" id="imgInp" name="photo">
 
@@ -488,9 +486,9 @@
             transitionEffect: "fade",
             titleTemplate: '<span class="step">#index#</span> #title#',
             labels: {
-                finish: "حفظ",
-                next: "التالي",
-                previous: "السابق",
+                finish: "@lang('admin/product.save')",
+                next: "@lang('admin/product.next')",
+                previous: "@lang('admin/product.previous')",
             },
             onFinished: function (event, currentIndex) {
                 $('#wizard').submit();

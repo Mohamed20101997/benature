@@ -9,6 +9,14 @@ use Illuminate\Http\Request;
 class SettingsController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware(['permission:read_settings'])->only('index');
+        $this->middleware(['permission:create_settings'])->only('create');
+        $this->middleware(['permission:update_settings'])->only('edit');
+    }
+
+
     public function index()
     {
         $settings = Setting::get();

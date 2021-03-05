@@ -11,6 +11,14 @@ use Illuminate\Support\Facades\DB;
 
 class CitiesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['permission:read_cities'])->only('index');
+        $this->middleware(['permission:create_cities'])->only('create');
+        $this->middleware(['permission:update_cities'])->only('edit');
+        $this->middleware(['permission:delete_cities'])->only('destroy');
+    }
+
     public function index()
     {
         $cities = City::orderBy('id','DESC')->with('country')->paginate(PAGINATION_COUNT);

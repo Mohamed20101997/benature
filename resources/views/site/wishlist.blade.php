@@ -25,11 +25,13 @@
                     </div>
 
                     <div class="star d-flex justify-content-center">
-                        <i class="far fa-star"></i>
-                        <i class="far fa-star"></i>
-                        <i class="far fa-star"></i>
-                        <i class="far fa-star"></i>
-                        <i class="far fa-star"></i>
+                        @for($i=1 ; $i<6 ; $i++)
+                            @if (average($product->id) < $i)
+                                <i class="far fa-star"></i>
+                            @elseif(average($product->id) >= $i)
+                                <i class="fas fa-star"></i>
+                            @endif
+                        @endfor
                     </div>
                     <p>{{$product->name}}</p>
 

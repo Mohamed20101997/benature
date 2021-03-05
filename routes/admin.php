@@ -34,6 +34,7 @@ Route::group( ['prefix' => LaravelLocalization::setLocale(),
             //products route
             Route::resource('products', 'ProductController');
             Route::get('getCategory', 'ProductController@getSupCayegory')->name('getCategory');
+
             Route::post('popular', 'ProductController@popular')->name('popular');
 
             //materials route

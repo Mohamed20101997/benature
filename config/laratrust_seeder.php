@@ -12,6 +12,8 @@ return [
             'brands' => 'c,r,u,d',
             'material' => 'c,r,u,d',
             'products' => 'c,r,u,d',
+            'settings' => 'c,r,u',
+            'question' => 'c,r,u,d',
             'messages' => 'r,d',
         ],
 

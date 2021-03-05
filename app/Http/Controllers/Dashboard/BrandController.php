@@ -10,6 +10,13 @@ use Illuminate\Support\Facades\DB;
 
 class BrandController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['permission:read_brands'])->only('index');
+        $this->middleware(['permission:create_brands'])->only('create');
+        $this->middleware(['permission:update_brands'])->only('edit');
+        $this->middleware(['permission:delete_brands'])->only('destroy');
+    }
 
     public function index()
     {

@@ -8,7 +8,7 @@
                     <div class="row breadcrumbs-top">
                         <div class="breadcrumb-wrapper col-12">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="">الاعدادات </a>
+                                <li class="breadcrumb-item"><a href="#">@lang('admin/setting.settings') </a>
                                 </li>
                             </ol>
                         </div>
@@ -40,10 +40,10 @@
                                             <table class="table display nowrap table-striped table-bordered scroll-horizontal">
                                                 <thead class="">
                                                 <tr>
-                                                    <th>facebook </th>
-                                                    <th>gmail </th>
-                                                    <th>whatsapp </th>
-                                                    <th>Actions</th>
+                                                    <th>@lang('admin/setting.facebook')</th>
+                                                    <th>@lang('admin/setting.gmail')  </th>
+                                                    <th>@lang('admin/setting.Whatsapp') </th>
+                                                    <th>@lang('admin/setting.Actions') </th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -54,10 +54,12 @@
                                                             <td>{{$setting->facebook}}</td>
                                                             <td>{{$setting->gmail}}</td>
                                                             <td> {{$setting->whatsapp}} </td>
-                                                            <td>
-                                                                <a href="{{route('settings.edit', $setting ->id)}}" class="btn btn-outline-primary  mr-1 mb-1">تعديل</a>
-                                                            </td>
 
+                                                            @if (auth()->guard('admin')->user()->hasPermission('update_settings'))
+                                                                <td>
+                                                                    <a href="{{route('settings.edit', $setting ->id)}}" class="btn btn-outline-primary  mr-1 mb-1">@lang('admin/setting.edit') </a>
+                                                                </td>
+                                                            @endif
                                                         </tr>
                                                     @endforeach
                                                 @endisset
@@ -66,7 +68,6 @@
                                                 </tbody>
                                             </table>
                                             <div class="justify-content-center d-flex">
-
                                             </div>
                                         </div>
 

@@ -12,6 +12,15 @@ use Illuminate\Support\Facades\DB;
 
 class ShippingsController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware(['permission:read_shippings'])->only('index');
+        $this->middleware(['permission:create_shippings'])->only('create');
+        $this->middleware(['permission:update_shippings'])->only('edit');
+        $this->middleware(['permission:delete_shippings'])->only('destroy');
+    }
+
     public function index()
     {
         $shippings = Shipping::orderBy('id','DESC')->with('country','city')->paginate(PAGINATION_COUNT);

@@ -8,12 +8,11 @@
                 <div class="row breadcrumbs-top">
                     <div class="breadcrumb-wrapper col-12">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="">الرئيسية </a>
+                            <li class="breadcrumb-item"><a href="">@lang('admin/category.Home') </a>
                             </li>
-                            <li class="breadcrumb-item"><a href="{{route('category.index')}}"> الاقسام
-                                    الرئيسية </a>
+                            <li class="breadcrumb-item"><a href="{{route('category.index')}}"> @lang('admin/category.categories') </a>
                             </li>
-                            <li class="breadcrumb-item active"> أضافه قسم رئيسي
+                            <li class="breadcrumb-item active">@lang('admin/category.addcategorie')
                             </li>
                         </ol>
                     </div>
@@ -27,7 +26,7 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title" id="basic-layout-form"> أضافة قسم رئيسي </h4>
+                                <h4 class="card-title" id="basic-layout-form"> @lang('admin/category.addcategorie')</h4>
                                 <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                                 <div class="heading-elements">
                                     <ul class="list-inline mb-0">
@@ -48,12 +47,11 @@
                                         @method('POST')
 
                                         <div class="form-body">
-                                            <h4 class="form-section"><i class="ft-home"></i> بيانات القسم </h4>
                                             <div class="row">
                                                     @foreach (config('translatable.locales') as $locale)
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label><i class="fa fa-list"> |</i> @lang('site.'. $locale . '.categoryName')</label>
+                                                            <label><i class="fa fa-list"> |</i> @lang('admin/category.'. $locale . '.categoryName')</label>
                                                             <input type="text" name="{{$locale }}[name]" value="{{ old($locale . '.name') }}" id="name" class="form-control">
                                                         </div>
 
@@ -68,7 +66,7 @@
                                             <div class="row">
                                                 <div class="col-md-2">
                                                     <div class="form-group mt-1">
-                                                        <label for="switcheryColor4" class="card-title ml-1"> الحالة
+                                                        <label for="switcheryColor4" class="card-title ml-1"> @lang('admin/category.status')
                                                         </label> <br>
                                                         <input type="checkbox" value="1" name="is_active" id="switcheryColor4" class="switchery" data-color="success" checked />
 
@@ -80,7 +78,7 @@
                                                 <div class="col-md-2">
                                                     <div class="form-group mt-1">
                                                         <label class="card-title ml-1">
-                                                            قسم رئيسي
+                                                            @lang('admin/category.maincategories')
                                                         </label> <br>
                                                         <input type="radio" name="type" value="1" checked
                                                             class="switchery" data-color="success" />
@@ -90,18 +88,18 @@
                                                 <div class="col-md-2">
                                                     <div class="form-group mt-1">
                                                         <label class="card-title ml-1">
-                                                            قسم فرعي
+                                                            @lang('admin/category.subcategorie')
                                                         </label><br>
                                                         <input type="radio" name="type" value="2" class="switchery" data-color="success" />
                                                     </div>
                                                 </div>
                                                 <div class="hidden col-md-6" id="cats_list">
-                                                    <label> من فضلك اختر القسم الرئيسي</label>
+                                                    <label> @lang('admin/category.pleaseChooseCategory')</label>
                                                     <div class="form-group">
                                                         <select name="parent_id" class="form-control select2">
-                                                            <optgroup label="من فضلك أختر القسم الرئيسي">
+                                                            <optgroup label="@lang('admin/category.pleaseChooseCategory')">
                                                                 @if($categories && $categories -> count() > 0)
-                                                                <option value="">أختر القسم</option>
+                                                                <option value="">@lang('admin/category.ChooseCategory')</option>
                                                                 @foreach($categories as $category)
                                                                 <option value="{{$category -> id }}">
                                                                     {{$category -> name}}</option>
@@ -124,10 +122,10 @@
                                         <div class="form-actions">
                                             <button type="button" class="btn btn-warning mr-1"
                                                 onclick="history.back();">
-                                                <i class="ft-x"></i> تراجع
+                                                <i class="ft-x"></i> @lang('admin/category.back')
                                             </button>
                                             <button type="submit" class="btn btn-primary">
-                                                <i class="la la-check-square-o"></i> انشاء
+                                                <i class="la la-check-square-o"></i> @lang('admin/category.create')
                                             </button>
                                         </div>
                                     </form>

@@ -6,13 +6,13 @@
     <div class="content-wrapper">
         <div class="content-header row">
             <div class="content-header-left col-md-6 col-12 mb-2">
-                <h3 class="content-header-title"> المنتجات </h3>
+                <h3 class="content-header-title"> @lang('admin/product.products') </h3>
                 <div class="row breadcrumbs-top">
                     <div class="breadcrumb-wrapper col-12">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">الرئيسية</a>
+                            <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">@lang('admin/product.home')</a>
                             </li>
-                            <li class="breadcrumb-item active"> المنتجات </li>
+                            <li class="breadcrumb-item active"> @lang('admin/product.products') </li>
                         </ol>
                     </div>
                 </div>
@@ -25,7 +25,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">جميع المنتجات </h4>
+                                <h4 class="card-title">@lang('admin/product.allproducts')</h4>
                                 <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                                 <div class="heading-elements">
 
@@ -44,18 +44,17 @@
 
                             <div class="card-content collapse show">
                                 <div class="card-body card-dashboard">
-                                    <a href="{{route('products.create')}}" class="btn btn-outline-primary" id="new">Add New Product</a>
                                     <table class="table display nowrap table-striped table-bordered scroll-horizontal">
                                         <thead class="">
                                             <tr>
-                                                <th>الاسم </th>
-                                                <th>المدينه</th>
-                                                <th>القسم</th>
-                                                <th>حالة المنتج</th>
-                                                <th>حالة المخزن</th>
-                                                <th>السعر</th>
-                                                <th>صورة المنتج</th>
-                                                <th>الإجراءات</th>
+                                                <th>@lang('admin/product.name') </th>
+                                                <th>@lang('admin/product.country')</th>
+                                                <th>@lang('admin/product.category')</th>
+                                                <th>@lang('admin/product.productStatus')</th>
+                                                <th>@lang('admin/product.productStock')</th>
+                                                <th>@lang('admin/product.price')</th>
+                                                <th>@lang('admin/product.photo')</th>
+                                                <th>@lang('admin/product.actions')</th>
                                             </tr>
                                         </thead>
                                         <tbody>

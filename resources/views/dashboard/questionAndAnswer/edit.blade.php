@@ -11,10 +11,9 @@
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href=""> </a>
                                 </li>
-                                <li class="breadcrumb-item"><a href="{{route('materials.index')}}">Q&A</a>
+                                <li class="breadcrumb-item"><a href="{{route('materials.index')}}">@lang('admin/question.q&a')</a>
                                 </li>
-                                <li class="breadcrumb-item active">  add Q&A
-                                </li>
+                                <li class="breadcrumb-item active"> @lang('admin/question.Addq&a') </li>
                             </ol>
                         </div>
                     </div>
@@ -27,7 +26,7 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title" id="basic-layout-form"> Update Q&A </h4>
+                                    <h4 class="card-title" id="basic-layout-form"> @lang('admin/question.Updateq&a')</h4>
                                     <a class="heading-elements-toggle"><i
                                             class="la la-ellipsis-v font-medium-3"></i></a>
                                     <div class="heading-elements">
@@ -49,7 +48,7 @@
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="form-group mt-1">
-                                                        <label class="card-title ml-1">question </label>
+                                                        <label class="card-title ml-1">@lang('admin/question.Question') </label>
                                                         <input type="text" name="question" value="{{old('question',$questionAndAnswer->question)}}" class="form-control" />
 
                                                         @error("question")
@@ -63,7 +62,7 @@
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="form-group mt-1">
-                                                        <label class="card-title ml-1">answer </label>
+                                                        <label class="card-title ml-1">>@lang('admin/question.Answer') </label>
                                                         <input type="text" name="answer" value="{{old('answer' ,$questionAndAnswer->answer)}}" class="form-control" />
 
                                                         @error("answer")
@@ -73,15 +72,13 @@
                                                 </div>
 
                                             </div>
-
-                                    </div>
                                     <div class="form-actions">
                                         <button type="button" class="btn btn-warning mr-1"
                                                 onclick="history.back();">
-                                            <i class="ft-x"></i> تراجع
+                                            <i class="ft-x"></i> @lang('admin/question.back')
                                         </button>
                                         <button type="submit" class="btn btn-primary">
-                                            <i class="la la-check-square-o"></i> تحديث
+                                            <i class="la la-check-square-o"></i> @lang('admin/question.update')
                                         </button>
                                     </div>
                                     </form>

@@ -9,6 +9,14 @@ use Illuminate\Support\Facades\DB;
 
 class MaterialController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['permission:read_material'])->only('index');
+        $this->middleware(['permission:create_material'])->only('create');
+        $this->middleware(['permission:update_material'])->only('edit');
+        $this->middleware(['permission:delete_material'])->only('destroy');
+    }
+
 
     public function index()
     {

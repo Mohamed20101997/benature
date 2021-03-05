@@ -30,6 +30,7 @@ Route::group(['namespace' => 'Site'], function () {
     Route::get ('products/{cat_id?}/{slug?}','SiteController@getProducts')->name('products');
     Route::get ('country/{name}/{id}','SiteController@productCountry');
     Route::get ('product/{id}/{slug}','SiteController@getProduct')->name('products');
+
     Route::post('reviews','SiteController@postReviews')->name('reviews');
 
     Route::get('in_basket','SiteController@inBasket')->name('basket');

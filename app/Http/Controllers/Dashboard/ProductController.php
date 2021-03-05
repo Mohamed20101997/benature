@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Basket\Basket;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductRequest;
 use App\Http\Requests\ProductUpdateRequest;
@@ -16,6 +17,19 @@ use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
+
+
+    protected $basket;
+    public function __construct(Basket $basket)
+    {
+        $this->middleware(['permission:read_products'])->only('index');
+        $this->middleware(['permission:create_products'])->only('create');
+        $this->middleware(['permission:update_products'])->only('edit');
+        $this->middleware(['permission:delete_products'])->only('destroy');
+
+        $this->basket = $basket;
+
+    }
 
     public function index()
     {
@@ -158,6 +172,7 @@ class ProductController extends Controller
                 return redirect()->route('products.index')->with(['error' => 'هذا المنتج غير موجود ']);
 
             $product->delete();
+            $this->basket->remove($product);
             remove_previous('products',$product);
             return redirect()->route('products.index')->with(['success' => 'تم  الحذف بنجاح']);
 

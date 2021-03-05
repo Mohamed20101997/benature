@@ -8,11 +8,11 @@
                     <div class="row breadcrumbs-top">
                         <div class="breadcrumb-wrapper col-12">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="">الرئيسية </a>
+                                <li class="breadcrumb-item"><a href="">@lang('admin/material.home') </a>
                                 </li>
-                                <li class="breadcrumb-item"><a href="{{route('materials.index')}}"> الخامات</a>
+                                <li class="breadcrumb-item"><a href="{{route('materials.index')}}"> @lang('admin/material.materials')</a>
                                 </li>
-                                <li class="breadcrumb-item active"> تعديل - {{$material -> name}}
+                                <li class="breadcrumb-item active"> @lang('admin/material.edit') - {{$material -> name}}
                                 </li>
                             </ol>
                         </div>
@@ -26,7 +26,7 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title" id="basic-layout-form"> تعديل الخامه </h4>
+                                    <h4 class="card-title" id="basic-layout-form"> @lang('admin/material.editmaterial') </h4>
                                     <a class="heading-elements-toggle"><i
                                             class="la la-ellipsis-v font-medium-3"></i></a>
                                     <div class="heading-elements">
@@ -51,13 +51,12 @@
 
                                             <div class="form-body">
 
-                                                <h4 class="form-section"><i class="ft-home"></i> بيانات الخامه </h4>
                                                 <div class="row">
                                                     @foreach (config('translatable.locales') as $locale)
 
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label><i class="fa fa-list"> |</i> @lang('site.'. $locale .'.materialName')</label>
+                                                            <label><i class="fa fa-list"> |</i> @lang('admin/material.'. $locale .'.materialName')</label>
                                                             <input type="text" name="{{ $locale }}[name]"
                                                                 value="{{ old($locale .'.name', $material->translate($locale)->name) }}"
                                                                 class="form-control">
@@ -75,7 +74,7 @@
                                                         <div class="form-group mt-1">
 
                                                             <input type="checkbox" value="1" name="is_active" id="switcheryColor4" class="switchery" data-color="success" @if($material -> is_active == 1)checked @endif />
-                                                            <label for="switcheryColor4" class="card-title ml-1">الحالة  </label>
+                                                            <label for="switcheryColor4" class="card-title ml-1"> @lang('admin/material.status')  </label>
 
                                                             @error("is_active")
                                                             <span class="text-danger">{{$message }}</span>
@@ -90,10 +89,10 @@
                                             <div class="form-actions">
                                                 <button type="button" class="btn btn-warning mr-1"
                                                         onclick="history.back();">
-                                                    <i class="ft-x"></i> تراجع
+                                                    <i class="ft-x"></i> @lang('admin/material.back')
                                                 </button>
                                                 <button type="submit" class="btn btn-primary">
-                                                    <i class="la la-check-square-o"></i> تحديث
+                                                    <i class="la la-check-square-o"></i> @lang('admin/material.update')
                                                 </button>
                                             </div>
                                         </form>
